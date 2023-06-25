@@ -1,6 +1,12 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./index.html","./src/**/*.{vue,js,ts,jsx,tsx}"],
+  safelist: [
+    'bg-purple-400',
+    'bg-orange-400',
+    'bg-blue-400',
+    'bg-green-400',
+  ],  
   theme: {
     extend: {
       colors: {
@@ -28,6 +34,8 @@ module.exports = {
     'xl': { min: '1025px', max: '1200px' },
     '2xl': { min: '1201px' },
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar')({ nocompatible: true }),
+  ],
 }
 
