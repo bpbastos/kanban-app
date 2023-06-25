@@ -35,693 +35,948 @@
       "color": "bg-green-400"
     }
   ],
+
   "tasks": [
     {
       "priority": "low",
-      "title": "Iaculis quis turpis a nunc.",
-      "coments": [
-        {
-          "text": "A suscipit ullamcorper."
-        },
-        {
-          "text": "A suscipit ullamcorper."
-        },
-        {
-          "text": "A suscipit ullamcorper."
-        },
-        {
-          "text": "A suscipit ullamcorper."
-        }
-      ],
-      "attachments": [
-        {
-          "path": "/opt/kanban-app/uploads/attachment.doc",
-          "type": "doc",
-          "name": "attachment"
-        },
-        {
-          "path": "/opt/kanban-app/uploads/attachment2.doc",
-          "type": "doc",
-          "name": "attachment2"
-        }
-      ],
+      "title": "Tarefa 1",
       "board_id": 1,
-      "workflow_id": 1
-    },
-    {
-      "priority": "low",
-      "title": "Lorem ipsum dolor sit amet",
+      "workflow_id": 1,
       "comments": [
         {
-          "text": "Fusce fermentum sagittis mi."
+          "text": "Comentário 1 para a Tarefa 1"
         },
         {
-          "text": "Suspendisse potenti."
+          "text": "Comentário 2 para a Tarefa 1"
         }
       ],
+      "commentsAmount": 2,
       "attachments": [
         {
-          "path": "/opt/kanban-app/uploads/attachment1.doc",
+          "download_url": "/download/anexo1.doc",
           "type": "doc",
-          "name": "attachment1"
+          "name": "anexo1"
+        },
+        {
+          "download_url": "/download/anexo2.ppt",
+          "type": "ppt",
+          "name": "anexo2"
         }
       ],
-      "board_id": 1,
-      "workflow_id": 1
+      "attachmentsAmount": 2
     },
     {
       "priority": "normal",
-      "title": "Aenean rhoncus diam et tincidunt",
+      "title": "Tarefa 2",
+      "board_id": 1,
+      "workflow_id": 3,
       "comments": [
         {
-          "text": "Ut faucibus ex sit amet urna consectetur, eget maximus arcu pharetra."
-        },
-        {
-          "text": "Donec id ullamcorper metus."
-        },
-        {
-          "text": "Sed aliquet lacus ut lorem aliquet, eu laoreet enim rhoncus."
+          "text": "Comentário para a Tarefa 2"
         }
       ],
-      "attachments": [],
-      "board_id": 1,
-      "workflow_id": 1
-    },
-    {
-      "priority": "low",
-      "title": "Vestibulum in lobortis ex",
-      "comments": [],
+      "commentsAmount": 1,
       "attachments": [
         {
-          "path": "/opt/kanban-app/uploads/attachment2.doc",
-          "type": "doc",
-          "name": "attachment2"
+          "download_url": "/download/anexo3.pdf",
+          "type": "pdf",
+          "name": "anexo3"
         }
       ],
-      "board_id": 1,
-      "workflow_id": 2
+      "attachmentsAmount": 1
     },
     {
       "priority": "high",
-      "title": "Vivamus euismod odio at",
+      "title": "Tarefa 3",
+      "board_id": 1,
+      "workflow_id": 2,
       "comments": [
         {
-          "text": "Sed auctor mauris nec urna scelerisque auctor."
+          "text": "Comentário 1 para a Tarefa 3"
         },
         {
-          "text": "Nullam euismod arcu sed quam scelerisque, id aliquet tortor pharetra."
+          "text": "Comentário 2 para a Tarefa 3"
         },
         {
-          "text": "Nam cursus lectus sed lectus efficitur, id tincidunt odio vulputate."
-        },
-        {
-          "text": "Etiam cursus nisl sed massa dignissim, id egestas nisl bibendum."
+          "text": "Comentário 3 para a Tarefa 3"
         }
       ],
+      "commentsAmount": 3,
       "attachments": [
         {
-          "path": "/opt/kanban-app/uploads/attachment3.doc",
+          "download_url": "/download/anexo4.doc",
           "type": "doc",
-          "name": "attachment3"
-        },
-        {
-          "path": "/opt/kanban-app/uploads/attachment4.doc",
-          "type": "doc",
-          "name": "attachment4"
+          "name": "anexo4"
         }
       ],
+      "attachmentsAmount": 1
+    },
+    {
+      "priority": "low",
+      "title": "Tarefa 4",
       "board_id": 1,
-      "workflow_id": 2
+      "workflow_id": 4,
+      "comments": [
+        {
+          "text": "Comentário para a Tarefa 4"
+        }
+      ],
+      "commentsAmount": 1,
+      "attachments": [
+        {
+          "download_url": "/download/anexo5.ppt",
+          "type": "ppt",
+          "name": "anexo5"
+        }
+      ],
+      "attachmentsAmount": 1
     },
     {
       "priority": "normal",
-      "title": "Praesent quis erat non mi",
+      "title": "Tarefa 5",
+      "board_id": 1,
+      "workflow_id": 2,
       "comments": [
         {
-          "text": "Mauris egestas diam nec nibh aliquam tempus."
-        }
-      ],
-      "attachments": [
-        {
-          "path": "/opt/kanban-app/uploads/attachment5.doc",
-          "type": "doc",
-          "name": "attachment5"
+          "text": "Comentário para a Tarefa 5"
         },
         {
-          "path": "/opt/kanban-app/uploads/attachment6.doc",
-          "type": "doc",
-          "name": "attachment6"
+          "text": "Outro comentário para a Tarefa 5"
         }
       ],
-      "board_id": 1,
-      "workflow_id": 2
-    },
-    {
-      "priority": "low",
-      "title": "Donec congue risus eget",
-      "comments": [
+      "commentsAmount": 2,
+      "attachments": [
         {
-          "text": "Cras in orci eu enim fringilla venenatis."
+          "download_url": "/download/anexo6.pdf",
+          "type": "pdf",
+          "name": "anexo6"
+        },
+        {
+          "download_url": "/download/anexo7.ppt",
+          "type": "ppt",
+          "name": "anexo7"
         }
       ],
-      "attachments": [],
-      "board_id": 1,
-      "workflow_id": 2
+      "attachmentsAmount": 2
     },
     {
       "priority": "high",
-      "title": "Mauris sed augue efficitur",
-      "comments": [],
-      "attachments": [
+      "title": "Tarefa 6",
+      "board_id": 1,
+      "workflow_id": 3,
+      "comments": [
         {
-          "path": "/opt/kanban-app/uploads/attachment7.doc",
-          "type": "doc",
-          "name": "attachment7"
-        },
-        {
-          "path": "/opt/kanban-app/uploads/attachment8.doc",
-          "type": "doc",
-          "name": "attachment8"
-        },
-        {
-          "path": "/opt/kanban-app/uploads/attachment9.doc",
-          "type": "doc",
-          "name": "attachment9"
+          "text": "Comentário 1 para a Tarefa 6"
         }
       ],
+      "commentsAmount": 1,
+      "attachments": [
+        {
+          "download_url": "/download/anexo8.doc",
+          "type": "doc",
+          "name": "anexo8"
+        }
+      ],
+      "attachmentsAmount": 1
+    },
+    {
+      "priority": "low",
+      "title": "Tarefa 7",
       "board_id": 1,
-      "workflow_id": 3
+      "workflow_id": 1,
+      "comments": [
+        {
+          "text": "Comentário 1 para a Tarefa 7"
+        },
+        {
+          "text": "Comentário 2 para a Tarefa 7"
+        },
+        {
+          "text": "Comentário 3 para a Tarefa 7"
+        }
+      ],
+      "commentsAmount": 3,
+      "attachments": [
+        {
+          "download_url": "/download/anexo10.doc",
+          "type": "doc",
+          "name": "anexo10"
+        }
+      ],
+      "attachmentsAmount": 1
     },
     {
       "priority": "normal",
-      "title": "Aliquam ut metus euismod",
+      "title": "Tarefa 8",
+      "board_id": 1,
+      "workflow_id": 2,
       "comments": [
         {
-          "text": "Integer luctus velit in magna facilisis mollis."
-        },
-        {
-          "text": "Fusce consectetur metus et nisl dignissim, non iaculis ligula lobortis."
+          "text": "Comentário para a Tarefa 8"
         }
       ],
-      "attachments": [],
-      "board_id": 1,
-      "workflow_id": 3
+      "commentsAmount": 1,
+      "attachments": [
+        {
+          "download_url": "/download/anexo11.pdf",
+          "type": "pdf",
+          "name": "anexo11"
+        },
+        {
+          "download_url": "/download/anexo12.ppt",
+          "type": "ppt",
+          "name": "anexo12"
+        }
+      ],
+      "attachmentsAmount": 2
     },
     {
       "priority": "high",
-      "title": "Etiam tincidunt dui eu",
+      "title": "Tarefa 9",
+      "board_id": 1,
+      "workflow_id": 4,
       "comments": [
         {
-          "text": "Nam rhoncus felis sed lectus viverra, et commodo sapien dictum."
+          "text": "Comentário 1 para a Tarefa 9"
         },
         {
-          "text": "Morbi pulvinar lacus eu neque scelerisque, nec ultricies neque laoreet."
-        },
-        {
-          "text": "Proin pharetra odio nec dolor tincidunt, et consectetur leo hendrerit."
+          "text": "Comentário 2 para a Tarefa 9"
         }
       ],
+      "commentsAmount": 2,
       "attachments": [
         {
-          "path": "/opt/kanban-app/uploads/attachment10.doc",
+          "download_url": "/download/anexo13.doc",
           "type": "doc",
-          "name": "attachment10"
+          "name": "anexo13"
         },
         {
-          "path": "/opt/kanban-app/uploads/attachment11.doc",
-          "type": "doc",
-          "name": "attachment11"
+          "download_url": "/download/anexo14.ppt",
+          "type": "ppt",
+          "name": "anexo14"
         }
       ],
-      "board_id": 1,
-      "workflow_id": 4
+      "attachmentsAmount": 2
     },
     {
       "priority": "low",
-      "title": "Nulla interdum felis a",
-      "comments": [
-        {
-          "text": "Curabitur faucibus lectus sit amet ipsum tempus, a finibus quam fringilla."
-        },
-        {
-          "text": "Sed vel est in sem pharetra eleifend."
-        },
-        {
-          "text": "Aenean luctus sem et tincidunt consequat."
-        },
-        {
-          "text": "Vestibulum at leo sed mauris tristique finibus."
-        },
-        {
-          "text": "Nunc nec nulla ac lacus fringilla feugiat."
-        }
-      ],
-      "attachments": [],
+      "title": "Tarefa 10",
       "board_id": 1,
-      "workflow_id": 4
-    },
-    {
-      "priority": "low",
-      "title": "Lorem ipsum dolor sit amet",
+      "workflow_id": 3,
       "comments": [
         {
-          "text": "Fusce fermentum sagittis mi."
+          "text": "Comentário para a Tarefa 10"
         },
         {
-          "text": "Suspendisse potenti."
+          "text": "Outro comentário para a Tarefa 10"
         }
       ],
+      "commentsAmount": 2,
       "attachments": [
         {
-          "path": "/opt/kanban-app/uploads/attachment1.doc",
+          "download_url": "/download/anexo15.doc",
           "type": "doc",
-          "name": "attachment1"
+          "name": "anexo15"
+        },
+        {
+          "download_url": "/download/anexo16.pdf",
+          "type": "pdf",
+          "name": "anexo16"
         }
       ],
-      "board_id": 1,
-      "workflow_id": 4
+      "attachmentsAmount": 2
     },
     {
       "priority": "normal",
-      "title": "Aenean rhoncus diam et tincidunt",
+      "title": "Tarefa 11",
+      "board_id": 1,
+      "workflow_id": 1,
       "comments": [
         {
-          "text": "Ut faucibus ex sit amet urna consectetur, eget maximus arcu pharetra."
-        },
-        {
-          "text": "Donec id ullamcorper metus."
-        },
-        {
-          "text": "Sed aliquet lacus ut lorem aliquet, eu laoreet enim rhoncus."
+          "text": "Comentário para a Tarefa 11"
         }
       ],
-      "attachments": [],
-      "board_id": 2,
-      "workflow_id": 1
+      "commentsAmount": 1,
+      "attachments": [
+        {
+          "download_url": "/download/anexo17.ppt",
+          "type": "ppt",
+          "name": "anexo17"
+        }
+      ],
+      "attachmentsAmount": 1
+    },
+    {
+      "priority": "high",
+      "title": "Tarefa 12",
+      "board_id": 1,
+      "workflow_id": 2,
+      "comments": [
+        {
+          "text": "Comentário 1 para a Tarefa 12"
+        },
+        {
+          "text": "Comentário 2 para a Tarefa 12"
+        },
+        {
+          "text": "Comentário 3 para a Tarefa 12"
+        }
+      ],
+      "commentsAmount": 3,
+      "attachments": [
+        {
+          "download_url": "/download/anexo18.doc",
+          "type": "doc",
+          "name": "anexo18"
+        }
+      ],
+      "attachmentsAmount": 1
     },
     {
       "priority": "low",
-      "title": "Vestibulum in lobortis ex",
-      "comments": [],
-      "attachments": [
-        {
-          "path": "/opt/kanban-app/uploads/attachment2.doc",
-          "type": "doc",
-          "name": "attachment2"
-        }
-      ],
+      "title": "Tarefa 13",
       "board_id": 2,
-      "workflow_id": 1
-    },
-    {
-      "priority": "high",
-      "title": "Vivamus euismod odio at",
+      "workflow_id": 1,
       "comments": [
         {
-          "text": "Sed auctor mauris nec urna scelerisque auctor."
+          "text": "Comentário 1 para a Tarefa 13"
         },
         {
-          "text": "Nullam euismod arcu sed quam scelerisque, id aliquet tortor pharetra."
-        },
-        {
-          "text": "Nam cursus lectus sed lectus efficitur, id tincidunt odio vulputate."
-        },
-        {
-          "text": "Etiam cursus nisl sed massa dignissim, id egestas nisl bibendum."
+          "text": "Comentário 2 para a Tarefa 13"
         }
       ],
+      "commentsAmount": 2,
       "attachments": [
         {
-          "path": "/opt/kanban-app/uploads/attachment3.doc",
+          "download_url": "/download/anexo19.doc",
           "type": "doc",
-          "name": "attachment3"
+          "name": "anexo19"
         },
         {
-          "path": "/opt/kanban-app/uploads/attachment4.doc",
-          "type": "doc",
-          "name": "attachment4"
+          "download_url": "/download/anexo20.ppt",
+          "type": "ppt",
+          "name": "anexo20"
         }
       ],
-      "board_id": 2,
-      "workflow_id": 1
+      "attachmentsAmount": 2
     },
     {
       "priority": "normal",
-      "title": "Praesent quis erat non mi",
+      "title": "Tarefa 14",
+      "board_id": 2,
+      "workflow_id": 3,
       "comments": [
         {
-          "text": "Mauris egestas diam nec nibh aliquam tempus."
+          "text": "Comentário para a Tarefa 14"
         }
       ],
+      "commentsAmount": 1,
       "attachments": [
         {
-          "path": "/opt/kanban-app/uploads/attachment5.doc",
-          "type": "doc",
-          "name": "attachment5"
-        },
-        {
-          "path": "/opt/kanban-app/uploads/attachment6.doc",
-          "type": "doc",
-          "name": "attachment6"
+          "download_url": "/download/anexo21.pdf",
+          "type": "pdf",
+          "name": "anexo21"
         }
       ],
+      "attachmentsAmount": 1
+    },
+    {
+      "priority": "high",
+      "title": "Tarefa 15",
       "board_id": 2,
-      "workflow_id": 2
+      "workflow_id": 2,
+      "comments": [
+        {
+          "text": "Comentário 1 para a Tarefa 15"
+        },
+        {
+          "text": "Comentário 2 para a Tarefa 15"
+        },
+        {
+          "text": "Comentário 3 para a Tarefa 15"
+        }
+      ],
+      "commentsAmount": 3,
+      "attachments": [
+        {
+          "download_url": "/download/anexo22.doc",
+          "type": "doc",
+          "name": "anexo22"
+        }
+      ],
+      "attachmentsAmount": 1
     },
     {
       "priority": "low",
-      "title": "Donec congue risus eget",
+      "title": "Tarefa 16",
+      "board_id": 2,
+      "workflow_id": 4,
       "comments": [
         {
-          "text": "Cras in orci eu enim fringilla venenatis."
+          "text": "Comentário para a Tarefa 16"
         }
       ],
-      "attachments": [],
-      "board_id": 2,
-      "workflow_id": 2
-    },
-    {
-      "priority": "high",
-      "title": "Mauris sed augue efficitur",
-      "comments": [],
+      "commentsAmount": 1,
       "attachments": [
         {
-          "path": "/opt/kanban-app/uploads/attachment7.doc",
-          "type": "doc",
-          "name": "attachment7"
-        },
-        {
-          "path": "/opt/kanban-app/uploads/attachment8.doc",
-          "type": "doc",
-          "name": "attachment8"
-        },
-        {
-          "path": "/opt/kanban-app/uploads/attachment9.doc",
-          "type": "doc",
-          "name": "attachment9"
+          "download_url": "/download/anexo23.ppt",
+          "type": "ppt",
+          "name": "anexo23"
         }
       ],
-      "board_id": 2,
-      "workflow_id": 2
-    },
-    {
-      "priority": "high",
-      "title": "Mauris sed augue efficitur",
-      "comments": [],
-      "attachments": [
-        {
-          "path": "/opt/kanban-app/uploads/attachment7.doc",
-          "type": "doc",
-          "name": "attachment7"
-        },
-        {
-          "path": "/opt/kanban-app/uploads/attachment8.doc",
-          "type": "doc",
-          "name": "attachment8"
-        },
-        {
-          "path": "/opt/kanban-app/uploads/attachment9.doc",
-          "type": "doc",
-          "name": "attachment9"
-        }
-      ],
-      "board_id": 2,
-      "workflow_id": 3
+      "attachmentsAmount": 1
     },
     {
       "priority": "normal",
-      "title": "Aliquam ut metus euismod",
+      "title": "Tarefa 17",
+      "board_id": 2,
+      "workflow_id": 2,
       "comments": [
         {
-          "text": "Integer luctus velit in magna facilisis mollis."
+          "text": "Comentário para a Tarefa 17"
         },
         {
-          "text": "Fusce consectetur metus et nisl dignissim, non iaculis ligula lobortis."
+          "text": "Outro comentário para a Tarefa 17"
         }
       ],
-      "attachments": [],
-      "board_id": 2,
-      "workflow_id": 3
+      "commentsAmount": 2,
+      "attachments": [
+        {
+          "download_url": "/download/anexo24.pdf",
+          "type": "pdf",
+          "name": "anexo24"
+        },
+        {
+          "download_url": "/download/anexo25.ppt",
+          "type": "ppt",
+          "name": "anexo25"
+        }
+      ],
+      "attachmentsAmount": 2
     },
     {
-      "tasks": [
+      "priority": "high",
+      "title": "Tarefa 18",
+      "board_id": 2,
+      "workflow_id": 3,
+      "comments": [
         {
-          "priority": "low",
-          "title": "Lorem ipsum dolor sit amet",
-          "comments": [
-            {
-              "text": "Fusce fermentum sagittis mi."
-            },
-            {
-              "text": "Suspendisse potenti."
-            }
-          ],
-          "attachments": [
-            {
-              "path": "/opt/kanban-app/uploads/attachment1.doc",
-              "type": "doc",
-              "name": "attachment1"
-            }
-          ],
-          "board_id": 2,
-          "workflow_id": 4
-        },
-        {
-          "priority": "normal",
-          "title": "Aenean rhoncus diam et tincidunt",
-          "comments": [
-            {
-              "text": "Ut faucibus ex sit amet urna consectetur, eget maximus arcu pharetra."
-            },
-            {
-              "text": "Donec id ullamcorper metus."
-            },
-            {
-              "text": "Sed aliquet lacus ut lorem aliquet, eu laoreet enim rhoncus."
-            }
-          ],
-          "attachments": [],
-          "board_id": 2,
-          "workflow_id": 4
-        },
-        {
-          "priority": "low",
-          "title": "Vestibulum in lobortis ex",
-          "comments": [],
-          "attachments": [
-            {
-              "path": "/opt/kanban-app/uploads/attachment2.doc",
-              "type": "doc",
-              "name": "attachment2"
-            }
-          ],
-          "board_id": 2,
-          "workflow_id": 4
-        },
-        {
-          "priority": "high",
-          "title": "Vivamus euismod odio at",
-          "comments": [
-            {
-              "text": "Sed auctor mauris nec urna scelerisque auctor."
-            },
-            {
-              "text": "Nullam euismod arcu sed quam scelerisque, id aliquet tortor pharetra."
-            },
-            {
-              "text": "Nam cursus lectus sed lectus efficitur, id tincidunt odio vulputate."
-            },
-            {
-              "text": "Etiam cursus nisl sed massa dignissim, id egestas nisl bibendum."
-            }
-          ],
-          "attachments": [
-            {
-              "path": "/opt/kanban-app/uploads/attachment3.doc",
-              "type": "doc",
-              "name": "attachment3"
-            },
-            {
-              "path": "/opt/kanban-app/uploads/attachment4.doc",
-              "type": "doc",
-              "name": "attachment4"
-            }
-          ],
-          "board_id": 2,
-          "workflow_id": 4
-        },
-        {
-          "priority": "normal",
-          "title": "Praesent quis erat non mi",
-          "comments": [
-            {
-              "text": "Mauris egestas diam nec nibh aliquam tempus."
-            }
-          ],
-          "attachments": [
-            {
-              "path": "/opt/kanban-app/uploads/attachment5.doc",
-              "type": "doc",
-              "name": "attachment5"
-            },
-            {
-              "path": "/opt/kanban-app/uploads/attachment6.doc",
-              "type": "doc",
-              "name": "attachment6"
-            }
-          ],
-          "board_id": 3,
-          "workflow_id": 1
-        },
-        {
-          "priority": "low",
-          "title": "Donec congue risus eget",
-          "comments": [
-            {
-              "text": "Cras in orci eu enim fringilla venenatis."
-            }
-          ],
-          "attachments": [],
-          "board_id": 3,
-          "workflow_id": 1
-        },
-        {
-          "priority": "high",
-          "title": "Mauris sed augue efficitur",
-          "comments": [],
-          "attachments": [
-            {
-              "path": "/opt/kanban-app/uploads/attachment7.doc",
-              "type": "doc",
-              "name": "attachment7"
-            },
-            {
-              "path": "/opt/kanban-app/uploads/attachment8.doc",
-              "type": "doc",
-              "name": "attachment8"
-            },
-            {
-              "path": "/opt/kanban-app/uploads/attachment9.doc",
-              "type": "doc",
-              "name": "attachment9"
-            }
-          ],
-          "board_id": 3,
-          "workflow_id": 1
-        },
-        {
-          "priority": "normal",
-          "title": "Aliquam ut metus euismod",
-          "comments": [
-            {
-              "text": "Integer luctus velit in magna facilisis mollis."
-            },
-            {
-              "text": "Fusce consectetur metus et nisl dignissim, non iaculis ligula lobortis."
-            }
-          ],
-          "attachments": [],
-          "board_id": 3,
-          "workflow_id": 2
-        },
-        {
-          "priority": "high",
-          "title": "Etiam tincidunt dui eu",
-          "comments": [
-            {
-              "text": "Nam rhoncus felis sed lectus viverra, et commodo sapien dictum."
-            },
-            {
-              "text": "Morbi pulvinar lacus eu neque scelerisque, nec ultricies neque laoreet."
-            },
-            {
-              "text": "Proin pharetra odio nec dolor tincidunt, et consectetur leo hendrerit."
-            }
-          ],
-          "attachments": [
-            {
-              "path": "/opt/kanban-app/uploads/attachment10.doc",
-              "type": "doc",
-              "name": "attachment10"
-            },
-            {
-              "path": "/opt/kanban-app/uploads/attachment11.doc",
-              "type": "doc",
-              "name": "attachment11"
-            }
-          ],
-          "board_id": 3,
-          "workflow_id": 2
-        },
-        {
-          "priority": "low",
-          "title": "Nulla interdum felis a",
-          "comments": [
-            {
-              "text": "Curabitur faucibus lectus sit amet ipsum tempus, a finibus quam fringilla."
-            },
-            {
-              "text": "Sed vel est in sem pharetra eleifend."
-            },
-            {
-              "text": "Aenean luctus sem et tincidunt consequat."
-            }
-          ],
-          "attachments": [],
-          "board_id": 3,
-          "workflow_id": 2
-        },
-        {
-          "priority": "normal",
-          "title": "Integer vestibulum purus nec",
-          "comments": [
-            {
-              "text": "Donec malesuada magna vitae enim vestibulum gravida."
-            },
-            {
-              "text": "Sed nec dolor ut ipsum varius condimentum."
-            }
-          ],
-          "attachments": [
-            {
-              "path": "/opt/kanban-app/uploads/attachment12.doc",
-              "type": "doc",
-              "name": "attachment12"
-            },
-            {
-              "path": "/opt/kanban-app/uploads/attachment13.doc",
-              "type": "doc",
-              "name": "attachment13"
-            }
-          ],
-          "board_id": 3,
-          "workflow_id": 2
-        },
-        {
-          "priority": "high",
-          "title": "Cras rutrum sem id",
-          "comments": [],
-          "attachments": [
-            {
-              "path": "/opt/kanban-app/uploads/attachment14.doc",
-              "type": "doc",
-              "name": "attachment14"
-            },
-            {
-              "path": "/opt/kanban-app/uploads/attachment15.doc",
-              "type": "doc",
-              "name": "attachment15"
-            },
-            {
-              "path": "/opt/kanban-app/uploads/attachment16.doc",
-              "type": "doc",
-              "name": "attachment16"
-            }
-          ],
-          "board_id": 3,
-          "workflow_id": 3
+          "text": "Comentário 1 para a Tarefa 18"
         }
-      ]
+      ],
+      "commentsAmount": 1,
+      "attachments": [
+        {
+          "download_url": "/download/anexo26.doc",
+          "type": "doc",
+          "name": "anexo26"
+        }
+      ],
+      "attachmentsAmount": 1
+    },
+    {
+      "priority": "low",
+      "title": "Tarefa 19",
+      "board_id": 2,
+      "workflow_id": 1,
+      "comments": [
+        {
+          "text": "Comentário 1 para a Tarefa 19"
+        },
+        {
+          "text": "Comentário 2 para a Tarefa 19"
+        },
+        {
+          "text": "Comentário 3 para a Tarefa 19"
+        }
+      ],
+      "commentsAmount": 3,
+      "attachments": [
+        {
+          "download_url": "/download/anexo28.doc",
+          "type": "doc",
+          "name": "anexo28"
+        }
+      ],
+      "attachmentsAmount": 1
+    },
+    {
+      "priority": "normal",
+      "title": "Tarefa 20",
+      "board_id": 2,
+      "workflow_id": 2,
+      "comments": [
+        {
+          "text": "Comentário para a Tarefa 20"
+        }
+      ],
+      "commentsAmount": 1,
+      "attachments": [
+        {
+          "download_url": "/download/anexo29.pdf",
+          "type": "pdf",
+          "name": "anexo29"
+        },
+        {
+          "download_url": "/download/anexo30.ppt",
+          "type": "ppt",
+          "name": "anexo30"
+        }
+      ],
+      "attachmentsAmount": 2
+    },
+    {
+      "priority": "high",
+      "title": "Tarefa 21",
+      "board_id": 2,
+      "workflow_id": 4,
+      "comments": [
+        {
+          "text": "Comentário 1 para a Tarefa 21"
+        },
+        {
+          "text": "Comentário 2 para a Tarefa 21"
+        }
+      ],
+      "commentsAmount": 2,
+      "attachments": [
+        {
+          "download_url": "/download/anexo31.doc",
+          "type": "doc",
+          "name": "anexo31"
+        },
+        {
+          "download_url": "/download/anexo32.ppt",
+          "type": "ppt",
+          "name": "anexo32"
+        }
+      ],
+      "attachmentsAmount": 2
+    },
+    {
+      "priority": "low",
+      "title": "Tarefa 22",
+      "board_id": 2,
+      "workflow_id": 3,
+      "comments": [
+        {
+          "text": "Comentário para a Tarefa 22"
+        },
+        {
+          "text": "Outro comentário para a Tarefa 22"
+        }
+      ],
+      "commentsAmount": 2,
+      "attachments": [
+        {
+          "download_url": "/download/anexo33.doc",
+          "type": "doc",
+          "name": "anexo33"
+        },
+        {
+          "download_url": "/download/anexo34.pdf",
+          "type": "pdf",
+          "name": "anexo34"
+        }
+      ],
+      "attachmentsAmount": 2
+    },
+    {
+      "priority": "normal",
+      "title": "Tarefa 23",
+      "board_id": 2,
+      "workflow_id": 1,
+      "comments": [
+        {
+          "text": "Comentário para a Tarefa 23"
+        }
+      ],
+      "commentsAmount": 1,
+      "attachments": [
+        {
+          "download_url": "/download/anexo35.ppt",
+          "type": "ppt",
+          "name": "anexo35"
+        }
+      ],
+      "attachmentsAmount": 1
+    },
+    {
+      "priority": "high",
+      "title": "Tarefa 24",
+      "board_id": 2,
+      "workflow_id": 2,
+      "comments": [
+        {
+          "text": "Comentário 1 para a Tarefa 24"
+        },
+        {
+          "text": "Comentário 2 para a Tarefa 24"
+        },
+        {
+          "text": "Comentário 3 para a Tarefa 24"
+        }
+      ],
+      "commentsAmount": 3,
+      "attachments": [
+        {
+          "download_url": "/download/anexo36.doc",
+          "type": "doc",
+          "name": "anexo36"
+        }
+      ],
+      "attachmentsAmount": 1
+    },
+    {
+      "priority": "low",
+      "title": "Tarefa 25",
+      "board_id": 2,
+      "workflow_id": 4,
+      "comments": [
+        {
+          "text": "Comentário para a Tarefa 25"
+        }
+      ],
+      "commentsAmount": 1,
+      "attachments": [
+        {
+          "download_url": "/download/anexo37.ppt",
+          "type": "ppt",
+          "name": "anexo37"
+        }
+      ],
+      "attachmentsAmount": 1
+    },
+    {
+      "priority": "normal",
+      "title": "Tarefa 26",
+      "board_id": 2,
+      "workflow_id": 2,
+      "comments": [
+        {
+          "text": "Comentário para a Tarefa 26"
+        },
+        {
+          "text": "Outro comentário para a Tarefa 26"
+        }
+      ],
+      "commentsAmount": 2,
+      "attachments": [
+        {
+          "download_url": "/download/anexo38.pdf",
+          "type": "pdf",
+          "name": "anexo38"
+        },
+        {
+          "download_url": "/download/anexo39.ppt",
+          "type": "ppt",
+          "name": "anexo39"
+        }
+      ],
+      "attachmentsAmount": 2
+    },
+    {
+      "priority": "high",
+      "title": "Tarefa 27",
+      "board_id": 2,
+      "workflow_id": 3,
+      "comments": [
+        {
+          "text": "Comentário 1 para a Tarefa 27"
+        },
+        {
+          "text": "Comentário 2 para a Tarefa 27"
+        }
+      ],
+      "commentsAmount": 2,
+      "attachments": [
+        {
+          "download_url": "/download/anexo40.doc",
+          "type": "doc",
+          "name": "anexo40"
+        },
+        {
+          "download_url": "/download/anexo41.ppt",
+          "type": "ppt",
+          "name": "anexo41"
+        }
+      ],
+      "attachmentsAmount": 2
+    },
+    {
+      "priority": "low",
+      "title": "Tarefa 28",
+      "board_id": 2,
+      "workflow_id": 1,
+      "comments": [
+        {
+          "text": "Comentário 1 para a Tarefa 28"
+        },
+        {
+          "text": "Comentário 2 para a Tarefa 28"
+        },
+        {
+          "text": "Comentário 3 para a Tarefa 28"
+        }
+      ],
+      "commentsAmount": 3,
+      "attachments": [
+        {
+          "download_url": "/download/anexo42.doc",
+          "type": "doc",
+          "name": "anexo42"
+        }
+      ],
+      "attachmentsAmount": 1
+    },
+    {
+      "priority": "normal",
+      "title": "Tarefa 29",
+      "board_id": 2,
+      "workflow_id": 2,
+      "comments": [
+        {
+          "text": "Comentário para a Tarefa 29"
+        }
+      ],
+      "commentsAmount": 1,
+      "attachments": [
+        {
+          "download_url": "/download/anexo43.pdf",
+          "type": "pdf",
+          "name": "anexo43"
+        },
+        {
+          "download_url": "/download/anexo44.ppt",
+          "type": "ppt",
+          "name": "anexo44"
+        }
+      ],
+      "attachmentsAmount": 2
+    },
+    {
+      "priority": "high",
+      "title": "Tarefa 30",
+      "board_id": 2,
+      "workflow_id": 4,
+      "comments": [
+        {
+          "text": "Comentário 1 para a Tarefa 30"
+        },
+        {
+          "text": "Comentário 2 para a Tarefa 30"
+        }
+      ],
+      "commentsAmount": 2,
+      "attachments": [
+        {
+          "download_url": "/download/anexo45.doc",
+          "type": "doc",
+          "name": "anexo45"
+        },
+        {
+          "download_url": "/download/anexo46.ppt",
+          "type": "ppt",
+          "name": "anexo46"
+        }
+      ],
+      "attachmentsAmount": 2
+    },
+    {
+      "priority": "low",
+      "title": "Tarefa 31",
+      "board_id": 2,
+      "workflow_id": 3,
+      "comments": [
+        {
+          "text": "Comentário para a Tarefa 31"
+        },
+        {
+          "text": "Outro comentário para a Tarefa 31"
+        }
+      ],
+      "commentsAmount": 2,
+      "attachments": [
+        {
+          "download_url": "/download/anexo47.doc",
+          "type": "doc",
+          "name": "anexo47"
+        },
+        {
+          "download_url": "/download/anexo48.pdf",
+          "type": "pdf",
+          "name": "anexo48"
+        }
+      ],
+      "attachmentsAmount": 2
+    },
+    {
+      "priority": "normal",
+      "title": "Tarefa 32",
+      "board_id": 2,
+      "workflow_id": 1,
+      "comments": [
+        {
+          "text": "Comentário para a Tarefa 32"
+        }
+      ],
+      "commentsAmount": 1,
+      "attachments": [
+        {
+          "download_url": "/download/anexo49.ppt",
+          "type": "ppt",
+          "name": "anexo49"
+        }
+      ],
+      "attachmentsAmount": 1
+    },
+    {
+      "priority": "high",
+      "title": "Tarefa 33",
+      "board_id": 2,
+      "workflow_id": 2,
+      "comments": [
+        {
+          "text": "Comentário 1 para a Tarefa 33"
+        },
+        {
+          "text": "Comentário 2 para a Tarefa 33"
+        },
+        {
+          "text": "Comentário 3 para a Tarefa 33"
+        }
+      ],
+      "commentsAmount": 3,
+      "attachments": [
+        {
+          "download_url": "/download/anexo50.doc",
+          "type": "doc",
+          "name": "anexo50"
+        }
+      ],
+      "attachmentsAmount": 1
+    },
+    {
+      "priority": "low",
+      "title": "Tarefa 1",
+      "board_id": 3,
+      "workflow_id": 1,
+      "comments": [
+        {
+          "text": "Comentário 1 para a Tarefa 1"
+        },
+        {
+          "text": "Comentário 2 para a Tarefa 1"
+        }
+      ],
+      "commentsAmount": 2,
+      "attachments": [
+        {
+          "download_url": "/download/anexo51.doc",
+          "type": "doc",
+          "name": "anexo51"
+        },
+        {
+          "download_url": "/download/anexo52.ppt",
+          "type": "ppt",
+          "name": "anexo52"
+        }
+      ],
+      "attachmentsAmount": 2
+    },
+    {
+      "priority": "normal",
+      "title": "Tarefa 2",
+      "board_id": 3,
+      "workflow_id": 2,
+      "comments": [
+        {
+          "text": "Comentário para a Tarefa 2"
+        }
+      ],
+      "commentsAmount": 1,
+      "attachments": [
+        {
+          "download_url": "/download/anexo53.pdf",
+          "type": "pdf",
+          "name": "anexo53"
+        }
+      ],
+      "attachmentsAmount": 1
+    },
+    {
+      "priority": "high",
+      "title": "Tarefa 3",
+      "board_id": 3,
+      "workflow_id": 3,
+      "comments": [
+        {
+          "text": "Comentário 1 para a Tarefa 3"
+        },
+        {
+          "text": "Comentário 2 para a Tarefa 3"
+        },
+        {
+          "text": "Comentário 3 para a Tarefa 3"
+        }
+      ],
+      "commentsAmount": 3,
+      "attachments": [
+        {
+          "download_url": "/download/anexo54.doc",
+          "type": "doc",
+          "name": "anexo54"
+        }
+      ],
+      "attachmentsAmount": 1
+    },
+    {
+      "priority": "low",
+      "title": "Tarefa 4",
+      "board_id": 3,
+      "workflow_id": 4,
+      "comments": [
+        {
+          "text": "Comentário para a Tarefa 4"
+        }
+      ],
+      "commentsAmount": 1,
+      "attachments": [
+        {
+          "download_url": "/download/anexo55.ppt",
+          "type": "ppt",
+          "name": "anexo55"
+        }
+      ],
+      "attachmentsAmount": 1
+    },
+    {
+      "priority": "normal",
+      "title": "Tarefa 5",
+      "board_id": 3,
+      "workflow_id": 2,
+      "comments": [
+        {
+          "text": "Comentário para a Tarefa 5"
+        },
+        {
+          "text": "Outro comentário para a Tarefa 5"
+        }
+      ],
+      "commentsAmount": 2,
+      "attachments": [
+        {
+          "download_url": "/download/anexo56.pdf",
+          "type": "pdf",
+          "name": "anexo56"
+        },
+        {
+          "download_url": "/download/anexo57.ppt",
+          "type": "ppt",
+          "name": "anexo57"
+        }
+      ],
+      "attachmentsAmount": 2
     }
   ]
 }

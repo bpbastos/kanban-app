@@ -5,6 +5,8 @@
       <TaskCard v-for="task in tasks"
         :priority="task.priority"
         :title="task.title"
+        :attachments=task.attachmentsAmount
+        :comments=task.commentsAmount
       />
       <RouterLink to="/addtask" class="flex flex-row space-x-2 items-center justify-center text-secondary text-base font-medium">
         <i class="fa-solid fa-plus"></i>
