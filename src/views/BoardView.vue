@@ -2,9 +2,15 @@
   <div class="pb-8">
     <BoardSwitcher @change="updateBoard" />
   </div>
-  <div class="flex flex-wrap justify-strech gap-4 pb-8">
-    <WorkflowCard v-for="workflow in workflows" :board-id="boardId" :id="workflow.id" :name="workflow.name"
-      :class="workflow.color" />
+  <div class="flex flex-wrap justify-strech gap-3 pb-8">
+    <!-- Para passar a cor via v-bind é necessário colocar as classes css na safelist no tailwind.config.js. -->
+    <WorkflowCard
+      v-for="workflow in workflows" 
+      :board-id="boardId"
+      :id="workflow.id"
+      :name="workflow.name"
+      :class="workflow.color"
+    />       
   </div>
 </template>
 
