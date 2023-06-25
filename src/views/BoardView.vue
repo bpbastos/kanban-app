@@ -1,14 +1,38 @@
 <template>
-  <div class="pb-8"><BoardSwitcher /></div>
+  <div class="pb-8">
+    <BoardSwitcher @change="updateBoard" />
+  </div>
   <div class="flex flex-wrap justify-strech gap-4 pb-8">
-    <BoardCard board-name="Backlog" color="bg-purple-400" />
-    <BoardCard board-name="Em andamento" color="bg-orange-400" />
-    <BoardCard board-name="Em análise" color="bg-blue-400" />
-    <BoardCard board-name="Concluído" color="bg-green-400" />
+    <WorkflowCard v-for="workflow in workflows" :board-id="boardId" :id="workflow.id" :name="workflow.name"
+      :class="workflow.color" />
   </div>
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue'
+import WorkflowDataService from '../services/WorkflowDataService'
 import BoardSwitcher from '../components/BoardSwitcher.vue'
-import BoardCard from '../components/BoardCard.vue'
+import WorkflowCard from '../components/WorkflowCard.vue'
+
+const workflows = ref([])
+const boardId = ref(0)
+
+const updateWorkflows = async () => {
+  WorkflowDataService.getAll()
+    .then((response) => {
+      workflows.value = response.data
+    })
+    .catch((e) => {
+      console.log(e)
+    })
+}
+
+const updateBoard = (board) => {
+  boardId.value = board.id
+  updateWorkflows()
+}
+
+onMounted(() => {
+  updateWorkflows()
+})
 </script>

@@ -15,7 +15,7 @@
     >
     Prioridade alta
     </span>        
-    <span class="text-base font-normal text-gray-900">{{ taskTitle }}</span>
+    <span class="text-base font-normal text-gray-900">{{ title }}</span>
     <div class="flex flex-row space-x-1 items-center text-xs opacity-70">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -54,7 +54,7 @@
 <script setup>
 const props = defineProps({
   priority: String,
-  taskTitle: String,
+  title: String,
   coments: String,
   attachments: String
 })

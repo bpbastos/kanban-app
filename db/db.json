@@ -1,0 +1,727 @@
+{
+  "boards": [
+    {
+      "id": 1,
+      "name": "Sprint 1 - Fullstack Basico"
+    },
+    {
+      "id": 2,
+      "name": "Sprint 2 - Frontend Avançado"
+    },
+    {
+      "id": 3,
+      "name": "Sprint 3 - Backend Avançado"
+    }
+  ],
+  "workflows": [
+    {
+      "id": 1,
+      "name": "Backlog",
+      "color": "bg-purple-400"
+    },
+    {
+      "id": 2,
+      "name": "Em andamento",
+      "color": "bg-orange-400"
+    },
+    {
+      "id": 3,
+      "name": "Em análise",
+      "color": "bg-blue-400"
+    },
+    {
+      "id": 4,
+      "name": "Concluído",
+      "color": "bg-green-400"
+    }
+  ],
+  "tasks": [
+    {
+      "priority": "low",
+      "title": "Iaculis quis turpis a nunc.",
+      "coments": [
+        {
+          "text": "A suscipit ullamcorper."
+        },
+        {
+          "text": "A suscipit ullamcorper."
+        },
+        {
+          "text": "A suscipit ullamcorper."
+        },
+        {
+          "text": "A suscipit ullamcorper."
+        }
+      ],
+      "attachments": [
+        {
+          "path": "/opt/kanban-app/uploads/attachment.doc",
+          "type": "doc",
+          "name": "attachment"
+        },
+        {
+          "path": "/opt/kanban-app/uploads/attachment2.doc",
+          "type": "doc",
+          "name": "attachment2"
+        }
+      ],
+      "board_id": 1,
+      "workflow_id": 1
+    },
+    {
+      "priority": "low",
+      "title": "Lorem ipsum dolor sit amet",
+      "comments": [
+        {
+          "text": "Fusce fermentum sagittis mi."
+        },
+        {
+          "text": "Suspendisse potenti."
+        }
+      ],
+      "attachments": [
+        {
+          "path": "/opt/kanban-app/uploads/attachment1.doc",
+          "type": "doc",
+          "name": "attachment1"
+        }
+      ],
+      "board_id": 1,
+      "workflow_id": 1
+    },
+    {
+      "priority": "normal",
+      "title": "Aenean rhoncus diam et tincidunt",
+      "comments": [
+        {
+          "text": "Ut faucibus ex sit amet urna consectetur, eget maximus arcu pharetra."
+        },
+        {
+          "text": "Donec id ullamcorper metus."
+        },
+        {
+          "text": "Sed aliquet lacus ut lorem aliquet, eu laoreet enim rhoncus."
+        }
+      ],
+      "attachments": [],
+      "board_id": 1,
+      "workflow_id": 1
+    },
+    {
+      "priority": "low",
+      "title": "Vestibulum in lobortis ex",
+      "comments": [],
+      "attachments": [
+        {
+          "path": "/opt/kanban-app/uploads/attachment2.doc",
+          "type": "doc",
+          "name": "attachment2"
+        }
+      ],
+      "board_id": 1,
+      "workflow_id": 2
+    },
+    {
+      "priority": "high",
+      "title": "Vivamus euismod odio at",
+      "comments": [
+        {
+          "text": "Sed auctor mauris nec urna scelerisque auctor."
+        },
+        {
+          "text": "Nullam euismod arcu sed quam scelerisque, id aliquet tortor pharetra."
+        },
+        {
+          "text": "Nam cursus lectus sed lectus efficitur, id tincidunt odio vulputate."
+        },
+        {
+          "text": "Etiam cursus nisl sed massa dignissim, id egestas nisl bibendum."
+        }
+      ],
+      "attachments": [
+        {
+          "path": "/opt/kanban-app/uploads/attachment3.doc",
+          "type": "doc",
+          "name": "attachment3"
+        },
+        {
+          "path": "/opt/kanban-app/uploads/attachment4.doc",
+          "type": "doc",
+          "name": "attachment4"
+        }
+      ],
+      "board_id": 1,
+      "workflow_id": 2
+    },
+    {
+      "priority": "normal",
+      "title": "Praesent quis erat non mi",
+      "comments": [
+        {
+          "text": "Mauris egestas diam nec nibh aliquam tempus."
+        }
+      ],
+      "attachments": [
+        {
+          "path": "/opt/kanban-app/uploads/attachment5.doc",
+          "type": "doc",
+          "name": "attachment5"
+        },
+        {
+          "path": "/opt/kanban-app/uploads/attachment6.doc",
+          "type": "doc",
+          "name": "attachment6"
+        }
+      ],
+      "board_id": 1,
+      "workflow_id": 2
+    },
+    {
+      "priority": "low",
+      "title": "Donec congue risus eget",
+      "comments": [
+        {
+          "text": "Cras in orci eu enim fringilla venenatis."
+        }
+      ],
+      "attachments": [],
+      "board_id": 1,
+      "workflow_id": 2
+    },
+    {
+      "priority": "high",
+      "title": "Mauris sed augue efficitur",
+      "comments": [],
+      "attachments": [
+        {
+          "path": "/opt/kanban-app/uploads/attachment7.doc",
+          "type": "doc",
+          "name": "attachment7"
+        },
+        {
+          "path": "/opt/kanban-app/uploads/attachment8.doc",
+          "type": "doc",
+          "name": "attachment8"
+        },
+        {
+          "path": "/opt/kanban-app/uploads/attachment9.doc",
+          "type": "doc",
+          "name": "attachment9"
+        }
+      ],
+      "board_id": 1,
+      "workflow_id": 3
+    },
+    {
+      "priority": "normal",
+      "title": "Aliquam ut metus euismod",
+      "comments": [
+        {
+          "text": "Integer luctus velit in magna facilisis mollis."
+        },
+        {
+          "text": "Fusce consectetur metus et nisl dignissim, non iaculis ligula lobortis."
+        }
+      ],
+      "attachments": [],
+      "board_id": 1,
+      "workflow_id": 3
+    },
+    {
+      "priority": "high",
+      "title": "Etiam tincidunt dui eu",
+      "comments": [
+        {
+          "text": "Nam rhoncus felis sed lectus viverra, et commodo sapien dictum."
+        },
+        {
+          "text": "Morbi pulvinar lacus eu neque scelerisque, nec ultricies neque laoreet."
+        },
+        {
+          "text": "Proin pharetra odio nec dolor tincidunt, et consectetur leo hendrerit."
+        }
+      ],
+      "attachments": [
+        {
+          "path": "/opt/kanban-app/uploads/attachment10.doc",
+          "type": "doc",
+          "name": "attachment10"
+        },
+        {
+          "path": "/opt/kanban-app/uploads/attachment11.doc",
+          "type": "doc",
+          "name": "attachment11"
+        }
+      ],
+      "board_id": 1,
+      "workflow_id": 4
+    },
+    {
+      "priority": "low",
+      "title": "Nulla interdum felis a",
+      "comments": [
+        {
+          "text": "Curabitur faucibus lectus sit amet ipsum tempus, a finibus quam fringilla."
+        },
+        {
+          "text": "Sed vel est in sem pharetra eleifend."
+        },
+        {
+          "text": "Aenean luctus sem et tincidunt consequat."
+        },
+        {
+          "text": "Vestibulum at leo sed mauris tristique finibus."
+        },
+        {
+          "text": "Nunc nec nulla ac lacus fringilla feugiat."
+        }
+      ],
+      "attachments": [],
+      "board_id": 1,
+      "workflow_id": 4
+    },
+    {
+      "priority": "low",
+      "title": "Lorem ipsum dolor sit amet",
+      "comments": [
+        {
+          "text": "Fusce fermentum sagittis mi."
+        },
+        {
+          "text": "Suspendisse potenti."
+        }
+      ],
+      "attachments": [
+        {
+          "path": "/opt/kanban-app/uploads/attachment1.doc",
+          "type": "doc",
+          "name": "attachment1"
+        }
+      ],
+      "board_id": 1,
+      "workflow_id": 4
+    },
+    {
+      "priority": "normal",
+      "title": "Aenean rhoncus diam et tincidunt",
+      "comments": [
+        {
+          "text": "Ut faucibus ex sit amet urna consectetur, eget maximus arcu pharetra."
+        },
+        {
+          "text": "Donec id ullamcorper metus."
+        },
+        {
+          "text": "Sed aliquet lacus ut lorem aliquet, eu laoreet enim rhoncus."
+        }
+      ],
+      "attachments": [],
+      "board_id": 2,
+      "workflow_id": 1
+    },
+    {
+      "priority": "low",
+      "title": "Vestibulum in lobortis ex",
+      "comments": [],
+      "attachments": [
+        {
+          "path": "/opt/kanban-app/uploads/attachment2.doc",
+          "type": "doc",
+          "name": "attachment2"
+        }
+      ],
+      "board_id": 2,
+      "workflow_id": 1
+    },
+    {
+      "priority": "high",
+      "title": "Vivamus euismod odio at",
+      "comments": [
+        {
+          "text": "Sed auctor mauris nec urna scelerisque auctor."
+        },
+        {
+          "text": "Nullam euismod arcu sed quam scelerisque, id aliquet tortor pharetra."
+        },
+        {
+          "text": "Nam cursus lectus sed lectus efficitur, id tincidunt odio vulputate."
+        },
+        {
+          "text": "Etiam cursus nisl sed massa dignissim, id egestas nisl bibendum."
+        }
+      ],
+      "attachments": [
+        {
+          "path": "/opt/kanban-app/uploads/attachment3.doc",
+          "type": "doc",
+          "name": "attachment3"
+        },
+        {
+          "path": "/opt/kanban-app/uploads/attachment4.doc",
+          "type": "doc",
+          "name": "attachment4"
+        }
+      ],
+      "board_id": 2,
+      "workflow_id": 1
+    },
+    {
+      "priority": "normal",
+      "title": "Praesent quis erat non mi",
+      "comments": [
+        {
+          "text": "Mauris egestas diam nec nibh aliquam tempus."
+        }
+      ],
+      "attachments": [
+        {
+          "path": "/opt/kanban-app/uploads/attachment5.doc",
+          "type": "doc",
+          "name": "attachment5"
+        },
+        {
+          "path": "/opt/kanban-app/uploads/attachment6.doc",
+          "type": "doc",
+          "name": "attachment6"
+        }
+      ],
+      "board_id": 2,
+      "workflow_id": 2
+    },
+    {
+      "priority": "low",
+      "title": "Donec congue risus eget",
+      "comments": [
+        {
+          "text": "Cras in orci eu enim fringilla venenatis."
+        }
+      ],
+      "attachments": [],
+      "board_id": 2,
+      "workflow_id": 2
+    },
+    {
+      "priority": "high",
+      "title": "Mauris sed augue efficitur",
+      "comments": [],
+      "attachments": [
+        {
+          "path": "/opt/kanban-app/uploads/attachment7.doc",
+          "type": "doc",
+          "name": "attachment7"
+        },
+        {
+          "path": "/opt/kanban-app/uploads/attachment8.doc",
+          "type": "doc",
+          "name": "attachment8"
+        },
+        {
+          "path": "/opt/kanban-app/uploads/attachment9.doc",
+          "type": "doc",
+          "name": "attachment9"
+        }
+      ],
+      "board_id": 2,
+      "workflow_id": 2
+    },
+    {
+      "priority": "high",
+      "title": "Mauris sed augue efficitur",
+      "comments": [],
+      "attachments": [
+        {
+          "path": "/opt/kanban-app/uploads/attachment7.doc",
+          "type": "doc",
+          "name": "attachment7"
+        },
+        {
+          "path": "/opt/kanban-app/uploads/attachment8.doc",
+          "type": "doc",
+          "name": "attachment8"
+        },
+        {
+          "path": "/opt/kanban-app/uploads/attachment9.doc",
+          "type": "doc",
+          "name": "attachment9"
+        }
+      ],
+      "board_id": 2,
+      "workflow_id": 3
+    },
+    {
+      "priority": "normal",
+      "title": "Aliquam ut metus euismod",
+      "comments": [
+        {
+          "text": "Integer luctus velit in magna facilisis mollis."
+        },
+        {
+          "text": "Fusce consectetur metus et nisl dignissim, non iaculis ligula lobortis."
+        }
+      ],
+      "attachments": [],
+      "board_id": 2,
+      "workflow_id": 3
+    },
+    {
+      "tasks": [
+        {
+          "priority": "low",
+          "title": "Lorem ipsum dolor sit amet",
+          "comments": [
+            {
+              "text": "Fusce fermentum sagittis mi."
+            },
+            {
+              "text": "Suspendisse potenti."
+            }
+          ],
+          "attachments": [
+            {
+              "path": "/opt/kanban-app/uploads/attachment1.doc",
+              "type": "doc",
+              "name": "attachment1"
+            }
+          ],
+          "board_id": 2,
+          "workflow_id": 4
+        },
+        {
+          "priority": "normal",
+          "title": "Aenean rhoncus diam et tincidunt",
+          "comments": [
+            {
+              "text": "Ut faucibus ex sit amet urna consectetur, eget maximus arcu pharetra."
+            },
+            {
+              "text": "Donec id ullamcorper metus."
+            },
+            {
+              "text": "Sed aliquet lacus ut lorem aliquet, eu laoreet enim rhoncus."
+            }
+          ],
+          "attachments": [],
+          "board_id": 2,
+          "workflow_id": 4
+        },
+        {
+          "priority": "low",
+          "title": "Vestibulum in lobortis ex",
+          "comments": [],
+          "attachments": [
+            {
+              "path": "/opt/kanban-app/uploads/attachment2.doc",
+              "type": "doc",
+              "name": "attachment2"
+            }
+          ],
+          "board_id": 2,
+          "workflow_id": 4
+        },
+        {
+          "priority": "high",
+          "title": "Vivamus euismod odio at",
+          "comments": [
+            {
+              "text": "Sed auctor mauris nec urna scelerisque auctor."
+            },
+            {
+              "text": "Nullam euismod arcu sed quam scelerisque, id aliquet tortor pharetra."
+            },
+            {
+              "text": "Nam cursus lectus sed lectus efficitur, id tincidunt odio vulputate."
+            },
+            {
+              "text": "Etiam cursus nisl sed massa dignissim, id egestas nisl bibendum."
+            }
+          ],
+          "attachments": [
+            {
+              "path": "/opt/kanban-app/uploads/attachment3.doc",
+              "type": "doc",
+              "name": "attachment3"
+            },
+            {
+              "path": "/opt/kanban-app/uploads/attachment4.doc",
+              "type": "doc",
+              "name": "attachment4"
+            }
+          ],
+          "board_id": 2,
+          "workflow_id": 4
+        },
+        {
+          "priority": "normal",
+          "title": "Praesent quis erat non mi",
+          "comments": [
+            {
+              "text": "Mauris egestas diam nec nibh aliquam tempus."
+            }
+          ],
+          "attachments": [
+            {
+              "path": "/opt/kanban-app/uploads/attachment5.doc",
+              "type": "doc",
+              "name": "attachment5"
+            },
+            {
+              "path": "/opt/kanban-app/uploads/attachment6.doc",
+              "type": "doc",
+              "name": "attachment6"
+            }
+          ],
+          "board_id": 3,
+          "workflow_id": 1
+        },
+        {
+          "priority": "low",
+          "title": "Donec congue risus eget",
+          "comments": [
+            {
+              "text": "Cras in orci eu enim fringilla venenatis."
+            }
+          ],
+          "attachments": [],
+          "board_id": 3,
+          "workflow_id": 1
+        },
+        {
+          "priority": "high",
+          "title": "Mauris sed augue efficitur",
+          "comments": [],
+          "attachments": [
+            {
+              "path": "/opt/kanban-app/uploads/attachment7.doc",
+              "type": "doc",
+              "name": "attachment7"
+            },
+            {
+              "path": "/opt/kanban-app/uploads/attachment8.doc",
+              "type": "doc",
+              "name": "attachment8"
+            },
+            {
+              "path": "/opt/kanban-app/uploads/attachment9.doc",
+              "type": "doc",
+              "name": "attachment9"
+            }
+          ],
+          "board_id": 3,
+          "workflow_id": 1
+        },
+        {
+          "priority": "normal",
+          "title": "Aliquam ut metus euismod",
+          "comments": [
+            {
+              "text": "Integer luctus velit in magna facilisis mollis."
+            },
+            {
+              "text": "Fusce consectetur metus et nisl dignissim, non iaculis ligula lobortis."
+            }
+          ],
+          "attachments": [],
+          "board_id": 3,
+          "workflow_id": 2
+        },
+        {
+          "priority": "high",
+          "title": "Etiam tincidunt dui eu",
+          "comments": [
+            {
+              "text": "Nam rhoncus felis sed lectus viverra, et commodo sapien dictum."
+            },
+            {
+              "text": "Morbi pulvinar lacus eu neque scelerisque, nec ultricies neque laoreet."
+            },
+            {
+              "text": "Proin pharetra odio nec dolor tincidunt, et consectetur leo hendrerit."
+            }
+          ],
+          "attachments": [
+            {
+              "path": "/opt/kanban-app/uploads/attachment10.doc",
+              "type": "doc",
+              "name": "attachment10"
+            },
+            {
+              "path": "/opt/kanban-app/uploads/attachment11.doc",
+              "type": "doc",
+              "name": "attachment11"
+            }
+          ],
+          "board_id": 3,
+          "workflow_id": 2
+        },
+        {
+          "priority": "low",
+          "title": "Nulla interdum felis a",
+          "comments": [
+            {
+              "text": "Curabitur faucibus lectus sit amet ipsum tempus, a finibus quam fringilla."
+            },
+            {
+              "text": "Sed vel est in sem pharetra eleifend."
+            },
+            {
+              "text": "Aenean luctus sem et tincidunt consequat."
+            }
+          ],
+          "attachments": [],
+          "board_id": 3,
+          "workflow_id": 2
+        },
+        {
+          "priority": "normal",
+          "title": "Integer vestibulum purus nec",
+          "comments": [
+            {
+              "text": "Donec malesuada magna vitae enim vestibulum gravida."
+            },
+            {
+              "text": "Sed nec dolor ut ipsum varius condimentum."
+            }
+          ],
+          "attachments": [
+            {
+              "path": "/opt/kanban-app/uploads/attachment12.doc",
+              "type": "doc",
+              "name": "attachment12"
+            },
+            {
+              "path": "/opt/kanban-app/uploads/attachment13.doc",
+              "type": "doc",
+              "name": "attachment13"
+            }
+          ],
+          "board_id": 3,
+          "workflow_id": 2
+        },
+        {
+          "priority": "high",
+          "title": "Cras rutrum sem id",
+          "comments": [],
+          "attachments": [
+            {
+              "path": "/opt/kanban-app/uploads/attachment14.doc",
+              "type": "doc",
+              "name": "attachment14"
+            },
+            {
+              "path": "/opt/kanban-app/uploads/attachment15.doc",
+              "type": "doc",
+              "name": "attachment15"
+            },
+            {
+              "path": "/opt/kanban-app/uploads/attachment16.doc",
+              "type": "doc",
+              "name": "attachment16"
+            }
+          ],
+          "board_id": 3,
+          "workflow_id": 3
+        }
+      ]
+    }
+  ]
+}
