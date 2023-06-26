@@ -9,9 +9,16 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/board',
+      path: '/',
       name: 'board',
-      component: BoardView
+      component: BoardView,
+      children: [
+        // this will render the UserList for these 3 URLs
+        // - /users
+        // - /users/list
+        // - /people
+        { path: '/', component: BoardView, alias: ['/board'] },
+      ],
     },
     {
       path: '/calendar',
