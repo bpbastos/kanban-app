@@ -1,12 +1,12 @@
-import axios from "../axios-common";
+import http from "@/axios-common";
 
 class BoardDataService {
   getAll() {
-    return axios.get("/boards");
+    return http.get("/boards");
   }
 
   get(id) {
-    return axios.get(`/boards/${id}`);
+    return http.get(`/boards/${id}`);
   }
 }
 

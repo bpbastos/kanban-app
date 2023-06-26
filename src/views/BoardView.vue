@@ -26,7 +26,7 @@ const boardId = ref(0)
 const updateWorkflows = async () => {
   WorkflowDataService.getAll()
     .then((response) => {
-      workflows.value = response.data
+      workflows.value = response
     })
     .catch((e) => {
       console.log(e)

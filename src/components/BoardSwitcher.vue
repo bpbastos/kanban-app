@@ -30,7 +30,7 @@ const changeSelected = (board) => {
 onMounted(async () => {
   BoardDataService.getAll()
     .then((response) => {
-      boards.value = response.data
+      boards.value = response
       selectedItem.value = boards.value.length ? boards.value[0].name : 'Nenhum quadro encontrado'
       emit('change', boards.value[0])
     })

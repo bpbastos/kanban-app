@@ -1,16 +1,16 @@
-import axios from "../axios-common";
+import http from "@/axios-common";
 
 class TaskDataService {
   getAll() {
-    return axios.get("/tasks");
+    return http.get("/tasks");
   }
 
   getByBoardIdAndWorkflowId(boardId, workflowId) {
-    return axios.get(`/tasks?board_id=${boardId}&workflow_id=${workflowId}`)
+    return http.get(`/tasks?board_id=${boardId}&workflow_id=${workflowId}`)
   }
 
   get(id) {
-    return axios.get(`/tasks/${id}`);
+    return http.get(`/tasks/${id}`);
   }
 }
 

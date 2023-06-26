@@ -1,12 +1,12 @@
-import axios from "../axios-common";
+import http from "../axios-common";
 
 class WorkflowDataService {
   getAll() {
-    return axios.get("/workflows");
+    return http.get("/workflows");
   }
 
   get(id) {
-    return axios.get(`/workflows/${id}`);
+    return http.get(`/workflows/${id}`);
   }
 }
 
