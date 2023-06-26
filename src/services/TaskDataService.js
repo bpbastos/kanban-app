@@ -1,4 +1,4 @@
-import http from "@/axios-common";
+import http from "@/http-common";
 
 class TaskDataService {
   getAll() {

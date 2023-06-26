@@ -35,7 +35,7 @@ const props = defineProps({
 const updateTasks = async(boardId,workflowId) => {
   TaskDataService.getByBoardIdAndWorkflowId(boardId,workflowId)
     .then((response) => {
-      tasks.value = response
+      tasks.value = response.data
     })
     .catch((e) => {
       console.log(e)

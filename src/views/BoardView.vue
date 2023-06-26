@@ -16,6 +16,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useLoaderStore } from '@/stores/loader'
 import WorkflowDataService from '../services/WorkflowDataService'
 import BoardSwitcher from '../components/BoardSwitcher.vue'
 import WorkflowCard from '../components/WorkflowCard.vue'
@@ -26,7 +27,7 @@ const boardId = ref(0)
 const updateWorkflows = async () => {
   WorkflowDataService.getAll()
     .then((response) => {
-      workflows.value = response
+      workflows.value = response.data
     })
     .catch((e) => {
       console.log(e)
@@ -35,7 +36,10 @@ const updateWorkflows = async () => {
 
 const updateBoard = (board) => {
   boardId.value = board.id
+  const store = useLoaderStore()
+  store.setLoading(true)
   updateWorkflows()
+  store.setLoading(false)
 }
 
 onMounted(() => {
