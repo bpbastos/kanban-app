@@ -1,7 +1,7 @@
 <template>
     <div class="rounded-lg pt-1 drop-shadow-xl bg-green-400">
         <section class="flex flex-col p-3 rounded-b-lg bg-board drop-shadow-xl">
-            <img class="shadow rounded-full w-28 h-28 align-middle border-none obj" :src="profilePicture" :alt="username" />
+            <img class="shadow rounded-full w-28 h-28 align-middle border-none object-cover" :src="profilePicture" :alt="username" />
             <h1 class="text-gray-900 font-bold text-xl leading-8 my-1">{{ firstName }} {{ lastName }}</h1>
             <h3 class="text-gray-600 font-lg text-semibold leading-6">{{ occupation }}</h3>
             <p class="text-sm text-gray-500 hover:text-gray-600 leading-6">
