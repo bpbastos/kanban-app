@@ -31,8 +31,9 @@ const router = createRouter({
       component: UserProfileView
     },
     {
-      path: '/addtask',
-      name: 'add_task',
+      path: '/task/create/:boardId/:workflowId',
+      name: 'AddTask',
+      props: true,
       component: AddTaskView
     },
     {
