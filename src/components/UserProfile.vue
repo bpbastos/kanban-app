@@ -1,7 +1,7 @@
 <template>
     <div class="rounded-lg pt-1 drop-shadow-xl bg-green-400">
         <section class="flex flex-col p-3 rounded-b-lg bg-board drop-shadow-xl">
-            <img class="shadow rounded-full w-28 h-28 align-middle border-none" :src="profile_picture" :alt="username" />
+            <img class="shadow rounded-full w-28 h-28 align-middle border-none obj" :src="profilePicture" :alt="username" />
             <h1 class="text-gray-900 font-bold text-xl leading-8 my-1">{{ firstName }} {{ lastName }}</h1>
             <h3 class="text-gray-600 font-lg text-semibold leading-6">{{ occupation }}</h3>
             <p class="text-sm text-gray-500 hover:text-gray-600 leading-6">
@@ -16,7 +16,7 @@
                 </li>
                 <li class="flex items-center py-3">
                     <span>Usuário desde</span>
-                    <span class="ml-auto">{{ member_since }}</span>
+                    <span class="ml-auto">{{ memberSince }}</span>
                 </li>
             </ul>
             <div class="mt-3">
@@ -80,12 +80,12 @@ const { username,
     occupation,
     biografy,
     status,
-    member_since,
+    memberSince,
     birthday,
     gender,
     mobile,
     address,
     email,
-    profile_picture } = storeToRefs(store)
+    profilePicture } = storeToRefs(store)
 
 </script>

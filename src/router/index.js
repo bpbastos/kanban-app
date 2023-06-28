@@ -26,8 +26,8 @@ const router = createRouter({
       component: CalendarView
     },
     {
-      path: '/user/profile',
-      name: 'user_profile',
+      path: '/user/:id',
+      name: 'UserProfile',
       component: UserProfileView
     },
     {
@@ -37,8 +37,8 @@ const router = createRouter({
       component: AddTaskView
     },
     {
-      path: '/addboard',
-      name: 'add_board',
+      path: '/board/create',
+      name: 'AddBoard',
       component: AddBoardView
     },                
   ],
