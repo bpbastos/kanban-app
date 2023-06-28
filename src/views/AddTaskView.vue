@@ -4,7 +4,7 @@
 
 <script setup>
 const props = defineProps({
-  workflowId: Number,
-  boardId: Number
+  workflowId: String,
+  boardId: String
 })
 </script>
