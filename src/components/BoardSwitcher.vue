@@ -7,8 +7,10 @@
     <button v-if="isOpen" @click="isOpen = !isOpen" tabindex="-1"
       class="fixed inset-0 h-full w-full cursor-default"></button>
     <div v-if="isOpen" class="absolute mt-2 bg-white w-auto rounded-lg shadow-xl">
-      <a v-for="board in boards" href="#" @click="changeSelected(board)"
-        class="block px-4 py-2 w-auto text-gray-800 hover:bg-primary hover:text-white hover:rounded-t-lg">{{ board.name }}</a>
+      <a v-for="(board, index) in boards" href="#" @click="changeSelected(board)"
+        class="block px-4 py-2 w-auto text-gray-800 hover:bg-primary hover:text-white"
+        :class="[index == 0 ? 'hover:rounded-t-lg' : index == boards.length - 1 ? 'hover:rounded-b-lg' : '']">{{ board.name
+        }}</a>
     </div>
   </div>
 </template>
