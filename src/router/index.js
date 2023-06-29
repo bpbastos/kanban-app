@@ -9,20 +9,16 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
-      name: 'board',
+      path: '/board',
+      name: 'Board',
       component: BoardView,
       children: [
-        // this will render the UserList for these 3 URLs
-        // - /users
-        // - /users/list
-        // - /people
         { path: '/', component: BoardView, alias: ['/board'] },
       ],
     },
     {
       path: '/calendar',
-      name: 'calendar',
+      name: 'Calendar',
       component: CalendarView
     },
     {
@@ -31,7 +27,7 @@ const router = createRouter({
       component: UserProfileView
     },
     {
-      path: '/task/create/:boardId/:workflowId',
+      path: '/task/create/b/:boardId/w/:workflowId',
       name: 'AddTask',
       props: true,
       component: AddTaskView
