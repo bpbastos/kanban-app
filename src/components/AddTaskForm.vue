@@ -3,7 +3,7 @@
         <input maxlength="45" type="text" v-model="newTaskTitle" ref="newTaskTitleInput" @keyup.enter="addNewTask" @keyup.esc="emit('cancel')"
             class="rounded bg-white appearance-none p-3 text-sm border-2 focus:outline-none focus:bg-white focus:border-secondary"
             placeholder="Insira um título para tarefa...">
-        <div class="flex gap-1 text-sm">
+        <div class="flex pb-3 gap-1 text-sm">
             <button @click="addNewTask">
                 <svg class="w-5 h-5 text-white rounded shadow bg-green-400 hover:bg-green-600 active:bg-green-800 active:border-2 border-gray-300"
                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
