@@ -3,8 +3,7 @@
     <section class="flex flex-col rounded-b-lg bg-board drop-shadow-xl">
       <p class="text-secondary text-lg font-medium p-4">{{ name }}</p>
       <div class="max-h-[568px] overflow-auto scrollbar scrollbar-w-1 scrollbar-thumb-slate-300 m-2 ml-2 mr-2 space-y-2">
-        <TaskCard v-for="task in tasks" :priority="task.priority" :title="task.title" :attachments=task.attachmentsAmount
-          :comments=task.commentsAmount />
+        <TaskCard v-for="task in tasks" :priority="task.priority" :title="task.title" :total-sub-tasks-done="task.subtasks?.filter((item)=>{return item.done})?.length" :total-sub-tasks="task.subtasks?.length" />
       </div>
       <RouterLink :to="{ name: 'AddTask', params: { boardId: boardId, workflowId: id } }"
         class="flex flex-row p-4 items-center justify-center text-secondary text-base font-medium">
