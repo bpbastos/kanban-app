@@ -2,7 +2,7 @@
     <div class="rounded-lg pt-1 drop-shadow-xl bg-green-400">
         <section class="flex flex-col p-3 rounded-b-lg bg-board drop-shadow-xl">
             <img class="shadow rounded-full w-28 h-28 align-middle border-none object-cover" :src="profilePicture" :alt="username" />
-            <h1 class="text-gray-900 font-bold text-xl leading-8 my-1">{{ firstName }} {{ lastName }}</h1>
+            <h1 class="leading-8 my-1 text-secondary text-lg font-bold">{{ firstName }} {{ lastName }}</h1>
             <h3 class="text-gray-600 font-lg text-semibold leading-6">{{ occupation }}</h3>
             <p class="text-sm text-gray-500 hover:text-gray-600 leading-6">
                 {{ biografy }}
@@ -20,7 +20,7 @@
                 </li>
             </ul>
             <div class="mt-3">
-                <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
+                <div class="flex items-center space-x-2 text-lg font-bold  text-secondary leading-8">
                     <span clas="text-green-500">
                         <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
@@ -30,36 +30,36 @@
                     </span>
                     <span class="tracking-wide">Sobre</span>
                 </div>
-                <div class="text-gray-700">
+                <div class="text-secondary">
                     <div class="grid md:grid-cols-2 text-sm">
                         <div class="grid grid-cols-2">
-                            <div class="px-4 py-2 font-semibold">Primeiro Nome</div>
+                            <div class="px-4 py-2 font-bold">Primeiro Nome</div>
                             <div class="px-4 py-2">{{ firstName }}</div>
                         </div>
                         <div class="grid grid-cols-2">
-                            <div class="px-4 py-2 font-semibold">Último Nome</div>
+                            <div class="px-4 py-2 font-bold">Último Nome</div>
                             <div class="px-4 py-2">{{ lastName }}</div>
                         </div>
                         <div class="grid grid-cols-2">
-                            <div class="px-4 py-2 font-semibold">Gênero</div>
+                            <div class="px-4 py-2 font-bold">Gênero</div>
                             <div class="px-4 py-2">{{ gender }}</div>
                         </div>
                         <div class="grid grid-cols-2">
-                            <div class="px-4 py-2 font-semibold">Celular</div>
+                            <div class="px-4 py-2 font-bold">Celular</div>
                             <div class="px-4 py-2">{{ mobile }}</div>
                         </div>
                         <div class="grid grid-cols-2">
-                            <div class="px-4 py-2 font-semibold">Endereço</div>
+                            <div class="px-4 py-2 font-bold">Endereço</div>
                             <div class="px-4 py-2">{{ address }}</div>
                         </div>
                         <div class="grid grid-cols-2">
-                            <div class="px-4 py-2 font-semibold">E-mail</div>
+                            <div class="px-4 py-2 font-bold">E-mail</div>
                             <div class="px-4 py-2">
                                 <a class="text-blue-800" href="mailto:{{ email }}">{{ email }}</a>
                             </div>
                         </div>
                         <div class="grid grid-cols-2">
-                            <div class="px-4 py-2 font-semibold">Aniversário</div>
+                            <div class="px-4 py-2 font-bold">Aniversário</div>
                             <div class="px-4 py-2">{{ birthday }}</div>
                         </div>
                     </div>
