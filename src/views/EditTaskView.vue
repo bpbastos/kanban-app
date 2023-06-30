@@ -86,7 +86,8 @@
 <script setup>
 import SubTasks from '@/components/SubTasks.vue'
 const props = defineProps({
-  workflowId: String,
-  boardId: String
+  id: String
 })
+
+console.log(props.id)
 </script>
