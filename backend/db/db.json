@@ -29,76 +29,61 @@
       "name": "Sprint 3 - Backend Avançado"
     }
   ],
+  "priorities": [
+    {
+      "id": 1,
+      "name": "Baixa",
+      "color": "blue"
+    },
+    {
+      "id": 2,
+      "name": "Média",
+      "color": "green"
+    },
+    {
+      "id": 3,
+      "name": "Alta",
+      "color": "purple"
+    }
+  ],
   "workflows": [
     {
       "id": 1,
       "name": "Backlog",
-      "color": "bg-purple-400"
+      "color": "purple"
     },
     {
       "id": 2,
       "name": "Em andamento",
-      "color": "bg-orange-400"
+      "color": "orange"
     },
     {
       "id": 3,
       "name": "Em análise",
-      "color": "bg-blue-400"
+      "color": "blue"
     },
     {
       "id": 4,
       "name": "Concluído",
-      "color": "bg-green-400"
+      "color": "green"
     }
   ],
   "tasks": [
     {
       "title": "Tarefa 1",
-      "priority": "none",
+      "priority_id": 2,
       "board_id": 1,
       "workflow_id": 1,
       "date_added": "30-6-2023",
       "id": 1
     },
     {
-      "title": "Tarefa 2",
-      "priority": "none",
-      "board_id": 1,
-      "workflow_id": 2,
-      "date_added": "30-6-2023",
-      "id": 2
-    },
-    {
-      "title": "Tarefa 3",
-      "priority": "none",
-      "board_id": 1,
-      "workflow_id": 3,
-      "date_added": "30-6-2023",
-      "id": 3
-    },
-    {
-      "title": "Tarefa 4",
-      "priority": "none",
-      "board_id": 1,
-      "workflow_id": 4,
-      "date_added": "30-6-2023",
-      "id": 4
-    },
-    {
-      "title": "Tarefa 5",
-      "priority": "none",
-      "board_id": 1,
+      "title": "Tarefa 1",
+      "priority_id": 1,
+      "board_id": 2,
       "workflow_id": 1,
-      "date_added": "30-6-2023",
-      "id": 5
-    },
-    {
-      "title": "Tarefa 6",
-      "priority": "none",
-      "board_id": 1,
-      "workflow_id": 4,
-      "date_added": "30-6-2023",
-      "id": 6
+      "date_added": "1-7-2023",
+      "id": 2
     }
   ]
 }
