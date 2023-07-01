@@ -11,7 +11,7 @@
           @add="updateTasks(boardId, id); isAddNewTaskButtonClicked = false" />
       </div>
       <a href="#" @click="showAddNewTaskForm"  v-show="!isAddNewTaskButtonClicked"
-        class="flex flex-row m-3 items-center  text-secondary text-base font-semibold rounded hover:bg-gray-300">
+        class="flex flex-row m-3 items-center text-secondary text-base font-semibold rounded hover:bg-gray-300">
         <i class="fa-solid fa-plus"></i>
         <p class="ml-2">Adicionar uma tarefa</p>
       </a>
