@@ -9,7 +9,7 @@
       :board-id="boardId"
       :id="workflow.id"
       :name="workflow.name"
-      :class="workflow.color"
+      :class="`bg-${workflow.color}-400`"
     />       
   </div>
 </template>
