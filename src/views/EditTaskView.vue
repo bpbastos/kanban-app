@@ -1,93 +1,85 @@
 <template>
-  <div class="rounded-lg pt-1 drop-shadow-xl bg-green-400">
-    <section class="flex flex-col justify-center items-center p-10 rounded-b-lg bg-board drop-shadow-xl">
-
-      <div class="w-full h-full divide-gray-300 divide-y-2">
-        <h1 class="leading-8 my-1 text-secondary text-lg font-medium">Adicionar tarefa</h1>
-        <div>
-          <form class="rounded px-8 pt-6 pb-8 mb-4">
-            <div class="mb-4">
-              <label class="block text-secondary text-sm font-bold mb-2" for="title">
-                Título
-              </label>
-              <input
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-secondary leading-tight focus:outline-none focus:shadow-outline"
-                id="title" type="text" placeholder="Título">
-            </div>
-            <div class="mb-4">
-              <label class="block text-secondary text-sm font-bold mb-2" for="priority">
-                Prioridade
-              </label>
-              <div class="inline-block relative w-full">
-                <select 
-                  class="shadow appearance-none border rounded w-full py-2 px-3 text-secondary leading-tight focus:outline-none focus:shadow-outline"
-                  name="priority" id="priority">
-                  <option value="low">Baixa</option>
-                  <option value="normal">Média</option>
-                  <option value="high">Alta</option>
-                </select>
-                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                  <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                  </svg>
-                </div>
-              </div>
-            </div>
-            <div class="mb-4">
-              <label class="block text-secondary text-sm font-bold mb-2" for="board">
-                Quadro
-              </label>
-              <div class="inline-block relative w-full">
-                <select 
-                  class="shadow appearance-none border rounded w-full py-2 px-3 text-secondary leading-tight focus:outline-none focus:shadow-outline"
-                  name="board" id="board">
-                  <option value="1">Sprint 1 - Fullstack Basico</option>
-                  <option value="2">Sprint 2 - Frontend Avançado</option>
-                  <option value="3">Sprint 3 - Backend Avançado</option>
-                </select>
-                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                  <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                  </svg>
-                </div>
-              </div>
-            </div>  
-            <div class="mb-4">
-              <label class="block text-secondary text-sm font-bold mb-2" for="">
-                Etapa
-              </label>
-              <div class="inline-block relative w-full">
-                <select
-                  class="shadow appearance-none border rounded w-full py-2 px-3 text-secondary leading-tight focus:outline-none focus:shadow-outline"
-                  name="board" id="board">
-                  <option value="1">Backlog</option>
-                  <option value="2">Em andamento</option>
-                  <option value="3">Em análise</option>
-                  <option value="4">Concluído</option>
-                </select>
-                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-secondary">
-                  <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                  </svg>
-                </div>
-              </div>
-            </div> 
-            <div class="mb-4">
-              <SubTasks />                          
-            </div>                                            
-          </form>
+  <div class="rounded-lg pt-1 drop-shadow-xl" :class="`bg-${currentPriority.color}-400`" v-if="priorities?.length > 0">
+    <section class="flex flex-col justify-center items-center p-3 rounded-b-lg bg-board drop-shadow-xl">
+      <div class="w-full h-full bg-white rounded shadow p-4 text-sm font-medium">
+        <div class="flex">
+          <label for="title" class="block overflow-hidden px-3 py-2 w-3/4">
+            <span class="text-gray-400 uppercase">Título:</span>
+            <input type="title" id="title" v-model="task.title"
+              class="border-b border-gray-300 outline-none my-3 w-full" />
+          </label>
+          <label for="title" class="flex flex-col overflow-hidden px-3 py-2">
+            <span class="text-gray-400 uppercase">Prioridade:</span>
+            <ColoredDropDown :items="priorities" :selected-id="task.priority_id" v-if="workflows?.length > 0"
+              class="z-20"
+              @change="changePriority" />
+          </label>
+        </div>
+        <div class="flex">
+          <SubTasks class="w-3/4"/>
+          <label for="title" class="flex flex-col justify-end overflow-hidden ml-2 mb-2">
+            <span class="text-gray-400 uppercase">Workflow:</span>
+            <ColoredDropDown :items="workflows" :selected-id="task.workflow_id" v-if="workflows?.length > 0"
+              class="z-10"
+              @change="changeWorkflow" />
+          </label>
         </div>
       </div>
-
     </section>
   </div>
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import SubTasks from '@/components/SubTasks.vue'
+import ColoredDropDown from '@/components/ColoredDropDown.vue'
+import TaskDataService from '@/services/TaskDataService'
+import WorkflowDataService from '@/services/WorkflowDataService'
+import PriorityDataService from '@/services/PriorityDataService'
+
+const task = ref([])
+const workflows = ref([])
+const priorities = ref([])
+const currentWorkflow = ref('')
+const currentPriority = ref('')
+
 const props = defineProps({
   id: String
 })
 
-console.log(props.id)
+const changeWorkflow = (workflow) => {
+  currentWorkflow.value = workflow
+}
+
+const changePriority = (priority) => {
+  currentPriority.value = priority
+}
+
+TaskDataService.getById(props.id)
+  .then((response) => {
+    task.value = response.data
+    PriorityDataService.getAll()
+      .then((response) => {
+        priorities.value = response.data
+        currentPriority.value = priorities.value.find(function (item) {
+          return task.value.priority_id == item.id
+        })
+      })
+      .catch((e) => {
+        console.log(e)
+      })
+    WorkflowDataService.getAll()
+      .then((response) => {
+        workflows.value = response.data
+        currentWorkflow.value = workflows.value.find(function (item) {
+          return task.value.workflow_id == item.id
+        })
+      })
+      .catch((e) => {
+        console.log(e)
+      })
+  })
+  .catch((e) => {
+    console.log(e)
+  })
 </script>
