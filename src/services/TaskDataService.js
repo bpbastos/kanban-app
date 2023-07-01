@@ -9,8 +9,8 @@ class TaskDataService {
     return http.get(`/tasks?board_id=${boardId}&workflow_id=${workflowId}`)
   }
 
-  getById(id) {
-    return http.get(`/tasks/${id}`)
+  async getById(id) {
+    return await http.get(`/tasks/${id}`)
   }
 
   add(title,boardId,workflowId) {
@@ -21,7 +21,7 @@ class TaskDataService {
     let currentDate = `${day}-${month}-${year}`;    
     return http.post("/tasks", {
       title: title,
-      priority: "none",
+      priority_id: 1,
       board_id: boardId,
       workflow_id: workflowId,
       date_added: currentDate

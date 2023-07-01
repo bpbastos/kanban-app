@@ -1,12 +1,12 @@
 import http from "@/http-common";
 
 class BoardDataService {
-  getAll() {
-    return http.get("/boards");
+  async getAll() {
+    return await http.get("/boards");
   }
 
-  get(id) {
-    return http.get(`/boards/${id}`);
+  async get(id) {
+    return await http.get(`/boards/${id}`);
   }
 }
 

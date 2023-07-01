@@ -1,12 +1,12 @@
 import http from "@/http-common";
 
 class WorkflowDataService {
-  getAll() {
-    return http.get("/workflows");
+  async getAll() {
+    return await http.get("/workflows");
   }
 
-  get(id) {
-    return http.get(`/workflows/${id}`);
+  async get(id) {
+    return await http.get(`/workflows/${id}`);
   }
 }
 

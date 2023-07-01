@@ -1,12 +1,12 @@
 import http from "@/http-common";
 
 class UserDataService {
-  getById(id) {
-    return http.get(`/user?id=${id}`);
+  async getById(id) {
+    return await http.get(`/user?id=${id}`);
   }
 
-  getByUsername(username) {
-    return http.get(`/user?username=${username}`);
+  async getByUsername(username) {
+    return await http.get(`/user?username=${username}`);
   }
 
 }
