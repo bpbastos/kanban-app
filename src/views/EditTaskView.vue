@@ -2,7 +2,7 @@
   <div class="flex items-center justify-center w-10/12">
     <div class="card pt-[2px] bg-primary shadow-2xl w-full">
       <div class="card bg-base-300 p-4">
-        <form action="form-control p-3" >
+        <form action="form-control p-3">
           <div class="flex space-x-2 items-center">
             <div class="w-10/12">
               <label class="label">
@@ -43,33 +43,51 @@
             <div class="w-36">
               <label class="label space-x-1">
                 <span class="text-base label-text uppercase font-normal">STATUS:</span>
-              </label>              
-              <div class="badge w-full uppercase font-semibold p-3" v-if="currentWorkflowName" :class="`bg-${currentWorkflowColor}-400`">{{ currentWorkflowName }}</div>
+              </label>
+              <div
+                class="badge w-full uppercase font-semibold p-3"
+                v-if="currentWorkflowName"
+                :class="`bg-${currentWorkflowColor}-400`"
+              >
+                {{ currentWorkflowName }}
+              </div>
             </div>
           </div>
           <div class="flex space-x-2 items-start">
             <div class="w-10/12">
               <label class="label space-x-1">
                 <span class="text-base label-text uppercase font-normal">DESCRIÇÃO:</span>
-              </label>  
+              </label>
               <textarea
                 v-model="task.description"
                 type="text"
                 placeholder="Descrição"
                 class="textarea textarea-primary textarea-md w-full mt-2 font-semibold"
               >
-              </textarea>  
+              </textarea>
             </div>
-          </div> 
+          </div>
           <div class="flex flex-col justify-end space-x-2 mt-2">
             <div>
-            <div class="divider"></div>
+              <div class="divider"></div>
+            </div>
+            <div class="flex justify-end space-x-2 mt-2">
+              <button
+                class="btn btn-neutral"
+                @keydown.enter.exact.prevent=""
+                @click.prevent="router.push({ name: 'Board' })"
+              >
+                Cancelar
+              </button>
+              <button
+                class="btn btn-primary"
+                @keydown.enter.exact.prevent=""
+                @click.prevent="update"
+              >
+                Salvar
+              </button>
+            </div>
           </div>
-          <div class="flex justify-end space-x-2 mt-2">
-            <button class="btn btn-neutral"  @keydown.enter.exact.prevent="" @click.prevent="router.push({ name: 'Board' })">Cancelar</button>
-            <button class="btn btn-primary"  @keydown.enter.exact.prevent="">Salvar</button>
-          </div>
-          </div>         
         </form>
       </div>
     </div>
@@ -95,9 +113,23 @@ const props = defineProps({
   id: String
 })
 
+const update = () => {
+  let tempTask = {
+    id: task.value.id,
+    title: task.value.title,
+    description: task.value.description,
+    subtasks: task.value.subtasks,
+    priority_id: currentPriority.value
+  }
 
-const test = () => {
-  console.log('subimited')
+  TaskDataService.update(tempTask)
+    .then((response) => {
+      console.log(response.data)
+      router.push({ name: 'Board', params: { taskid: tempTask.id } })
+    })
+    .catch((e) => {
+      console.log(e)
+    })
 }
 
 PriorityDataService.getAll()
@@ -118,7 +150,4 @@ TaskDataService.getById(props.id)
   .catch((e) => {
     console.log(e)
   })
-
-
-  
 </script>

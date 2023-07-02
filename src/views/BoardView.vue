@@ -24,6 +24,10 @@ import WorkflowCard from '../components/WorkflowCard.vue'
 const workflows = ref([])
 const boardId = ref(0)
 
+const props = defineProps({
+  taskid: String,
+})
+
 const updateWorkflows = async () => {
   WorkflowDataService.getAll()
     .then((response) => {
@@ -45,4 +49,6 @@ const updateBoard = (board) => {
 onMounted(() => {
   updateWorkflows()
 })
+
+console.log(props.taskid)
 </script>

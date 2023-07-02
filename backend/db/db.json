@@ -69,5 +69,47 @@
     }
   ],
   "tasks": [
+    {
+      "title": "Tarefa 1",
+      "description": "Descrição da tarefa 1",
+      "priority": {
+        "id": 3,
+        "name": "Alta",
+        "color": "error"
+      },
+      "workflow": {
+        "id": 1,
+        "name": "Backlog",
+        "color": "purple"
+      },
+      "board": {
+        "id": 1,
+        "name": "Sprint 1 - Fullstack Basico"
+      },
+      "subtasks": [
+        {
+          "text": "Sub tarefa 1",
+          "done": true
+        },
+        {
+          "text": "Sub tarefa 2",
+          "done": false
+        },
+        {
+          "text": "Sub tarefa 3",
+          "done": false
+        },
+        {
+          "text": "Sub tarefa 4",
+          "done": false
+        }
+      ],
+      "board_id": 1,
+      "order": 0,
+      "workflow_id": 1,
+      "priority_id": 3,
+      "date_added": "2-7-2023",
+      "id": 1
+    }
   ]
 }
