@@ -6,9 +6,21 @@ module.exports = {
     'bg-orange-400',
     'bg-blue-400',
     'bg-green-400',
-    'bg-blue-500'
+    'bg-blue-500',
+    'badge-info',
+    'badge-warning',
+    'badge-error',
+    'radio-info',
+    'radio-warning',
+    'radio-error',
+    'tooltip-info',
+    'tooltip-warning',
+    'tooltip-error'
   ],  
-  theme: {
+  daisyui: {
+    themes: ["corporate"],
+  },  
+  /*theme: {
     extend: {
       colors: {
         primary: '#86A6DB',
@@ -21,13 +33,7 @@ module.exports = {
       },
 
     },
-  },
-  fontFamily: {
-    Roboto: ["Roboto, sans-serif"],
-  },
-  container: {
-
-  },
+  },*/
   screens: {
     'sm': { min: '320px', max: '480px' },
     'md': { min: '481px', max: '768px' },
@@ -37,6 +43,7 @@ module.exports = {
   },
   plugins: [
     require('tailwind-scrollbar')({ nocompatible: true }),
+    require("daisyui"),
   ],
 }
 

@@ -1,31 +1,41 @@
 <template>
-  <div class="relative z-10 block w-auto py-2" @keyup.esc="isOpen = false">
-    <a href="#" @click="isOpen = !isOpen" class="relative z-10 block overflow-hidden">
-      <span class="text-secondary opacity-80 text-lg font-bold pr-5">{{ selectedItem }}</span>
-      <i class="fa-solid fa-chevron-down bg-gray-300 rounded-full p-2 drop-shadow-2xl text-primary"></i>
-    </a>
-    <button v-if="isOpen" @click="isOpen = !isOpen" tabindex="-1"
-      class="fixed inset-0 h-full w-full cursor-default"></button>
-    <div v-if="isOpen" class="absolute mt-2 bg-white w-auto rounded-lg shadow-xl">
-      <a v-for="(board, index) in boards" href="#" @click="changeSelected(board)"
-        class="block px-4 py-2 w-auto text-gray-800 hover:bg-primary hover:text-white"
-        :class="[index == 0 ? 'hover:rounded-t-lg' : index == boards.length - 1 ? 'hover:rounded-b-lg' : '']">{{ board.name
-        }}</a>
-    </div>
+  <div class="dropdown">
+    <label tabindex="0" class="btn m-1 text-lg">
+      {{ selectedItem }}
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-7 h-7 bg-neutral-content rounded-full drop-shadow-2xl text-primary"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+      </svg>
+    </label>
+    <ul
+      tabindex="0"
+      class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box text-base"
+      ref="items"
+    >
+      <li>
+        <a v-for="(board, index) in boards" @click="changeSelected(board)">{{ board.name }}</a>
+      </li>
+    </ul>
   </div>
 </template>
 <script setup>
-import { ref, onMounted } from 'vue';
-import BoardDataService from '../services/BoardDataService'
+import { ref, onMounted } from 'vue'
+import BoardDataService from '@/services/BoardDataService'
 
 const emit = defineEmits(['change'])
-const isOpen = ref(false)
+const items = ref(null)
 const selectedItem = ref('')
 const boards = ref([])
 
 const changeSelected = (board) => {
   selectedItem.value = board.name
-  isOpen.value = false
+  items.value.blur()
   emit('change', board)
 }
 

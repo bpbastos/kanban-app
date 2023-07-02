@@ -1,14 +1,14 @@
 <template>
-  <div class="container mx-auto max-w-screen-xl max-h-screen font-Roboto bg-white">
+  <div class="container mx-auto max-w-screen-xl max-h-screen ">
     <PageHeader
       :username="username"
       :firstName="firstName"
       :lastName="lastName"
       :profilePicture="profilePicture"
     />
-    <div class="flex">
+    <div class="flex bg-neutral">
       <SideBar />
-      <main class="min-h-screen w-screen bg-main py-8 px-8">
+      <main class="py-8 px-8 w-screen">
         <div class="flex flex-col">
           <RouterView />
         </div>

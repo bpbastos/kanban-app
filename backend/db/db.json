@@ -33,17 +33,17 @@
     {
       "id": 1,
       "name": "Baixa",
-      "color": "blue"
+      "color": "info"
     },
     {
       "id": 2,
-      "name": "Média",
-      "color": "green"
+      "name": "Media",
+      "color": "warning"
     },
     {
       "id": 3,
       "name": "Alta",
-      "color": "purple"
+      "color": "error"
     }
   ],
   "workflows": [
@@ -69,21 +69,5 @@
     }
   ],
   "tasks": [
-    {
-      "title": "Tarefa 1",
-      "priority_id": 2,
-      "board_id": 1,
-      "workflow_id": 1,
-      "date_added": "30-6-2023",
-      "id": 1
-    },
-    {
-      "title": "Tarefa 1",
-      "priority_id": 1,
-      "board_id": 2,
-      "workflow_id": 1,
-      "date_added": "1-7-2023",
-      "id": 2
-    }
   ]
 }
