@@ -5,7 +5,7 @@
     <nav
       class="flex justify-center items-center w-[120px] flex-shrink-0 bg-primary bg-opacity-25 drop-shadow-xl hover:bg-secondary-focus hover:cursor-pointer"
     >
-      <p class="text-lg font-bold m-auto text-primary-content">kanban</p>
+      <p class="text-xl font-bold m-auto text-primary-content">kanban</p>
     </nav>
     <RouterLink
       v-if="username"
