@@ -22,12 +22,13 @@
 - Implementar backend real.
 - Login de usuário.
 - Registro de usuários.
-- Criar quadros
+- Criar/Editar/Arquivar quadros.
+- Criar/Editar/Arquivar workflows|status.
 - Associar usuários a tarefas.
 - Associar usuários a sub tarefas.
 - Reordenar tarefas.
 - Reordenar sub tarefas.
-- Arrastar tarefas entre workflows.
+- Arrastar tarefas entre workflows|status.
 - Layout Responsivo no mobile.
 - Gerenciador de temas.
 
