@@ -1,3 +1,3 @@
 <template>
-<div>Add board</div>     
+<div>TODO: Add Board View</div>     
 </template>

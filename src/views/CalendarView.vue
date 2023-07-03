@@ -1,3 +1,3 @@
 <template>
-<div>Calendario</div> 
+<div>TODO: Calendario View</div> 
 </template>
