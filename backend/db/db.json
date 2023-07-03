@@ -97,11 +97,11 @@
         },
         {
           "text": "Sub tarefa 3",
-          "done": false
+          "done": true
         },
         {
           "text": "Sub tarefa 4",
-          "done": false
+          "done": true
         }
       ],
       "board_id": 1,
@@ -128,7 +128,12 @@
         "id": 1,
         "name": "Sprint 1 - Fullstack Basico"
       },
-      "subtasks": [],
+      "subtasks": [
+        {
+          "text": "Sub tarefa 1",
+          "done": false
+        }
+      ],
       "board_id": 1,
       "order": 0,
       "workflow_id": 2,
