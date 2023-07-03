@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center justify-center w-10/12">
+   <div class="flex items-center justify-center w-12/12">
     <div class="card pt-[2px] bg-primary shadow-2xl w-full">
       <div class="card bg-base-300 p-4">
         <form action="form-control p-3">
@@ -62,7 +62,7 @@
                 v-model="task.description"
                 type="text"
                 placeholder="Descrição"
-                class="textarea textarea-primary textarea-md w-full mt-2 font-semibold"
+                class="textarea textarea-primary textarea-md text-base w-full mt-2 font-semibold"
               >
               </textarea>
             </div>

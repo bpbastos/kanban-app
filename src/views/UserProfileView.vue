@@ -7,13 +7,13 @@
               <img :src="profilePicture" />
             </div>
           </div>
-          <h1 class="leading-8 my-1 text-lg font-bold">{{ firstName }} {{ lastName }}</h1>
+          <h1 class="leading-8 my-1 font-bold text-xl">{{ firstName }} {{ lastName }}</h1>
           <h3 class="font-lg text-semibold leading-6">{{ occupation }}</h3>
-          <p class="text-sm leading-6">
+          <p class="leading-6">
             {{ biografy }}
           </p>
           <div class="card bg-base-100 p-2">
-            <div class="grid md:grid-cols-2 text-sm">
+            <div class="grid md:grid-cols-2 ">
               <div class="grid grid-cols-2">
                 <div class="px-4 py-2 font-bold">Primeiro Nome</div>
                 <div class="px-4 py-2">{{ firstName }}</div>

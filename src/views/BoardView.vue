@@ -50,5 +50,4 @@ onMounted(() => {
   updateWorkflows()
 })
 
-console.log(props.taskid)
 </script>
