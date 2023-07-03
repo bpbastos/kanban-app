@@ -2,11 +2,12 @@
 
 [![Package - vue](https://img.shields.io/github/package-json/dependency-version/bpbastos/kanban-app/vue?color=green)](https://www.npmjs.com/package/vue)
 [![Package - tailwindcss](https://img.shields.io/github/package-json/dependency-version/bpbastos/kanban-app/dev/tailwindcss?color=blue)](https://www.npmjs.com/package/tailwindcss)
+[![Package - tailwind-scrollbar](https://img.shields.io/github/package-json/dependency-version/bpbastos/kanban-app/dev/tailwind-scrollbar?color=blue)](https://www.npmjs.com/package/tailwind-scrollbar)
 [![Package - daisyui](https://img.shields.io/github/package-json/dependency-version/bpbastos/kanban-app/dev/daisyui?color=purple)](https://www.npmjs.com/package/daisyui)
 
 <img src="screenshot/board.jpg" alt="Tela principal">
 
-> Pequena aplicação web que simula um quadro kanban desenvolvida com Vue 3, Tailwind CSS e DaisyUI. 
+> Pequena aplicação web de gestão de tarefas através do Kanban desenvolvida com Vue 3, Tailwind CSS e DaisyUI. 
 
 > Este frontend foi desenvolvido como trabalho de conclusão do módulo 2 do curso Desenvolvimento Frontend Avançado da Pós-Graduação em Desenvolvimento FullStack da PUC-RIO. 
 
@@ -24,6 +25,7 @@
 - Registro de usuários.
 - Criar/Editar/Arquivar quadros.
 - Criar/Editar/Arquivar workflows|status.
+- Arquivar tarefas.
 - Associar usuários a tarefas.
 - Associar usuários a sub tarefas.
 - Reordenar tarefas.
