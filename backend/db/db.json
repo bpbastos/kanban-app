@@ -170,6 +170,56 @@
       "title": "Tarefa 4",
       "description": "",
       "priority": {
+        "id": 2,
+        "name": "Media",
+        "color": "warning"
+      },
+      "workflow": {
+        "id": 4,
+        "name": "Concluído",
+        "color": "green"
+      },
+      "board": {
+        "id": 1,
+        "name": "Sprint 1 - Fullstack Basico"
+      },
+      "subtasks": [],
+      "board_id": 1,
+      "order": 0,
+      "workflow_id": 4,
+      "priority_id": 2,
+      "date_added": "2-7-2023",
+      "id": 4
+    },
+    {
+      "title": "Tarefa 5",
+      "description": "",
+      "priority": {
+        "id": 2,
+        "name": "Media",
+        "color": "warning"
+      },
+      "workflow": {
+        "id": 3,
+        "name": "Em análise",
+        "color": "blue"
+      },
+      "board": {
+        "id": 1,
+        "name": "Sprint 1 - Fullstack Basico"
+      },
+      "subtasks": [],
+      "board_id": 1,
+      "order": 0,
+      "workflow_id": 3,
+      "priority_id": 2,
+      "date_added": "3-7-2023",
+      "id": 5
+    },
+    {
+      "title": "Tarefa 6",
+      "description": "",
+      "priority": {
         "id": 1,
         "name": "Baixa",
         "color": "info"
@@ -188,8 +238,8 @@
       "order": 0,
       "workflow_id": 4,
       "priority_id": 1,
-      "date_added": "2-7-2023",
-      "id": 4
+      "date_added": "3-7-2023",
+      "id": 6
     }
   ]
 }
