@@ -37,7 +37,7 @@ Antes de começar, verifique se você atendeu aos seguintes requisitos:
 <!---Estes são apenas requisitos de exemplo. Adicionar, duplicar ou remover conforme necessário--->
 * `NodeJS`
 
-## 🚀 Instalando o Kanban App
+## 🚀 Instalando
 
 Para instalar, siga estas etapas:
 
@@ -52,7 +52,7 @@ Após clonar, instale as dependências da aplicação.
 npm install
 ```
 
-## ☕ Usando <Gerenciador de Tarefas>
+## ☕ Usando
 
 Primeiro inicie o fake backend:
 
