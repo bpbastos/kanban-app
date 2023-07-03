@@ -59,11 +59,11 @@ const addNewTask = () => {
     TaskDataService.add(newTaskTitle.value.trim(), props.boardId, props.workflowId)
       .then((response) => {
         emit('add')
+        newTaskTitle.value = ''
       })
       .catch((e) => {
         console.log(e)
       })
-    newTaskTitle.value = ''
   }
 }
 

@@ -8,8 +8,10 @@
             return item.done
           })?.length
             " :total-sub-tasks="task.subtasks?.length" @delete="updateTasks(boardId, id)" />
+
         <AddTaskForm v-show="isAddNewTaskButtonClicked" :workflow-id="id" :board-id="boardId"
           @cancel="isAddNewTaskButtonClicked = false" @add="updateTasks(boardId, id); isAddNewTaskButtonClicked = false" />
+
       </div>
       <div class="card-actions m-3">
         <a href="#" @click="showAddNewTaskForm" v-show="!isAddNewTaskButtonClicked"
@@ -44,8 +46,8 @@ const props = defineProps({
 const updateTasks = async (boardId, workflowId) => {
   TaskDataService.getByBoardIdAndWorkflowId(boardId, workflowId)
     .then((response) => {
-      tasks.value = response.data
       isAddNewTaskButtonClicked.false
+      tasks.value = response.data
     })
     .catch((e) => {
       console.log(e)
