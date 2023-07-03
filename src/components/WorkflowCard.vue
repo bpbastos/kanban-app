@@ -1,6 +1,6 @@
 <template>
   <div class="card w-[265px] max-h-screen h-full pt-[3px]" :class="borderColor">
-    <div class="card bg-base-300 overflow-auto scrollbar scrollbar-w-1 scrollbar-thumb-primary">
+    <div class="card bg-base-200 overflow-auto scrollbar scrollbar-w-1 scrollbar-thumb-primary">
       <p class="card-title text-base-content text-lg font-medium m-3">{{ name }}</p>
       <div class="card-actions justify-center ml-2 mr-2">
         <TaskCard v-for="task in tasks" :id="task.id" :priority-label="task.priority.name"

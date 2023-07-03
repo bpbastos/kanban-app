@@ -6,7 +6,7 @@
       :lastName="lastName"
       :profilePicture="profilePicture"
     />
-    <div class="flex bg-neutral">
+    <div class="flex bg-base-300">
       <SideBar />
       <main class="py-8 px-8 w-screen">
         <div class="flex flex-col">
