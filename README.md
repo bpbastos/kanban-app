@@ -9,7 +9,7 @@
 
 > Pequena aplicação web de gestão de tarefas através do Kanban desenvolvida com Vue 3, Tailwind CSS e DaisyUI. 
 
-> Este frontend foi desenvolvido como trabalho de conclusão do módulo 2 do curso Desenvolvimento Frontend Avançado da Pós-Graduação em Desenvolvimento FullStack da PUC-RIO. 
+> Este frontend foi desenvolvido como trabalho de conclusão do segundo módulo - Desenvolvimento Frontend Avançado - da Pós-Graduação em Desenvolvimento FullStack da PUC-RIO. 
 
 ## Funcionalidades
 
@@ -34,6 +34,8 @@
 - Arrastar tarefas entre workflows|status.
 - Layout Responsivo no mobile.
 - Gerenciador de temas.
+- Validação nos formulários.
+- Implementar interface entre API e frontend via composables
 
 ## 💻 Pré-requisitos
 
