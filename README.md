@@ -11,6 +11,8 @@
 
 > Este frontend foi desenvolvido como trabalho de conclusão do segundo módulo - Desenvolvimento Frontend Avançado - da Pós-Graduação em Desenvolvimento FullStack da PUC-RIO. 
 
+> Link para o [protótipo em alta fidelidade no Figma](https://www.figma.com/file/H1MaexkrCc6AknLQi43HqE/Kanban-App?type=design&node-id=0%3A1&mode=design&t=wljF02F4Yds8ZjUA-1)
+
 ## Funcionalidades
 
 - Listar quadros.

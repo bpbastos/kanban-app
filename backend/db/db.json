@@ -240,6 +240,44 @@
       "priority_id": 1,
       "date_added": "3-7-2023",
       "id": 6
+    },
+    {
+      "title": "Tarefa  7",
+      "description": "",
+      "priority": {
+        "id": 1,
+        "name": "Baixa",
+        "color": "info"
+      },
+      "workflow": {
+        "id": 1,
+        "name": "Backlog",
+        "color": "purple"
+      },
+      "board": {
+        "id": 1,
+        "name": "Sprint 1 - Fullstack Basico"
+      },
+      "subtasks": [
+        {
+          "text": "Sub tarefa 1",
+          "done": true
+        },
+        {
+          "text": "Sub tarefa 2",
+          "done": true
+        },
+        {
+          "text": "Sub tarefa 3",
+          "done": false
+        }
+      ],
+      "board_id": 1,
+      "order": 0,
+      "workflow_id": 1,
+      "priority_id": 1,
+      "date_added": "3-7-2023",
+      "id": 7
     }
   ]
 }

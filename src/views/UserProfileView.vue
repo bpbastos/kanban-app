@@ -9,7 +9,7 @@
           </div>
           <h1 class="leading-8 my-1 font-bold text-xl">{{ firstName }} {{ lastName }}</h1>
           <h3 class="font-lg text-semibold leading-6">{{ occupation }}</h3>
-          <p class="leading-6">
+          <p class="leading-6 mb-2">
             {{ biografy }}
           </p>
           <div class="card bg-base-100 p-2">
