@@ -7,7 +7,7 @@
 
 <img src="screenshot/board.jpg" alt="Tela principal">
 
-> Pequena aplicação web de gestão de tarefas através do Kanban desenvolvida com Vue 3, Tailwind CSS e DaisyUI. 
+> Pequena aplicação web de gestão de projetos utilizando Kanban. Desenvolvida com Vue 3, Tailwind CSS e DaisyUI. 
 
 > Este frontend foi desenvolvido como trabalho de conclusão do segundo módulo - Desenvolvimento Frontend Avançado - da Pós-Graduação em Desenvolvimento FullStack da PUC-RIO. 
 
