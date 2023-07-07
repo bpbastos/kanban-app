@@ -3,16 +3,16 @@
     <input
       type="text"
       placeholder="Insira um título para tarefa..."
-      class="input input-secondary input-md"
+      class="input input-primary input-md"
       maxlength="45"
       v-model="newTaskTitle"
+      tabindex="0"      
       ref="newTaskTitleInput"
-      tabindex="0"
       @keyup.enter="addNewTask"
       @keyup.esc="emit('cancel')"
     />
     <div class="flex text-sm mt-2 gap-1">
-      <button class="btn btn-success btn-xs" @click="addNewTask">
+      <button class="btn btn-xs btn-success" @click="addNewTask">
         <svg
           class="w-4 h-4"
           xmlns="http://www.w3.org/2000/svg"
@@ -24,7 +24,7 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
         </svg>
       </button>
-      <button class="btn btn-error btn-xs" @click="emit('cancel')">
+      <button class="btn btn-xs btn-error " @click="emit('cancel')">
         <svg
           class="w-4 h-4"
           xmlns="http://www.w3.org/2000/svg"
@@ -41,7 +41,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onUpdated, nextTick } from 'vue'
 import TaskDataService from '../services/TaskDataService'
 
 const props = defineProps({
@@ -66,5 +66,12 @@ const addNewTask = () => {
       })
   }
 }
+
+//Focus no input assim que o elemento é exibido no DOM
+onUpdated(() => {
+  nextTick(() => {
+    newTaskTitleInput.value.focus()
+  });
+})
 
 </script>
