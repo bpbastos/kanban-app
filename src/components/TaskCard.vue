@@ -42,9 +42,9 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import DeleteConfirmationModal from './DeleteConfirmationModal.vue'
-import TaskDataService from '../services/TaskDataService'
-import TaskProgressBar from './TaskProgressBar.vue';
+import DeleteConfirmationModal from '@/components/DeleteConfirmationModal.vue'
+import TaskDataService from '@/services/TaskDataService'
+import TaskProgressBar from '@/components/TaskProgressBar.vue';
 
 const emit = defineEmits(['delete'])
 const router = useRouter()

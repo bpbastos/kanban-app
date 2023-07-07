@@ -28,5 +28,5 @@
 </template>
 
 <script setup>
-import NavLink from './NavLink.vue'
+import NavLink from '@/components/NavLink.vue'
 </script>

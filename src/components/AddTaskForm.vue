@@ -42,7 +42,7 @@
 
 <script setup>
 import { ref, onUpdated, nextTick } from 'vue'
-import TaskDataService from '../services/TaskDataService'
+import TaskDataService from '@/services/TaskDataService'
 
 const props = defineProps({
   workflowId: Number,

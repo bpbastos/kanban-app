@@ -47,7 +47,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import TaskProgressBar from './TaskProgressBar.vue';
+import TaskProgressBar from '@/components/TaskProgressBar.vue';
 
 const props = defineProps({
   subTasks: Array
