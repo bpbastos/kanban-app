@@ -278,6 +278,31 @@
       "priority_id": 1,
       "date_added": "3-7-2023",
       "id": 7
+    },
+    {
+      "title": "Tarefa 8",
+      "description": "",
+      "priority": {
+        "id": 1,
+        "name": "Baixa",
+        "color": "info"
+      },
+      "workflow": {
+        "id": 1,
+        "name": "Backlog",
+        "color": "purple"
+      },
+      "board": {
+        "id": 1,
+        "name": "Sprint 1 - Fullstack Basico"
+      },
+      "subtasks": [],
+      "board_id": 1,
+      "order": 0,
+      "workflow_id": 1,
+      "priority_id": 1,
+      "date_added": "7-7-2023",
+      "id": 8
     }
   ]
 }
