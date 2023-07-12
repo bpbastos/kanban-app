@@ -32,8 +32,9 @@ import { ref, watch } from 'vue'
 import TaskCard from '@/components/TaskCard.vue'
 import AddTaskForm from '@/components/AddTaskForm.vue'
 import TaskDataService from '@/services/TaskDataService'
+import { useTasks } from '@/composables/TaskData'
 
-const tasks = ref([])
+//const tasks = ref([])
 const isAddNewTaskButtonClicked = ref(false)
 
 const props = defineProps({
@@ -44,14 +45,15 @@ const props = defineProps({
 })
 
 const updateTasks = async (boardId, workflowId) => {
-  TaskDataService.getByBoardIdAndWorkflowId(boardId, workflowId)
+  useTasks(boardId, workflowId)
+  /*TaskDataService.getByBoardIdAndWorkflowId(boardId, workflowId)
     .then((response) => {
       isAddNewTaskButtonClicked.false
       tasks.value = response.data
     })
     .catch((e) => {
       console.log(e)
-    })
+    })*/
 }
 
 const showAddNewTaskForm = () => {
