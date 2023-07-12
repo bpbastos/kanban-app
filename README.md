@@ -19,7 +19,7 @@
 - Criar tarefa.
 - Editar tarefa.
 - Excluir tarefa.
-- Adicionar sub tarefas as tarefas.
+- Adicionar sub tarefas.
 - Exibir informações do perfil de usuário.
 
 ## Todo
