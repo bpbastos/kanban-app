@@ -16,12 +16,12 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useLoaderStore } from '@/stores/loader'
-import WorkflowDataService from '../services/WorkflowDataService'
+import { useFetchWorkflows } from '@/composables/WorkflowData'
 import BoardSwitcher from '../components/BoardSwitcher.vue'
 import WorkflowCard from '../components/WorkflowCard.vue'
 
-const workflows = ref([])
+//const workflows = ref([])
+const { workflows, error, fetch } = useFetchWorkflows(true)
 const boardId = ref(0)
 
 const props = defineProps({
@@ -29,21 +29,12 @@ const props = defineProps({
 })
 
 const updateWorkflows = async () => {
-  WorkflowDataService.getAll()
-    .then((response) => {
-      workflows.value = response.data
-    })
-    .catch((e) => {
-      console.log(e)
-    })
+  await fetch()
 }
 
 const updateBoard = (board) => {
   boardId.value = board.id
-  const store = useLoaderStore()
-  store.setLoading(true)
   updateWorkflows()
-  store.setLoading(false)
 }
 
 onMounted(() => {

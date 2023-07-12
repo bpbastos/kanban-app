@@ -16,24 +16,7 @@
               />
             </div>
             <div class="w-24">
-              <label class="label space-x-1">
-                <span class="text-base label-text uppercase font-normal">PRIORIDADE:</span>
-              </label>
-              <div
-                v-for="priority in priorities"
-                :key="priority.id"
-                class="tooltip"
-                :class="`tooltip-${priority.color}`"
-                :data-tip="`${priority.name}`"
-              >
-                <input
-                  type="radio"
-                  :value="priority.id"
-                  v-model="currentPriority"
-                  class="radio radio-sm m-1"
-                  :class="`radio-${priority.color}`"
-                />
-              </div>
+              <PriorityRadioGroup :priority-id="task.priority_id" @change="changePriority"/>
             </div>
           </div>
           <div class="flex space-x-2 items-start">
@@ -96,19 +79,18 @@
 </template>
 
 <script setup>
-import { ref, isRef } from 'vue'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import SubTasks from '@/components/SubTasks.vue'
-import TaskDataService from '@/services/TaskDataService'
+import PriorityRadioGroup from '@/components/PriorityRadioGroup.vue'
 import { useFetchTask, useUpdateTask } from '@/composables/TaskData'
-import PriorityDataService from '@/services/PriorityDataService'
 
 const router = useRouter()
 
-const { task, errorFetch, fetch }  = useFetchTask(true)
+const { task, error, fetch }  = useFetchTask(true)
 const { taskUpd, errorUpd, update }  = useUpdateTask(true)
-const priorities = ref(null)
-const currentPriority = ref('')
+
+const currentPriority = ref(0)
 const currentWorkflowName = ref('')
 const currentWorkflowColor = ref('')
 
@@ -126,26 +108,19 @@ const updateTask = async() => {
   }
 
   await update(tempTask)
-  if (!errorUpd) {
-    router.push({ name: 'Board', params: { taskid: tempTask.id } })
-  }
+  router.push({ name: 'Board', params: { taskid: tempTask.id } })
+
 }
 
-PriorityDataService.getAll()
-  .then((response) => {
-    priorities.value = response.data
-  })
-  .catch((e) => {
-    console.log(e)
-  })
+const changePriority = (id) => {
+  currentPriority.value = id
+}
 
 const fetchTask = async() => {
   await fetch(props.id)
-  if (!errorFetch) {
-    currentPriority.value = task.value.priority.id
-    currentWorkflowName.value = task.value.workflow.name
-    currentWorkflowColor.value = task.value.workflow.color
-  }  
+  currentPriority.value = task.value.priority.id
+  currentWorkflowName.value = task.value.workflow.name
+  currentWorkflowColor.value = task.value.workflow.color  
 }
 
 fetchTask()

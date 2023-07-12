@@ -9,19 +9,10 @@ export function useFetchTasks(showLoading=false) {
   const store = useLoaderStore()
 
   //Get tasks from api
-  const fetch = async(id, boardId, workflowId) => {
-    //All tasks
-    let url = '/tasks'
-    //Get all tasks filtered by boardId and workflowId
-    if (boardId && workflowId) {
-      url = `/tasks?board_id=${boardId}&workflow_id=${workflowId}`
-      //Get one task by id
-    } else if (id) {
-      url = `/tasks/${id}`
-    }
+  const fetch = async(boardId, workflowId) => {
     try {
       if (showLoading) store.setLoading(true)
-      const response = await http.get(url)
+      const response = await http.get(`/tasks?board_id=${boardId}&workflow_id=${workflowId}`)
       tasks.value = response.data
       if (showLoading) store.setLoading(false)
     } catch (error) {

@@ -166,9 +166,9 @@
       "title": "Tarefa 4",
       "description": "",
       "priority": {
-        "id": 2,
-        "name": "Media",
-        "color": "warning"
+        "id": 1,
+        "name": "Baixa",
+        "color": "info"
       },
       "workflow": {
         "id": 4,
@@ -183,7 +183,7 @@
       "board_id": 1,
       "order": 0,
       "workflow_id": 4,
-      "priority_id": 2,
+      "priority_id": 1,
       "date_added": "2-7-2023",
       "id": 4
     },
@@ -191,9 +191,9 @@
       "title": "Tarefa 5",
       "description": "",
       "priority": {
-        "id": 2,
-        "name": "Media",
-        "color": "warning"
+        "id": 1,
+        "name": "Baixa",
+        "color": "info"
       },
       "workflow": {
         "id": 3,
@@ -208,7 +208,7 @@
       "board_id": 1,
       "order": 0,
       "workflow_id": 3,
-      "priority_id": 2,
+      "priority_id": 1,
       "date_added": "3-7-2023",
       "id": 5
     },

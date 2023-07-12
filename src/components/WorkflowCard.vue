@@ -45,7 +45,7 @@ const props = defineProps({
 const { tasks, error, fetch } = useFetchTasks(true)
 
 const updateTasks = async() => {
-  fetch(0, props.boardId, props.id)
+  await fetch(props.boardId, props.id)
 }
 
 const showAddNewTaskForm = () => {
