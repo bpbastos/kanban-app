@@ -7,10 +7,10 @@
           :priority-color="task.priority.color" :title="task.title" :total-sub-tasks-done="task.subtasks?.filter((item) => {
             return item.done
           })?.length
-            " :total-sub-tasks="task.subtasks?.length" @delete="updateTasks(boardId, id)" />
+            " :total-sub-tasks="task.subtasks?.length" @delete="updateTasks()" />
 
         <AddTaskForm v-show="isAddNewTaskButtonClicked" :workflow-id="id" :board-id="boardId"
-          @cancel="isAddNewTaskButtonClicked = false" @add="updateTasks(boardId, id); isAddNewTaskButtonClicked = false" />
+          @cancel="isAddNewTaskButtonClicked = false" @add="updateTasks(); isAddNewTaskButtonClicked = false" />
 
       </div>
       <div class="card-actions m-3">
@@ -31,10 +31,8 @@
 import { ref, watch } from 'vue'
 import TaskCard from '@/components/TaskCard.vue'
 import AddTaskForm from '@/components/AddTaskForm.vue'
-import TaskDataService from '@/services/TaskDataService'
-import { useTasks } from '@/composables/TaskData'
+import { useFetchTasks } from '@/composables/TaskData'
 
-//const tasks = ref([])
 const isAddNewTaskButtonClicked = ref(false)
 
 const props = defineProps({
@@ -44,29 +42,24 @@ const props = defineProps({
   boardId: Number
 })
 
-const updateTasks = async (boardId, workflowId) => {
-  useTasks(boardId, workflowId)
-  /*TaskDataService.getByBoardIdAndWorkflowId(boardId, workflowId)
-    .then((response) => {
-      isAddNewTaskButtonClicked.false
-      tasks.value = response.data
-    })
-    .catch((e) => {
-      console.log(e)
-    })*/
+const { tasks, error, fetch } = useFetchTasks(true)
+
+const updateTasks = async() => {
+  fetch(0, props.boardId, props.id)
 }
 
 const showAddNewTaskForm = () => {
   isAddNewTaskButtonClicked.value = true
 }
 
-//created hook
-updateTasks(props.boardId, props.id)
+updateTasks()
 
 watch(
   () => props.boardId,
   () => {
-    updateTasks(props.boardId, props.id)
+    updateTasks()
   }
 )
+
+
 </script>

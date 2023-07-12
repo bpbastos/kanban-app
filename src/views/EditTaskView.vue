@@ -1,5 +1,5 @@
 <template>
-   <div class="flex items-center justify-center w-12/12">
+   <div v-if="task" class="flex items-center justify-center w-12/12">
     <div class="card pt-[2px] bg-primary shadow-2xl w-full">
       <div class="card bg-base-300 p-4">
         <form action="form-control p-3">
@@ -82,7 +82,7 @@
               <button
                 class="btn btn-primary"
                 @keydown.enter.exact.prevent=""
-                @click.prevent="update"
+                @click.prevent="updateTask"
               >
                 Salvar
               </button>
@@ -92,18 +92,21 @@
       </div>
     </div>
   </div>
+
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, isRef } from 'vue'
 import { useRouter } from 'vue-router'
 import SubTasks from '@/components/SubTasks.vue'
 import TaskDataService from '@/services/TaskDataService'
+import { useFetchTask, useUpdateTask } from '@/composables/TaskData'
 import PriorityDataService from '@/services/PriorityDataService'
 
 const router = useRouter()
 
-const task = ref([])
+const { task, errorFetch, fetch }  = useFetchTask(true)
+const { taskUpd, errorUpd, update }  = useUpdateTask(true)
 const priorities = ref(null)
 const currentPriority = ref('')
 const currentWorkflowName = ref('')
@@ -113,7 +116,7 @@ const props = defineProps({
   id: String
 })
 
-const update = () => {
+const updateTask = async() => {
   let tempTask = {
     id: task.value.id,
     title: task.value.title,
@@ -122,14 +125,10 @@ const update = () => {
     priority_id: currentPriority.value
   }
 
-  TaskDataService.update(tempTask)
-    .then((response) => {
-      console.log(response.data)
-      router.push({ name: 'Board', params: { taskid: tempTask.id } })
-    })
-    .catch((e) => {
-      console.log(e)
-    })
+  await update(tempTask)
+  if (!errorUpd) {
+    router.push({ name: 'Board', params: { taskid: tempTask.id } })
+  }
 }
 
 PriorityDataService.getAll()
@@ -140,14 +139,15 @@ PriorityDataService.getAll()
     console.log(e)
   })
 
-TaskDataService.getById(props.id)
-  .then((response) => {
-    task.value = response.data
+const fetchTask = async() => {
+  await fetch(props.id)
+  if (!errorFetch) {
     currentPriority.value = task.value.priority.id
     currentWorkflowName.value = task.value.workflow.name
     currentWorkflowColor.value = task.value.workflow.color
-  })
-  .catch((e) => {
-    console.log(e)
-  })
+  }  
+}
+
+fetchTask()
+
 </script>

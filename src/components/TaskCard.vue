@@ -40,24 +40,22 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, isRef } from 'vue'
 import { useRouter } from 'vue-router'
 import DeleteConfirmationModal from '@/components/DeleteConfirmationModal.vue'
-import TaskDataService from '@/services/TaskDataService'
+import { useRemoveTask } from '@/composables/TaskData'
 import TaskProgressBar from '@/components/TaskProgressBar.vue';
 
+const { task, error, remove } = useRemoveTask(true)
 const emit = defineEmits(['delete'])
 const router = useRouter()
 const showModal = ref(false)
 
-const deleteTask = () => {
-  TaskDataService.delete(props.id)
-    .then((response) => {
-      emit('delete', props.id)
-    })
-    .catch((e) => {
-      console.log(e)
-    })
+const deleteTask = async() => {
+  await remove(props.id)
+  if (isRef(task)) {
+    emit('delete', props.id)
+  }
 }
 
 const goToEditTask = () => {

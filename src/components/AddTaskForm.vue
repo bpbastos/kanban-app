@@ -41,8 +41,8 @@
 </template>
 
 <script setup>
-import { ref, onUpdated, nextTick } from 'vue'
-import TaskDataService from '@/services/TaskDataService'
+import { ref, onUpdated, nextTick, isRef } from 'vue'
+import { useAddTask } from '@/composables/TaskData'
 
 const props = defineProps({
   workflowId: Number,
@@ -50,20 +50,16 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['add', 'cancel'])
-
+const { task, error, add }  = useAddTask(true)
 const newTaskTitle = ref('')
 const newTaskTitleInput = ref(null)
 
-const addNewTask = () => {
+const addNewTask = async() => {
   if (newTaskTitle.value.trim().length) {
-    TaskDataService.add(newTaskTitle.value.trim(), props.boardId, props.workflowId)
-      .then((response) => {
-        emit('add')
-        newTaskTitle.value = ''
-      })
-      .catch((e) => {
-        console.log(e)
-      })
+    await add(newTaskTitle.value.trim(), props.boardId, props.workflowId)
+    if (isRef(task)) {
+      emit('add')
+    }    
   }
 }
 

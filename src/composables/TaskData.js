@@ -1,64 +1,66 @@
 import { ref } from 'vue'
+import { useLoaderStore } from '@/stores/loader'
 import http from '@/http-common'
 
-const tasks = ref([])
-const task = ref(null)
-const error = ref(null)
+//Get tasks 
+export function useFetchTasks(showLoading=false) {
+  const tasks = ref([])
+  const error = ref(null)
+  const store = useLoaderStore()
 
-export async function useTasks(boardId = 0, workflowId = 0) {
-  try {
-    const response = await http.get(`/tasks?board_id=${boardId}&workflow_id=${workflowId}`)
-    tasks.value = response.data
-   } catch (e) {
-    error.value = e
-   }
+  //Get tasks from api
+  const fetch = async(id, boardId, workflowId) => {
+    //All tasks
+    let url = '/tasks'
+    //Get all tasks filtered by boardId and workflowId
+    if (boardId && workflowId) {
+      url = `/tasks?board_id=${boardId}&workflow_id=${workflowId}`
+      //Get one task by id
+    } else if (id) {
+      url = `/tasks/${id}`
+    }
+    try {
+      if (showLoading) store.setLoading(true)
+      const response = await http.get(url)
+      tasks.value = response.data
+      if (showLoading) store.setLoading(false)
+    } catch (error) {
+      error.value = error
+    }
+  }
+
+  return { tasks, error, fetch }
 }
 
-export default function useTaskData(id = 0, boardId = 0, workflowId = 0) {
-  const tasks = ref([])
-  const task = ref(null)
+
+//Get one task
+export function useFetchTask(showLoading=false) {
+  const task = ref([])
   const error = ref(null)
+  const store = useLoaderStore()
 
-  async function fetch() {
+  //Get tasks from api
+  const fetch = async(id) => {
     try {
-      //Get all tasks
-      if (!id && !boardId && !workflowId) {
-        const response = await http.get('/tasks')
-        tasks.value = response.data
-        //Get all tasks filtered by boardId and workflowId
-      } else if (boardId && workflowId) {
-        const response = await http.get(`/tasks?board_id=${boardId}&workflow_id=${workflowId}`)
-        tasks.value = response.data
-        //Get one task by id
-      } else if (id) {
-        const response = await http.get(`/tasks/${id}`)
-        task.value = response.data
-      }
-    } catch (e) {
-      error.value = e
-    }
-  }
-
-  async function update(t) {
-    try {
-      let response = null
-      response = await http.get(`/priorities/${t.priority_id}`)
-      priority = response.data
-      response = await http.patch(`/tasks/${t.id}`, {
-        id: t.id,
-        title: t.title,
-        description: t.description,
-        subtasks: t.subtasks,
-        priority_id: t.priority_id,
-        priority: priority
-      })
+      if (showLoading) store.setLoading(true)
+      const response = await http.get(`/tasks/${id}`)
       task.value = response.data
-    } catch (e) {
-      error.value = e
+      if (showLoading) store.setLoading(false)
+    } catch (error) {
+      error.value = error
     }
   }
 
-  async function add(title, boardId, workflowId) {
+  return { task, error, fetch }
+}
+
+//Add a new tasks
+export function useAddTask(showLoading=false) {
+  const task = ref([])
+  const error = ref(null)  
+  const store = useLoaderStore()
+
+  const add = async(title, boardId, workflowId) => {
     try {
       const date = new Date()
       const day = date.getDate()
@@ -67,13 +69,13 @@ export default function useTaskData(id = 0, boardId = 0, workflowId = 0) {
       const currentDate = `${day}-${month}-${year}`
       const priorityId = 1
       let response = null
+      if (showLoading) store.setLoading(true)
       response = await http.get(`/workflows/${workflowId}`)
       const workflow = response.data
       response = await http.get(`/priorities/${priorityId}`)
       const priority = response.data
       response = await http.get(`/boards/${boardId}`)
       const board = response.data
-
       response = await http.post('/tasks', {
         title: title,
         description: '',
@@ -88,20 +90,61 @@ export default function useTaskData(id = 0, boardId = 0, workflowId = 0) {
         date_added: currentDate
       })
       task.value = response.data
+      if (showLoading) store.setLoading(false)      
     } catch (e) {
       error.value = e
     }
   }
 
-  async function remove(id) {
+  return { task, error, add }  
+}
+
+//Update task
+export function useUpdateTask(showLoading=false) {
+  const task = ref([])
+  const error = ref(null)  
+  const store = useLoaderStore()
+
+  const update = async(t) => {
     try {
+      let response = null
+      if (showLoading) store.setLoading(true)
+      response = await http.get(`/priorities/${t.priority_id}`)
+      const priority = response.data
+      response = await http.patch(`/tasks/${t.id}`, {
+        id: t.id,
+        title: t.title,
+        description: t.description,
+        subtasks: t.subtasks,
+        priority_id: t.priority_id,
+        priority: priority
+      })
+      task.value = response.data
+      if (showLoading) store.setLoading(false)
+    } catch (e) {
+      error.value = e
+    }
+  } 
+
+  return { task, error, update }  
+}
+
+//Remove task
+export function useRemoveTask(showLoading=false) {
+  const task = ref([])
+  const error = ref(null)  
+  const store = useLoaderStore()
+  
+  const remove = async(id) => {
+    try {
+      if (showLoading) store.setLoading(true)
       const response = await http.delete(`/tasks/${id}`)
       task.value = response.data
+      if (showLoading) store.setLoading(false)
     } catch (e) {
       error.value = e
     }
-    return await http.delete(`/tasks/${id}`)
+    //return task.value.id
   }
-
-  return { task, tasks, error, fetch, add, update, remove }
+  return { task, error, remove }  
 }
