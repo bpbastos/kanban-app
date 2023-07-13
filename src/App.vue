@@ -19,13 +19,12 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
 import { RouterView } from 'vue-router'
 import { storeToRefs } from 'pinia'
 
-import PageHeader from './components/PageHeader.vue'
-import SideBar from './components/SideBar.vue'
-import LoadingOverlay from './components/LoadingOverlay.vue'
+import PageHeader from '@/components/PageHeader.vue'
+import SideBar from '@/components/SideBar.vue'
+import LoadingOverlay from '@/components/LoadingOverlay.vue'
 
 import { useUserStore } from '@/stores/user'
 
