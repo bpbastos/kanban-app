@@ -3,18 +3,17 @@ import { watchEffect, toValue} from 'vue'
 import { useLoaderStore } from '@/stores/loader'
 import { useAsyncState } from '@vueuse/core'
 
-//Fetch workflow from api
-export function useFetchWorkflows(workflowId, options = {}) {
+//Fetch workflows from api
+export function useFetchWorkflows(workflowId=0,options={}) {
 
-  const { showLoading = false } = options
+  const { showLoading = true } = options
   const store = useLoaderStore()
 
-  //Get board from api (using useAsyncState for non blocking setup)
+  //Get workflow from api (using useAsyncState for non-blocking setup)
   const { state, isLoading, isReady, error, execute } = useAsyncState(
     (args) => {
       const id = args?.id || 0
       const url = id > 0 ? `/workflows/${id}` : '/workflows'
-      //console.log(url)
       return http.get(url).then(response => response.data)
     },
     {},
@@ -25,10 +24,14 @@ export function useFetchWorkflows(workflowId, options = {}) {
     }
   )  
 
+  const fetch = (workflowId) => {
+    execute(0, { id: toValue(workflowId) })
+  }
+
   watchEffect(() => {
     store.setLoading(true)
-    execute(0, { id: toValue(workflowId) })
-  })    
+    fetch(workflowId)
+  })
 
-  return { workflows: state, error, isLoading, isReady }
+  return { workflows: state, error, isLoading, isReady, fetch }
 }

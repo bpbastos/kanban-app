@@ -19,7 +19,7 @@ import BoardSwitcher from '@/components/BoardSwitcher.vue'
 import WorkflowCard from '@/components/WorkflowCard.vue'
 
 const boardId = ref(0) 
-const { workflows } = useFetchWorkflows()
+const { workflows, fetch } = useFetchWorkflows()
 
 const props = defineProps({
   taskid: String,
@@ -27,5 +27,6 @@ const props = defineProps({
 
 const updateBoard = (board) => {
   boardId.value = board.id
+  fetch()
 }
 </script>

@@ -23,8 +23,8 @@ export function useFetchTasks(taskId=0,boardId=0,workflowId=0,options={}) {
       if (!id && bID && wID) url = `/tasks?board_id=${bID}&workflow_id=${wID}`
       if (id && bID && wID) url = `/tasks/${id}/?board_id=${bID}&workflow_id=${wID}`
 
-      console.log(url)
-      console.log(args)
+      //console.log(url)
+      //console.log(args)
       return http.get(url).then(response => response.data)
     },
     {},
