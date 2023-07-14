@@ -1,6 +1,6 @@
 <template>
-  <div class="dropdown">
-    <label tabindex="0" class="btn m-1 text-lg">
+  <div class="dropdown ">
+    <summary tabindex="0" class="btn btn-active bg-base-200 m-1 text-lg hover:bg-base-100">
       {{ selectedItem }}
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -8,11 +8,11 @@
         viewBox="0 0 24 24"
         stroke-width="1.5"
         stroke="currentColor"
-        class="w-7 h-7 bg-neutral-content rounded-full drop-shadow-2xl text-primary"
+        class="w-7 h-7 rounded-full drop-shadow-2xl bg-base-100 text-primary"
       >
         <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
       </svg>
-    </label>
+    </summary>
     <ul
       tabindex="0"
       class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box text-base"
@@ -25,26 +25,27 @@
   </div>
 </template>
 <script setup>
-import { ref, onMounted,computed } from 'vue'
-import { _useFetchBoards } from '@/composables/BoardData'
+import { ref, watch } from 'vue'
+import { useFetchBoards } from '@/composables/BoardData'
 
-const { boards } = _useFetchBoards(0, { showLoading: true })
+//Fetch all boards - boardId = 0
+const { boards, isReady } = useFetchBoards(0, { showLoading: true })
 const selectedItem = ref('')
-const items = ref(null
-)
+const items = ref(null)
 const emit = defineEmits(['change'])
 
 const changeSelected = (board) => {
   selectedItem.value = board.name
-  emit('change', board)
   items.value.blur()
+  emit('change', board)
 }
 
-onMounted(() => {
-  selectedItem.value = computed(()=> {
-   console.log(boards.value[0]?.name)
-   return boards.value?.length ? boards.value[0]?.name : 'Nenhum quadro encontrado'
-   //return boards.value[0]?.name
-  })
+//Wait for data be loaded from api (async)
+watch(isReady, () => {
+  if (isReady.value) {
+    selectedItem.value = 'Nenhum quadro encontrado'
+    if (boards.value.length > 0)
+      selectedItem.value = boards.value[0]?.name
+  }
 })
 </script>
