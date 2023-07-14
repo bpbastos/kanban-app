@@ -1,5 +1,5 @@
 <template>
-  <div class="dropdown" v-if="boards">
+  <div class="dropdown">
     <label tabindex="0" class="btn m-1 text-lg">
       {{ selectedItem }}
       <svg
@@ -25,24 +25,26 @@
   </div>
 </template>
 <script setup>
-import { ref, onMounted } from 'vue'
-import { useFetchBoards } from '@/composables/BoardData'
+import { ref, onMounted,computed } from 'vue'
+import { _useFetchBoards } from '@/composables/BoardData'
 
-const { boards, error, fetch } = useFetchBoards(true)
-const emit = defineEmits(['change'])
-const items = ref(null)
+const { boards } = _useFetchBoards(0, { showLoading: true })
 const selectedItem = ref('')
-
+const items = ref(null
+)
+const emit = defineEmits(['change'])
 
 const changeSelected = (board) => {
   selectedItem.value = board.name
-  items.value.blur()
   emit('change', board)
+  items.value.blur()
 }
 
-onMounted(async () => {
-  await fetch()
-  selectedItem.value = boards.value?.length ? boards.value[0].name : 'Nenhum quadro encontrado'
-  emit('change', boards.value[0])
+onMounted(() => {
+  selectedItem.value = computed(()=> {
+   console.log(boards.value[0]?.name)
+   return boards.value?.length ? boards.value[0]?.name : 'Nenhum quadro encontrado'
+   //return boards.value[0]?.name
+  })
 })
 </script>

@@ -1,5 +1,5 @@
 import http from '@/http-common'
-import { ref, watchEffect, toValue } from 'vue'
+import { ref, watchEffect, toValue, onMounted } from 'vue'
 import { useLoaderStore } from '@/stores/loader'
 import { useAsyncState } from '@vueuse/core'
 
@@ -9,7 +9,7 @@ export function _useFetchBoards(boardId, options = {}) {
   const { showLoading = false } = options
   const store = useLoaderStore()
 
-  //Get board from api (non blocking setup)
+  //Get board from api (using useAsyncState for non blocking setup)
   const { state, isLoading, isReady, error, execute } = useAsyncState(
     (args) => {
       const id = args?.id || 0
@@ -27,7 +27,7 @@ export function _useFetchBoards(boardId, options = {}) {
   watchEffect(async() => {
     store.setLoading(true)
     execute(0, { id: toValue(boardId) })
-  })  
+  })    
 
   return { boards: state, error, isLoading, isReady }
 }
