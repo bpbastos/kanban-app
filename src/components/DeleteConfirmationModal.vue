@@ -24,7 +24,17 @@ const props = defineProps({
   showModal: Boolean
 })
 
-const emit = defineEmits(['delete', 'cancel'])
+const emit = defineEmits(['deleteClicked', 'cancelClicked'])
+
+const deleteAction = () => {
+  modal.value.close()
+  emit('deleteClicked')
+}
+
+const cancelAction = () => {
+  modal.value.close()
+  emit('cancelClicked')
+}
 
 watch(
   () => props.showModal,
@@ -32,14 +42,4 @@ watch(
     modal.value.showModal()
   }
 )
-
-const deleteAction = () => {
-  modal.value.close()
-  emit('delete')
-}
-
-const cancelAction = () => {
-  modal.value.close()
-  emit('cancel')
-}
 </script>

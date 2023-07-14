@@ -1,44 +1,37 @@
-import { ref } from 'vue'
-import { useLoaderStore } from '@/stores/loader'
 import http from '@/http-common'
+import { watchEffect, toValue } from 'vue'
+import { useLoaderStore } from '@/stores/loader'
+import { useAsyncState } from '@vueuse/core'
 
-//Get priority
-export function useFetchPriority(showLoading=false) {
-    const priority = ref([])
-    const error = ref(null)
-    const store = useLoaderStore()
-  
-    //Get priority from api
-    const fetch = async(id) => {
-      try {
-        if (showLoading) store.setLoading(true)
-        const response = await http.get(`/priorities/${id}`)
-        priority.value = response.data
-        if (showLoading) store.setLoading(false)
-      } catch (error) {
-        error.value = error
-      }
+//Fetch priorities from api
+export function useFetchPriorities(priorityId=0,options={}) {
+
+  const { showLoading = true } = options
+  const store = useLoaderStore()
+
+  //Get priority from api (using useAsyncState for non-blocking setup)
+  const { state, isLoading, isReady, error, execute } = useAsyncState(
+    (args) => {
+      const id = args?.id || 0
+      const url = id > 0 ? `/priorities/${id}` : '/priorities'
+      return http.get(url).then(response => response.data)
+    },
+    {},
+    {
+      immediate: false,
+      onSuccess: () => { if(showLoading) store.setLoading(false) },
+      onError: () => { if(showLoading) store.setLoading(false) }
     }
-  
-    return { priority, error, fetch }
-}
+  )  
 
-export function useFetchPriorities(showLoading=false) {
-    const priorities = ref([])
-    const error = ref(null)
-    const store = useLoaderStore()
-  
-    //Get Priorities from api
-    const fetch = async() => {
-      try {
-        if (showLoading) store.setLoading(true)
-        const response = await http.get(`/priorities`)
-        priorities.value = response.data
-        if (showLoading) store.setLoading(false)
-      } catch (error) {
-        error.value = error
-      }
-    }
+  const fetch = (priorityId) => {
+    execute(0, { id: toValue(priorityId) })
+  }
 
-    return { priorities, error, fetch }
+  watchEffect(() => {
+    store.setLoading(true)
+    fetch(priorityId)
+  })
+
+  return { priorities: state, error, isLoading, isReady, fetch }
 }

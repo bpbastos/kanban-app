@@ -1,20 +1,13 @@
 <template>
-  <div class="card w-[265px] max-h-screen h-full pt-[3px]" :class="borderColor">
+  <div class="card w-[265px] max-h-screen h-full pt-[3px]" :class="`bg-${workflow.color}-400`">
     <div class="card bg-base-200 overflow-auto scrollbar scrollbar-w-1 scrollbar-thumb-primary">
-      <p class="card-title text-base-content text-lg font-medium m-3">{{ name }}</p>
+      <p class="card-title text-base-content text-lg font-medium m-3">{{ workflow.name }}</p>
       <div class="card-actions justify-center ml-2 mr-2">
-        <TaskCard v-for="task in tasks" :id="task.id" :priority-label="task.priority.name"
-          :priority-color="task.priority.color" :title="task.title" :total-sub-tasks-done="task.subtasks?.filter((item) => {
-            return item.done
-          })?.length
-            " :total-sub-tasks="task.subtasks?.length" @delete="updateTasks()" />
-
-        <AddTaskForm v-show="isAddNewTaskButtonClicked" :workflow-id="id" :board-id="boardId"
-          @cancel="isAddNewTaskButtonClicked = false" @add="updateTasks(); isAddNewTaskButtonClicked = false" />
-
+        <TaskCard v-for="task in tasks" :task="task" @deleted="updateTasks"/>
+        <AddTaskForm v-show="isAddNewTaskButtonClicked" :workflow-id="workflow.id" :board-id="boardId" @added="updateTasks" @canceled="isAddNewTaskButtonClicked = false" />
       </div>
       <div class="card-actions m-3">
-        <a href="#" @click="showAddNewTaskForm" v-show="!isAddNewTaskButtonClicked"
+        <a href="#" v-show="!isAddNewTaskButtonClicked" @click="isAddNewTaskButtonClicked = true"
           class="flex flex-row w-full items-center text-base-content font-semibold rounded hover:bg-base-100">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
             class="w-5 h-5">
@@ -28,38 +21,29 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, watchEffect } from 'vue'
 import TaskCard from '@/components/TaskCard.vue'
 import AddTaskForm from '@/components/AddTaskForm.vue'
 import { useFetchTasks } from '@/composables/TaskData'
 
 const isAddNewTaskButtonClicked = ref(false)
+const { tasks, isReady, fetch } = useFetchTasks(0, props.boardId, props.workflow.id)
 
 const props = defineProps({
-  name: String,
-  id: Number,
-  borderColor: String,
+  workflow: {
+    type: Object,
+    required: true
+  },
   boardId: Number
 })
 
-const { tasks, error, fetch } = useFetchTasks(true)
-
-const updateTasks = async() => {
-  await fetch(props.boardId, props.id)
+const updateTasks = () => {
+  fetch(0, props.boardId, workflowId.value)
+  watchEffect(() => {
+    if (isReady.value) {
+      isAddNewTaskButtonClicked.value = false
+    }
+  })  
+  
 }
-
-const showAddNewTaskForm = () => {
-  isAddNewTaskButtonClicked.value = true
-}
-
-updateTasks()
-
-watch(
-  () => props.boardId,
-  () => {
-    updateTasks()
-  }
-)
-
-
 </script>

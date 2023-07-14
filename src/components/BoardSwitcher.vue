@@ -44,8 +44,11 @@ const changeSelected = (board) => {
 watch(isReady, () => {
   if (isReady.value) {
     selectedItem.value = 'Nenhum quadro encontrado'
-    if (boards.value.length > 0)
+    if (boards.value.length > 0) {
       selectedItem.value = boards.value[0]?.name
+      //Emit a change event for the parent component
+      emit('change',boards.value[0])
+    }
   }
 })
 </script>

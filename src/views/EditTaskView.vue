@@ -16,7 +16,7 @@
               />
             </div>
             <div class="w-24">
-              <PriorityRadioGroup :priority-id="task.priority_id" @change="changePriority"/>
+              <PriorityRadioGroup :selected-priority-id="task.priority_id" @change="changePriority"/>
             </div>
           </div>
           <div class="flex space-x-2 items-start">
@@ -30,7 +30,7 @@
               <div
                 class="badge w-full uppercase font-semibold p-3"
                 v-if="currentWorkflowName"
-                :class="`bg-${currentWorkflowColor}-400`"
+                :class="currentWorkflowColor"
               >
                 {{ currentWorkflowName }}
               </div>
@@ -79,26 +79,27 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
+import { useFetchTasks, useUpdateTask } from '@/composables/TaskData'
 import SubTasks from '@/components/SubTasks.vue'
 import PriorityRadioGroup from '@/components/PriorityRadioGroup.vue'
-import { useFetchTask, useUpdateTask } from '@/composables/TaskData'
 
 const router = useRouter()
 
-const { task, error, fetch }  = useFetchTask(true)
-const { taskUpd, errorUpd, update }  = useUpdateTask(true)
-
 const currentPriority = ref(0)
+
 const currentWorkflowName = ref('')
 const currentWorkflowColor = ref('')
+
+const { tasks: task, isReady: isFetchDone  }  = useFetchTasks(props.id)
+const { update, isReady: isUpdateDone }  = useUpdateTask()
 
 const props = defineProps({
   id: String
 })
 
-const updateTask = async() => {
+const updateTask = () => {
   let tempTask = {
     id: task.value.id,
     title: task.value.title,
@@ -106,23 +107,24 @@ const updateTask = async() => {
     subtasks: task.value.subtasks,
     priority_id: currentPriority.value
   }
-
-  await update(tempTask)
-  router.push({ name: 'Board', params: { taskid: tempTask.id } })
-
+  update(tempTask)
+  watchEffect(() => {
+    if (isUpdateDone.value) {
+      //router.push({ name: 'Board', params: { taskid: tempTask.id } })    
+    }
+  })  
 }
 
 const changePriority = (id) => {
   currentPriority.value = id
 }
 
-const fetchTask = async() => {
-  await fetch(props.id)
-  currentPriority.value = task.value.priority.id
-  currentWorkflowName.value = task.value.workflow.name
-  currentWorkflowColor.value = task.value.workflow.color  
-}
-
-fetchTask()
+watchEffect(() => {
+    if (isFetchDone.value) {
+      currentPriority.value = task.value.priority_id
+      currentWorkflowName.value = task.value.workflow?.name
+      currentWorkflowColor.value = `bg-${task.value.workflow?.color}-400`
+    }
+}) 
 
 </script>

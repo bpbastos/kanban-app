@@ -6,39 +6,26 @@
     <!-- Para passar a cor via v-bind é necessário colocar as classes css na safelist no tailwind.config.js. -->
     <WorkflowCard
       v-for="workflow in workflows" 
+      :workflow="workflow"
       :board-id="boardId"
-      :id="workflow.id"
-      :name="workflow.name"
-      :border-color="`bg-${workflow.color}-400`"
     />       
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import { useFetchWorkflows } from '@/composables/WorkflowData'
-import BoardSwitcher from '../components/BoardSwitcher.vue'
-import WorkflowCard from '../components/WorkflowCard.vue'
+import BoardSwitcher from '@/components/BoardSwitcher.vue'
+import WorkflowCard from '@/components/WorkflowCard.vue'
 
-//const workflows = ref([])
-const { workflows, error, fetch } = useFetchWorkflows(true)
-const boardId = ref(0)
+const boardId = ref(0) 
+const { workflows } = useFetchWorkflows()
 
 const props = defineProps({
   taskid: String,
 })
 
-const updateWorkflows = async () => {
-  await fetch()
-}
-
 const updateBoard = (board) => {
   boardId.value = board.id
-  updateWorkflows()
 }
-
-onMounted(() => {
-  updateWorkflows()
-})
-
 </script>

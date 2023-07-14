@@ -1,44 +1,34 @@
-import { ref } from 'vue'
 import http from '@/http-common'
+import { watchEffect, toValue} from 'vue'
 import { useLoaderStore } from '@/stores/loader'
+import { useAsyncState } from '@vueuse/core'
 
-//Get Workflow
-export function useFetchWorkflow(showLoading=false) {
-    const workflow = ref([])
-    const error = ref(null)
-    const store = useLoaderStore()
-  
-    //Get Workflow from api
-    const fetch = async(id) => {
-      try {
-        if (showLoading) store.setLoading(true)
-        const response = await http.get(`/Workflows/${id}`)
-        workflow.value = response.data
-        if (showLoading) store.setLoading(false)
-      } catch (error) {
-        error.value = error
-      }
+//Fetch workflow from api
+export function useFetchWorkflows(workflowId, options = {}) {
+
+  const { showLoading = false } = options
+  const store = useLoaderStore()
+
+  //Get board from api (using useAsyncState for non blocking setup)
+  const { state, isLoading, isReady, error, execute } = useAsyncState(
+    (args) => {
+      const id = args?.id || 0
+      const url = id > 0 ? `/workflows/${id}` : '/workflows'
+      //console.log(url)
+      return http.get(url).then(response => response.data)
+    },
+    {},
+    {
+      immediate: false,
+      onSuccess: () => { if(showLoading) store.setLoading(false) },
+      onError: () => { if(showLoading) store.setLoading(false) }
     }
-  
-    return { workflow, error, fetch }
-}
+  )  
 
-export function useFetchWorkflows(showLoading=false) {
-    const workflows = ref([])
-    const error = ref(null)
-    const store = useLoaderStore()
-  
-    //Get Workflows from api
-    const fetch = async() => {
-      try {
-        if (showLoading) store.setLoading(true)
-        const response = await http.get(`/Workflows`)
-        workflows.value = response.data
-        if (showLoading) store.setLoading(false)
-      } catch (error) {
-        error.value = error
-      }
-    }
+  watchEffect(() => {
+    store.setLoading(true)
+    execute(0, { id: toValue(workflowId) })
+  })    
 
-    return { workflows, error, fetch }
+  return { workflows: state, error, isLoading, isReady }
 }
