@@ -38,7 +38,7 @@ const props = defineProps({
 })
 
 const updateTasks = () => {
-  fetch(0, props.boardId, workflowId.value)
+  fetch(0, props.boardId, props.workflow.id)
   watchEffect(() => {
     if (isReady.value) {
       isAddNewTaskButtonClicked.value = false
