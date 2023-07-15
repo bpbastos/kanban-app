@@ -110,7 +110,7 @@ const updateTask = () => {
   update(tempTask)
   watchEffect(() => {
     if (isUpdateDone.value) {
-      //router.push({ name: 'Board', params: { taskid: tempTask.id } })    
+      router.push({ name: 'Board', params: { taskid: tempTask.id } })    
     }
   })  
 }
