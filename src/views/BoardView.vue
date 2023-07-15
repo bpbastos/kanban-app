@@ -1,31 +1,37 @@
 <template>
   <div class="pb-8">
-    <BoardSwitcher @change="updateBoard" />
+    <BoardSwitcher @loaded="goToFirstBoard" />
   </div>
   <div class="flex flex-wrap justify-strech gap-3 pb-8">
-    <!-- Para passar a cor via v-bind é necessário colocar as classes css na safelist no tailwind.config.js. -->
+    <!-- To pass the tailwind color classes via v-bind it's needed to put the classes on safelist in tailwind.config.js file -->
     <WorkflowCard
       v-for="workflow in workflows" 
-      :workflow="workflow"
+      :workflow-id="workflow.id"
       :board-id="boardId"
     />       
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { toRefs } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 import { useFetchWorkflows } from '@/composables/WorkflowData'
 import BoardSwitcher from '@/components/BoardSwitcher.vue'
 import WorkflowCard from '@/components/WorkflowCard.vue'
 
-const boardId = ref(0) 
-const { workflows, fetch } = useFetchWorkflows()
+const router = useRouter()
+const route = useRoute()
+
+const { id: boardId } = toRefs(props)
+const { workflows } = useFetchWorkflows()
 
 const props = defineProps({
-  taskid: String,
+  id: Number,
 })
 
-const updateBoard = (board) => {
-  boardId.value = board.id
+const goToFirstBoard = (board) => {
+  //Only if boardId is missing
+  if (!route.params.id)
+    router.push({ name: 'Board', params: { id: board.id } })   
 }
 </script>

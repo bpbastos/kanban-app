@@ -5,7 +5,7 @@
         class="flex flex-col w-[120px] min-h-screen flex-shrink-0 drop-shadow-xl py-1"
       >
         <NavLink
-        :to="{name: 'Board'}"
+        :to="{name: 'Board' }"
           class="flex flex-col items-center justify-center py-8 hover:bg-base-100"
           active-class="border-l-2 border-primary bg-base-200"
           inactive-class="opacity-50"

@@ -25,30 +25,39 @@
   </div>
 </template>
 <script setup>
-import { ref, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { useFetchBoards } from '@/composables/BoardData'
+import { useRouter } from 'vue-router'
 
-//Fetch all boards - boardId = 0
-const { boards, isReady } = useFetchBoards(0, { showLoading: true })
+//Fetch all boards
+const { boards, isReady } = useFetchBoards()
+
+const router = useRouter()
+
 const selectedItem = ref('')
 const items = ref(null)
-const emit = defineEmits(['change'])
+
+const emit = defineEmits(['change','loaded'])
 
 const changeSelected = (board) => {
   selectedItem.value = board.name
   items.value.blur()
-  emit('change', board)
+  router.push({ name: 'Board', params: { id: board.id } }) 
 }
 
-//Wait for data be loaded from api (async)
-watch(isReady, () => {
-  if (isReady.value) {
-    selectedItem.value = 'Nenhum quadro encontrado'
-    if (boards.value.length > 0) {
-      selectedItem.value = boards.value[0]?.name
-      //Emit a change event for the parent component
-      emit('change',boards.value[0])
+
+onMounted(()=>{
+  //Wait for data be loaded from api (async)
+  watch(isReady, () => {
+    if (isReady.value) {
+      selectedItem.value = 'Nenhum quadro encontrado'
+      if (boards.value.length > 0) {
+        //Get the first board and pushes an new route when component mounted
+        selectedItem.value = boards.value[0]?.name
+        //Emit a loaded event for the parent component
+        emit('loaded',boards.value[0])
+      }
     }
-  }
+  })
 })
 </script>

@@ -195,9 +195,9 @@
       "title": "Tarefa 5",
       "description": "",
       "priority": {
-        "id": 1,
-        "name": "Baixa",
-        "color": "info"
+        "id": 2,
+        "name": "Media",
+        "color": "warning"
       },
       "workflow": {
         "id": 3,
@@ -208,11 +208,24 @@
         "id": 1,
         "name": "Sprint 1 - Fullstack Basico"
       },
-      "subtasks": [],
+      "subtasks": [
+        {
+          "text": "Sub tarefa 1",
+          "done": true
+        },
+        {
+          "text": "Sub tarefa 2",
+          "done": true
+        },
+        {
+          "text": "Sub tarefa 3",
+          "done": true
+        }
+      ],
       "board_id": 1,
       "order": 0,
       "workflow_id": 3,
-      "priority_id": 1,
+      "priority_id": 2,
       "date_added": "3-7-2023",
       "id": 5
     },
@@ -296,63 +309,18 @@
         "id": 1,
         "name": "Sprint 1 - Fullstack Basico"
       },
-      "subtasks": [],
+      "subtasks": [
+        {
+          "text": "1",
+          "done": false
+        }
+      ],
       "board_id": 1,
       "order": 0,
       "workflow_id": 1,
       "priority_id": 1,
       "date_added": "14-7-2023",
       "id": 9
-    },
-    {
-      "title": "Tarefa 52",
-      "description": "",
-      "priority": {
-        "id": 1,
-        "name": "Baixa",
-        "color": "info"
-      },
-      "workflow": {
-        "id": 2,
-        "name": "Em andamento",
-        "color": "orange"
-      },
-      "board": {
-        "id": 1,
-        "name": "Sprint 1 - Fullstack Basico"
-      },
-      "subtasks": [],
-      "board_id": 1,
-      "order": 0,
-      "workflow_id": 2,
-      "priority_id": 1,
-      "date_added": "14-7-2023",
-      "id": 11
-    },
-    {
-      "title": "T",
-      "description": "",
-      "priority": {
-        "id": 1,
-        "name": "Baixa",
-        "color": "info"
-      },
-      "workflow": {
-        "id": 1,
-        "name": "Backlog",
-        "color": "purple"
-      },
-      "board": {
-        "id": 1,
-        "name": "Sprint 1 - Fullstack Basico"
-      },
-      "subtasks": [],
-      "board_id": 1,
-      "order": 0,
-      "workflow_id": 1,
-      "priority_id": 1,
-      "date_added": "14-7-2023",
-      "id": 12
     },
     {
       "title": "Tarefa 60",

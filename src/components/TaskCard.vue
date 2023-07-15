@@ -1,12 +1,12 @@
 <template>
-  <div class="card card-compact glass w-full shadow-2xl bg-base-100 text-xs p-2 cursor-pointer">
+  <div class="card card-compact glass w-full shadow-2xl bg-base-100 text-xs p-2 cursor-pointer" @click="goToEditTask">
     <div class="card-actions justify-between">
       <div class="badge font-semibold p-3 justify-start" :class="priorityColor">
         {{ priorityLabel }}
       </div>
       <button
         class="btn btn-xs btn-square btn-error cursor-not-allowed"
-        @click="showModal = !showModal"
+        @click.stop="showModal = !showModal"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -24,7 +24,7 @@
         </svg>
       </button>
     </div>
-    <div @click="goToEditTask">
+    <div>
       <p class="card-actions text-base text-base-content m-2">{{ task.title }}</p>
       <TaskProgressBar :total-tasks="totalSubTasks" :total-tasks-done="totalSubTasksDone" />
     </div>

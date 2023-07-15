@@ -6,13 +6,15 @@
     Workflow ID<input type="text" v-model="workflowId"> <strong v-if="workflow">{{ workflow.name }}</strong>
    
     <!--WorkflowCard
-      :workflow="workflow"
-      :board-id="parseInt(boardId)"
+      :workflow-id="workflowId"
+      :board-id="boardId"
     /-->  
+    <BoardSwitcher />
 </template>
 <script setup>
 import { ref } from 'vue';
 import WorkflowCard from '@/components/WorkflowCard.vue';
+import BoardSwitcher from '@/components/BoardSwitcher.vue';
 import { useFetchPriorities } from '../composables/PriorityData';
 import { useFetchBoards } from '../composables/BoardData';
 import { useFetchTasks } from '../composables/TaskData';

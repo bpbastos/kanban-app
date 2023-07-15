@@ -24,32 +24,36 @@
 import { computed, ref, toRefs, watchEffect } from 'vue'
 import TaskCard from '@/components/TaskCard.vue'
 import AddTaskForm from '@/components/AddTaskForm.vue'
+import { useFetchWorkflows } from '@/composables/WorkflowData'
 import { useFetchTasks } from '@/composables/TaskData'
 
 const props = defineProps({
-  workflow: {
-    type: Object,
+  workflowId: {
+    type: Number,
     required: true
-  },
+  },  
   boardId: {
     type: Number,
     required: true
-  }
+  },
+  workflow: Object
 })
 
 const isAddNewTaskButtonClicked = ref(false)
 
 //Converts props to ref to keep reactivity
-const { boardId } = toRefs(props)
-const workflowId = computed(()=>props.workflow.id)
+const { boardId, workflowId } = toRefs(props)
 
-//Fetch the data and keeps updated 
-const { tasks, isReady, fetch } = useFetchTasks(0, boardId, workflowId)
+//Fetch tasks from api and keeps updated 
+const { tasks, isReady: isTasksFetchDone, fetch } = useFetchTasks(0, boardId, workflowId)
+
+//Fetch workflow from api and keeps updated 
+const { workflows: workflow, isReady: isWorkflowFetchDone } = useFetchWorkflows(workflowId)
 
 const updateTasks = () => {
   fetch(0, boardId.value, workflowId.value)
   watchEffect(() => {
-    if (isReady.value) {
+    if (isTasksFetchDone.value) {
       isAddNewTaskButtonClicked.value = false
     }
   })
