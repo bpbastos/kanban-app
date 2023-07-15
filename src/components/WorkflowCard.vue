@@ -21,7 +21,7 @@
 </template>
 
 <script setup>
-import { computed, ref, toRefs, watchEffect } from 'vue'
+import { ref, toRefs, watchEffect } from 'vue'
 import TaskCard from '@/components/TaskCard.vue'
 import AddTaskForm from '@/components/AddTaskForm.vue'
 import { useFetchWorkflows } from '@/composables/WorkflowData'
@@ -47,8 +47,13 @@ const { boardId, workflowId } = toRefs(props)
 //Fetch tasks from api and keeps updated 
 const { tasks, isReady: isTasksFetchDone, fetch } = useFetchTasks(0, boardId, workflowId)
 
-//Fetch workflow from api and keeps updated 
-const { workflows: workflow, isReady: isWorkflowFetchDone } = useFetchWorkflows(workflowId)
+
+if (props.workflow !== null) {
+  //Fetch workflow from api and keeps updated 
+  const { workflows: workflow } = useFetchWorkflows(workflowId)
+} else {
+  const { workflow } = toRefs(props)
+}
 
 const updateTasks = () => {
   fetch(0, boardId.value, workflowId.value)

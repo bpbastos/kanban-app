@@ -8,6 +8,7 @@
       v-for="workflow in workflows" 
       :workflow-id="workflow.id"
       :board-id="boardId"
+      :workflow="workflow"
     />       
   </div>
 </template>
