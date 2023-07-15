@@ -27,6 +27,5 @@ const props = defineProps({
 
 const updateBoard = (board) => {
   boardId.value = board.id
-  fetch()
 }
 </script>
