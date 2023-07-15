@@ -79,11 +79,14 @@
 </template>
 
 <script setup>
-import { ref, watchEffect } from 'vue'
+import { ref, watch, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
 import { useFetchTasks, useUpdateTask } from '@/composables/TaskData'
 import SubTasks from '@/components/SubTasks.vue'
 import PriorityRadioGroup from '@/components/PriorityRadioGroup.vue'
+import { useAlertStore } from '@/stores/alert'
+
+const alertStore = useAlertStore()
 
 const router = useRouter()
 
@@ -92,8 +95,8 @@ const currentPriority = ref(0)
 const currentWorkflowName = ref('')
 const currentWorkflowColor = ref('')
 
-const { tasks: task, isReady: isFetchDone  }  = useFetchTasks(props.id)
-const { update, isReady: isUpdateDone }  = useUpdateTask()
+const { tasks: task, isReady: isTaskFetchDone  }  = useFetchTasks(props.id)
+const { task: updTask, isReady: isTaskUpdateDone, update }  = useUpdateTask()
 
 const props = defineProps({
   id: String
@@ -107,12 +110,13 @@ const updateTask = () => {
     subtasks: task.value.subtasks,
     priority_id: currentPriority.value
   }
+  //async update
   update(tempTask)
-  watchEffect(() => {
-    if (isUpdateDone.value) {
-      router.push({ name: 'Board', params: { id: task.board_id } })    
+  watch(updTask, () => {
+    if (isTaskUpdateDone.value) {
+      router.push({ name: 'Board', params: { id: updTask.value.board_id } }) 
     }
-  })  
+  })
 }
 
 const changePriority = (id) => {
@@ -120,7 +124,7 @@ const changePriority = (id) => {
 }
 
 watchEffect(() => {
-    if (isFetchDone.value) {
+    if (isTaskFetchDone.value) {
       currentPriority.value = task.value.priority_id
       currentWorkflowName.value = task.value.workflow?.name
       currentWorkflowColor.value = `bg-${task.value.workflow?.color}-400`
