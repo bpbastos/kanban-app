@@ -1,7 +1,7 @@
 import http from '@/http-common'
 import { watchEffect, toValue } from 'vue'
 import { useLoaderStore } from '@/stores/loader'
-import { useAlertStore } from '@/stores/alert'
+import { useNotificationStore } from '@/stores/notification'
 import { useAsyncState } from '@vueuse/core'
 
 //Fetch tasks from api
@@ -9,7 +9,7 @@ export function useFetchTasks(taskId=0,boardId=0,workflowId=0,options={}) {
 
   const { showLoading = true } = options
   const loaderStore = useLoaderStore()
-  const alertStore = useAlertStore()
+  const notificationStore = useNotificationStore()
 
   //Get task from api (using useAsyncState for non-blocking setup)
   const { state, isLoading, isReady, error, execute } = useAsyncState(
@@ -36,7 +36,7 @@ export function useFetchTasks(taskId=0,boardId=0,workflowId=0,options={}) {
   ) 
   
   const handleError = () => {
-    alertStore.error(error)
+    notificationStore.error(error)
     if(showLoading) loaderStore.setLoading(false) 
   }
 
@@ -61,7 +61,7 @@ export function useAddTask(options={}) {
 
   const { showLoading = true } = options
   const loaderStore = useLoaderStore()
-  const alertStore = useAlertStore()
+  const notificationStore = useNotificationStore()
 
   //Add task using api (useAsyncState for non-blocking setup)
   const { state, isLoading, isReady, error, execute } = useAsyncState(
@@ -98,12 +98,12 @@ export function useAddTask(options={}) {
   ) 
   
   const handleError = () => {
-    alertStore.error(error)
+    notificationStore.error(error)
     if(showLoading) loaderStore.setLoading(false) 
   }
 
   const handleSuccess = () => {
-    alertStore.success(`Tarefa adicionada com sucesso`)
+    notificationStore.success(`Tarefa adicionada com sucesso`)
     if(showLoading) loaderStore.setLoading(false) 
   } 
 
@@ -121,7 +121,7 @@ export function useUpdateTask(options={}) {
 
   const { showLoading = true } = options
   const loaderStore = useLoaderStore()
-  const alertStore = useAlertStore()
+  const notificationStore = useNotificationStore()
 
   //Add task using api (useAsyncState for non-blocking setup)
   const { state, isLoading, isReady, error, execute } = useAsyncState(
@@ -145,12 +145,12 @@ export function useUpdateTask(options={}) {
   ) 
   
   const handleError = () => {
-    alertStore.error(error)
+    notificationStore.error(error)
     if(showLoading) loaderStore.setLoading(false) 
   }
 
   const handleSuccess = () => {
-    alertStore.success(`Tarefa atualizada com sucesso`)
+    notificationStore.success(`Tarefa atualizada com sucesso`)
     if(showLoading) loaderStore.setLoading(false) 
   } 
 
@@ -167,7 +167,7 @@ export function useRemoveTask(options={}) {
 
   const { showLoading = true } = options
   const loaderStore = useLoaderStore()
-  const alertStore = useAlertStore()
+  const notificationStore = useNotificationStore()
 
   //Remove task using api (useAsyncState for non-blocking setup)
   const { state, isLoading, isReady, error, execute } = useAsyncState(
@@ -184,12 +184,12 @@ export function useRemoveTask(options={}) {
   ) 
   
   const handleError = () => {
-    alertStore.error(error)
+    notificationStore.error(error)
     if(showLoading) loaderStore.setLoading(false) 
   }
 
   const handleSuccess = () => {
-    alertStore.success(`Tarefa removida com sucesso`)
+    notificationStore.success(`Tarefa removida com sucesso`)
     if(showLoading) loaderStore.setLoading(false) 
   } 
 

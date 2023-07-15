@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { useLocalStorage } from '@vueuse/core'
 
-export const useAlertStore = defineStore('alert', () => {
-  const messages = ref([])
+export const useNotificationStore = defineStore('notification', () => {
+  const messages = useLocalStorage('notifications', [])
 
   function info(m) {
     const tempMsg = {

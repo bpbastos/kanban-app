@@ -22,7 +22,7 @@
       </div>
     </summary>
     <ul tabindex="0" class="mt-2 p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-72" v-if="messageCount">
-      <li v-for="(message, index) in store.messages.slice(0, 10)" class="border-b" @click="removeAlert(index)">
+      <li v-for="(message, index) in store.messages.slice(0, 5)" class="border-b" @click="removeNotification(index)">
         <div class="alert" :class="`alert-${message.type}`">
           <svg v-if="message.type == 'info'" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
             class="stroke-current shrink-0 w-6 h-6">
@@ -53,11 +53,11 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, watchEffect } from 'vue'
 import { onClickOutside } from '@vueuse/core'
-import { useAlertStore } from '@/stores/alert'
+import { useNotificationStore } from '@/stores/notification'
 
-const store = useAlertStore()
+const store = useNotificationStore()
 const dropdown = ref(null)
 const messageCount = ref(0)
 const lastMessageType = ref('')
@@ -67,16 +67,12 @@ onClickOutside(dropdown, (event) => {
     dropdown.value.removeAttribute('open')
 })
 
-const removeAlert = (i) => {
-  console.log("Indice:"+i)
-  console.log("Alert:"+store.messages[i].text)  
+const removeNotification = (i) => {
   store.messages.splice(i, 1)
   messageCount.value = store.messages.length
-  console.log("Tamanho:"+store.messages.length) 
-
 }
 
-watch(store.messages, (newSize, oldSize) => {
+watchEffect(() => {
   if (store.messages.length) {
     messageCount.value = store.messages.length
     lastMessageType.value = store.messages[store.messages.length - 1].type

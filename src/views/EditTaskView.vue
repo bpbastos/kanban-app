@@ -84,9 +84,6 @@ import { useRouter } from 'vue-router'
 import { useFetchTasks, useUpdateTask } from '@/composables/TaskData'
 import SubTasks from '@/components/SubTasks.vue'
 import PriorityRadioGroup from '@/components/PriorityRadioGroup.vue'
-import { useAlertStore } from '@/stores/alert'
-
-const alertStore = useAlertStore()
 
 const router = useRouter()
 
