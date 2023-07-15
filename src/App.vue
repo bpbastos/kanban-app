@@ -1,6 +1,6 @@
 <template>
   <div class="container mx-auto max-w-screen-xl max-h-screen ">
-    <PageHeader
+    <PageHeader 
       :username="username"
       :firstName="firstName"
       :lastName="lastName"
@@ -27,6 +27,7 @@ import SideBar from '@/components/SideBar.vue'
 import LoadingOverlay from '@/components/LoadingOverlay.vue'
 
 import { useUserStore } from '@/stores/user'
+
 
 const store = useUserStore()
 
