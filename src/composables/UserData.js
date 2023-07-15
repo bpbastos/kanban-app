@@ -1,13 +1,15 @@
 import http from '@/http-common'
 import { watchEffect, toValue } from 'vue'
 import { useLoaderStore } from '@/stores/loader'
+import { useAlertStore } from '@/stores/alert'
 import { useAsyncState } from '@vueuse/core'
 
 //Fetch users from api
 export function useFetchUsers(username='',options={}) {
 
   const { showLoading = true } = options
-  const store = useLoaderStore()
+  const loaderStore = useLoaderStore()
+  const alertStore = useAlertStore()
 
   //Get board from api (using useAsyncState for non-blocking setup)
   const { state, isLoading, isReady, error, execute } = useAsyncState(
@@ -17,17 +19,26 @@ export function useFetchUsers(username='',options={}) {
     {},
     {
       immediate: false,
-      onSuccess: () => { if(showLoading) store.setLoading(false) },
-      onError: () => { if(showLoading) store.setLoading(false) }
+      onSuccess: () => { handleSuccess() },
+      onError: () => { handleError() }
     }
-  )  
+  ) 
+  
+  const handleError = () => {
+    alertStore.error(error)
+    if(showLoading) loaderStore.setLoading(false) 
+  }
+
+  const handleSuccess = () => {
+    if(showLoading) loaderStore.setLoading(false) 
+  } 
 
   const fetch = (_username) => {
     execute(0, { un: toValue(_username) })
   }
 
   watchEffect(() => {
-    store.setLoading(true)
+    loaderStore.setLoading(true)
     fetch(username)
   })
 
