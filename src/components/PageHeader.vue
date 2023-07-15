@@ -5,7 +5,7 @@
     </div>
     <div class="flex-none gap-2">
       <PageAlert />
-      <label tabindex="0" class="btn btn-ghost btn-circle avatar">
+      <label tabindex="0" class="btn btn-ghost btn-circle avatar online">
         <div class="w-10 rounded-full">
           <NavLink v-if="username" :to="{ name: 'UserProfile', params: { id: username } }" >
             <img :src="profilePicture" />
