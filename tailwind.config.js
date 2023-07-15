@@ -7,15 +7,27 @@ module.exports = {
     'bg-blue-400',
     'bg-green-400',
     'bg-blue-500',
+    'bg-info',
+    'bg-success',
+    'bg-warning',
+    'bg-error',
     'badge-info',
+    'badge-success',    
     'badge-warning',
     'badge-error',
     'radio-info',
+    'radio-success',
     'radio-warning',
     'radio-error',
     'tooltip-info',
+    'tooltip-success',
     'tooltip-warning',
-    'tooltip-error'
+    'tooltip-error',
+    'alert-info',
+    'alert-success',
+    'alert-warning',
+    'alert-error'
+
   ],  
   daisyui: {
     themes: ["corporate"],
