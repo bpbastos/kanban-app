@@ -24,8 +24,8 @@ export function useFetchPriorities(priorityId=0,options={}) {
     }
   )  
 
-  const fetch = (priorityId) => {
-    execute(0, { id: toValue(priorityId) })
+  const fetch = (_priorityId) => {
+    execute(0, { id: toValue(_priorityId) })
   }
 
   watchEffect(() => {

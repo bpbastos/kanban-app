@@ -24,8 +24,8 @@ export function useFetchWorkflows(workflowId=0,options={}) {
     }
   )  
 
-  const fetch = (workflowId) => {
-    execute(0, { id: toValue(workflowId) })
+  const fetch = (_workflowId) => {
+    execute(0, { id: toValue(_workflowId) })
   }
 
   watchEffect(() => {

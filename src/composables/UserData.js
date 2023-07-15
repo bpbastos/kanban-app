@@ -22,8 +22,8 @@ export function useFetchUsers(username='',options={}) {
     }
   )  
 
-  const fetch = (username) => {
-    execute(0, { un: toValue(username) })
+  const fetch = (_username) => {
+    execute(0, { un: toValue(_username) })
   }
 
   watchEffect(() => {

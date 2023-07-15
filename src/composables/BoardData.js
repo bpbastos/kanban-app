@@ -24,8 +24,8 @@ export function useFetchBoards(boardId=0,options={}) {
     }
   )  
 
-  const fetch = (boardId) => {
-    execute(0, { id: toValue(boardId) })
+  const fetch = (_boardId) => {
+    execute(0, { id: toValue(_boardId) })
   }
 
   watchEffect(() => {

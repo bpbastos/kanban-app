@@ -35,8 +35,8 @@ export function useFetchTasks(taskId=0,boardId=0,workflowId=0,options={}) {
     }
   )  
 
-  const fetch = (taskId, boardId, workflowId) => {
-    execute(0, { id: toValue(taskId), bID: toValue(boardId), wID: toValue(workflowId) })
+  const fetch = (_taskId, _boardId, _workflowId) => {
+    execute(0, { id: toValue(_taskId), bID: toValue(_boardId), wID: toValue(_workflowId) })
   }
 
   watchEffect(() => {
