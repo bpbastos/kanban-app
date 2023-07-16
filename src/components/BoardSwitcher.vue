@@ -63,7 +63,7 @@ onMounted(()=>{
     if (isReady.value) {
       selectedItem.value = 'Nenhum quadro encontrado'
       if (boards.value.length > 0) {
-        //Get the first board and pushes an new route when component mounted
+        //Get the first board and pushes a new route when component is mounted
         selectedItem.value = boards.value[0]?.name
         //Emit a loaded event for the parent component
         emit('loaded',boards.value[0])

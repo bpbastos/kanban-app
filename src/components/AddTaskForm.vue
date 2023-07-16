@@ -49,7 +49,7 @@ const props = defineProps({
   boardId: Number
 })
 
-const emit = defineEmits(['error', 'added', 'canceled'])
+const emit = defineEmits(['added', 'canceled'])
 const { task, isReady, add }  = useAddTask()
 const newTaskTitle = ref('')
 const newTaskTitleInput = ref(null)
