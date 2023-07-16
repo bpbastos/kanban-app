@@ -4,7 +4,7 @@
       <span class="text-base label-text uppercase font-normal">sub tarefas:</span>
     </label>
     <div>
-      <TaskProgressBar :total-tasks="totalSubTasks" :total-tasks-done="totalSubTasksDone" />
+      <TaskProgressBar :show-progress-bar="true" :total-tasks="totalSubTasks" :total-tasks-done="totalSubTasksDone" />
       <ul>
         <li
           v-for="(st, index) in subTasks"
