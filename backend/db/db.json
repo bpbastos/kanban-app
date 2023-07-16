@@ -179,9 +179,9 @@
       "title": "Tarefa  7",
       "description": "",
       "priority": {
-        "id": 1,
-        "name": "Baixa",
-        "color": "info"
+        "id": 2,
+        "name": "Media",
+        "color": "warning"
       },
       "workflow": {
         "id": 1,
@@ -209,7 +209,7 @@
       "board_id": 1,
       "order": 0,
       "workflow_id": 1,
-      "priority_id": 1,
+      "priority_id": 2,
       "date_added": "3-7-2023",
       "id": 7
     },
@@ -233,7 +233,7 @@
       "subtasks": [
         {
           "text": "1",
-          "done": false
+          "done": true
         }
       ],
       "board_id": 1,
@@ -247,9 +247,9 @@
       "title": "Tarefa 60",
       "description": "",
       "priority": {
-        "id": 1,
-        "name": "Baixa",
-        "color": "info"
+        "id": 2,
+        "name": "Media",
+        "color": "warning"
       },
       "workflow": {
         "id": 4,
@@ -264,9 +264,34 @@
       "board_id": 1,
       "order": 0,
       "workflow_id": 4,
-      "priority_id": 1,
+      "priority_id": 2,
       "date_added": "14-7-2023",
       "id": 13
+    },
+    {
+      "title": "Tarefa 171",
+      "description": "",
+      "priority": {
+        "id": 1,
+        "name": "Baixa",
+        "color": "info"
+      },
+      "workflow": {
+        "id": 2,
+        "name": "Em andamento",
+        "color": "orange"
+      },
+      "board": {
+        "id": 1,
+        "name": "Sprint 1 - Fullstack Basico"
+      },
+      "subtasks": [],
+      "board_id": 1,
+      "order": 0,
+      "workflow_id": 2,
+      "priority_id": 1,
+      "date_added": "16-7-2023",
+      "id": 14
     }
   ]
 }
