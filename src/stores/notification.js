@@ -19,18 +19,17 @@ export const useNotificationStore = defineStore('notification', () => {
   function success(m) {
     const d = new Date()    
     const tempMsg = {
-      type: 'info',
+      type: 'success',
       text: m,
       date: d.toISOString()
     }   
-    console.log(currentPath.value)
     messages.value.unshift(tempMsg)
   }
 
   function warning(m) {
     const d = new Date()    
     const tempMsg = {
-      type: 'info',
+      type: 'warning',
       text: m,
       date: d.toISOString()
     }   
@@ -40,7 +39,7 @@ export const useNotificationStore = defineStore('notification', () => {
   function error(m) {
     const d = new Date()    
     const tempMsg = {
-      type: 'info',
+      type: 'error',
       text: m,
       date: d.toISOString()
     }   
