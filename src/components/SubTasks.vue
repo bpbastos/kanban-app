@@ -4,22 +4,23 @@
       <span class="text-base label-text uppercase font-normal">sub tarefas:</span>
     </label>
     <div>
-      <TaskProgressBar :total-tasks="totalSubTasks" :total-tasks-done="totalSubTasksDone" />
+      <TaskProgressBar :show-progress-bar="true" :total-tasks="totalSubTasks" :total-tasks-done="totalSubTasksDone" />
       <ul>
         <li
           v-for="(st, index) in subTasks"
           class="flex justify-between items-center mt-1 w-full p-2 hover:bg-base-200"
+          @click.stop="updateSubTask(st)"
         >
           <input
             type="checkbox"
             class="checkbox checkbox-md checkbox-success"
             v-model="st.done"
-            @click="updateSubTask(st)"
+            @click.stop="updateSubTask(st)"
           />
-          <p class="w-full ml-2 font-semibold" :class="st.done ? 'line-through' : ''" @click="updateSubTask(st)">
+          <p class="w-full ml-2 font-semibold" :class="st.done ? 'line-through' : ''" >
             {{ st.text }}
           </p>
-          <div class="text-lg text-error font-semibold" @click="removeSubTask(index)">
+          <div class="text-lg text-error font-semibold hover:bg-error hover:text-base-100" @click="removeSubTask(index)">
             <svg
               class="w-5 h-5"
               xmlns="http://www.w3.org/2000/svg"
@@ -54,37 +55,37 @@ const props = defineProps({
 })
 
 const newSubTask = ref('')
-const totalSubTasks = ref(props.subTasks?.length)
-const totalSubTasksDone = ref(
-  props.subTasks?.filter((item) => {
-    return item.done
-  }).length
-)
+const totalSubTasks = ref(0)
+const totalSubTasksDone = ref(0)
 
-const addSubTask = (e) => {
-  e.preventDefault()
+const updateTotals = () => {
+  totalSubTasks.value = props.subTasks?.length
+  totalSubTasksDone.value = props.subTasks.filter((item) => {
+    return item.done
+  })?.length 
+}
+
+const addSubTask = () => {
   if (newSubTask.value.trim().length > 0) {
     const subTaskItem = {
       text: newSubTask.value.trim(),
       done: false
     }
     props.subTasks.push(subTaskItem)
-    totalSubTasks.value = props.subTasks.length
     newSubTask.value = ''
+    updateTotals()
   }
 }
 
 const removeSubTask = (i) => {
   props.subTasks.splice(i, 1)
-  totalSubTasks.value = props.subTasks.length
+  updateTotals()
 }
 
 const updateSubTask = (subtask) => {
   subtask.done = !subtask.done
-  totalSubTasksDone.value = props.subTasks.filter((item) => {
-    return item.done
-  }).length
+  updateTotals()
 }
 
-//console.log(props.subTasks)
+updateTotals()
 </script>

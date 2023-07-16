@@ -1,44 +1,48 @@
-import { ref } from 'vue'
 import http from '@/http-common'
+import { watchEffect, toValue} from 'vue'
 import { useLoaderStore } from '@/stores/loader'
+import { useNotificationStore } from '@/stores/notification'
+import { useAsyncState } from '@vueuse/core'
 
-//Get Workflow
-export function useFetchWorkflow(showLoading=false) {
-    const workflow = ref([])
-    const error = ref(null)
-    const store = useLoaderStore()
-  
-    //Get Workflow from api
-    const fetch = async(id) => {
-      try {
-        if (showLoading) store.setLoading(true)
-        const response = await http.get(`/Workflows/${id}`)
-        workflow.value = response.data
-        if (showLoading) store.setLoading(false)
-      } catch (error) {
-        error.value = error
-      }
+//Fetch workflows from api
+export function useFetchWorkflows(workflowId=0,options={}) {
+
+  const { showLoading = true } = options
+  const loaderStore = useLoaderStore()
+  const notificationStore = useNotificationStore()
+
+  //Get workflow from api (using useAsyncState for non-blocking setup)
+  const { state, isLoading, isReady, error, execute } = useAsyncState(
+    (args) => {
+      const id = args?.id || 0
+      const url = id > 0 ? `/workflows/${id}` : '/workflows'
+      return http.get(url).then(response => response.data)
+    },
+    {},
+    {
+      immediate: false,
+      onSuccess: () => { handleSuccess() },
+      onError: () => { handleError() }
     }
+  ) 
   
-    return { workflow, error, fetch }
-}
+  const handleError = () => {
+    notificationStore.error(`${error.value.code} - ${error.value.message}`)
+    if(showLoading) loaderStore.setLoading(false) 
+  }
 
-export function useFetchWorkflows(showLoading=false) {
-    const workflows = ref([])
-    const error = ref(null)
-    const store = useLoaderStore()
-  
-    //Get Workflows from api
-    const fetch = async() => {
-      try {
-        if (showLoading) store.setLoading(true)
-        const response = await http.get(`/Workflows`)
-        workflows.value = response.data
-        if (showLoading) store.setLoading(false)
-      } catch (error) {
-        error.value = error
-      }
-    }
+  const handleSuccess = () => {
+    if(showLoading) loaderStore.setLoading(false) 
+  } 
 
-    return { workflows, error, fetch }
+  const fetch = (_workflowId) => {
+    execute(0, { id: toValue(_workflowId) })
+  }
+
+  watchEffect(() => {
+    loaderStore.setLoading(true)
+    fetch(workflowId)
+  })
+
+  return { workflows: state, error, isLoading, isReady, fetch }
 }

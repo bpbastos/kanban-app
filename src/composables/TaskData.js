@@ -1,141 +1,202 @@
-import { ref } from 'vue'
-import { useLoaderStore } from '@/stores/loader'
 import http from '@/http-common'
+import { watchEffect, toValue } from 'vue'
+import { useLoaderStore } from '@/stores/loader'
+import { useNotificationStore } from '@/stores/notification'
+import { useAsyncState } from '@vueuse/core'
 
-//Get tasks 
-export function useFetchTasks(showLoading=false) {
-  const tasks = ref([])
-  const error = ref(null)
-  const store = useLoaderStore()
+//Fetch tasks from api
+export function useFetchTasks(taskId=0,boardId=0,workflowId=0,options={}) {
 
-  //Get tasks from api
-  const fetch = async(boardId, workflowId) => {
-    try {
-      if (showLoading) store.setLoading(true)
-      const response = await http.get(`/tasks?board_id=${boardId}&workflow_id=${workflowId}`)
-      tasks.value = response.data
-      if (showLoading) store.setLoading(false)
-    } catch (error) {
-      error.value = error
+  const { showLoading = true } = options
+  const loaderStore = useLoaderStore()
+  const notificationStore = useNotificationStore()
+
+  //Get task from api (using useAsyncState for non-blocking setup)
+  const { state, isLoading, isReady, error, execute } = useAsyncState(
+    (args) => {
+      const id = args?.id || 0
+      const bID = args?.bID || 0
+      const wID = args?.wID || 0
+
+      let url = '/tasks'
+      if (id && !bID && !wID) url = `/tasks/${id}`
+      if (!id && bID && !wID) url = `/tasks?board_id=${bID}`
+      if (!id && !bID && wID) url = `/tasks?workflow_id=${wID}`
+      if (!id && bID && wID) url = `/tasks?board_id=${bID}&workflow_id=${wID}`
+      if (id && bID && wID) url = `/tasks/${id}/?board_id=${bID}&workflow_id=${wID}`
+
+      return http.get(url).then(response => response.data)
+    },
+    {},
+    {
+      immediate: false,
+      onSuccess: () => { handleSuccess() },
+      onError: () => { handleError() }
     }
+  ) 
+  
+  const handleError = () => {
+    notificationStore.error(`${error.value.code} - ${error.value.message}`)
+    if(showLoading) loaderStore.setLoading(false) 
   }
 
-  return { tasks, error, fetch }
-}
+  const handleSuccess = () => {
+    if(showLoading) loaderStore.setLoading(false) 
+  } 
 
-
-//Get one task
-export function useFetchTask(showLoading=false) {
-  const task = ref([])
-  const error = ref(null)
-  const store = useLoaderStore()
-
-  //Get tasks from api
-  const fetch = async(id) => {
-    try {
-      if (showLoading) store.setLoading(true)
-      const response = await http.get(`/tasks/${id}`)
-      task.value = response.data
-      if (showLoading) store.setLoading(false)
-    } catch (error) {
-      error.value = error
-    }
+  const fetch = (_taskId, _boardId, _workflowId) => {
+    execute(0, { id: toValue(_taskId), bID: toValue(_boardId), wID: toValue(_workflowId) })
   }
 
-  return { task, error, fetch }
+  watchEffect(() => {
+    loaderStore.setLoading(true)
+    fetch(taskId, boardId, workflowId)
+  })
+
+  return { tasks: state, error, isLoading, isReady, fetch }
 }
 
-//Add a new tasks
-export function useAddTask(showLoading=false) {
-  const task = ref([])
-  const error = ref(null)  
-  const store = useLoaderStore()
+//Add a new task using api
+export function useAddTask(options={}) {
 
-  const add = async(title, boardId, workflowId) => {
-    try {
+  const { showLoading = true } = options
+  const loaderStore = useLoaderStore()
+  const notificationStore = useNotificationStore()
+
+  //Add task using api (useAsyncState for non-blocking setup)
+  const { state, isLoading, isReady, error, execute } = useAsyncState(
+    async(args) => {
       const date = new Date()
       const day = date.getDate()
       const month = date.getMonth() + 1
       const year = date.getFullYear()
       const currentDate = `${day}-${month}-${year}`
       const priorityId = 1
-      let response = null
-      if (showLoading) store.setLoading(true)
-      response = await http.get(`/workflows/${workflowId}`)
-      const workflow = response.data
-      response = await http.get(`/priorities/${priorityId}`)
-      const priority = response.data
-      response = await http.get(`/boards/${boardId}`)
-      const board = response.data
-      response = await http.post('/tasks', {
-        title: title,
+      const workflow = await http.get(`/workflows/${args.wID}`).then(r => r.data)
+      const priority = await http.get(`/priorities/${priorityId}`).then(r => r.data)
+      const board = await http.get(`/boards/${args.bID}`).then(r => r.data)
+      return http.post('/tasks', {
+        title: args.t,
         description: '',
         priority: priority,
         workflow: workflow,
         board: board,
         subtasks: [],
-        board_id: boardId,
+        board_id: args.bID,
         order: 0,
-        workflow_id: workflowId,
+        workflow_id: args.wID,
         priority_id: priorityId,
         date_added: currentDate
-      })
-      task.value = response.data
-      if (showLoading) store.setLoading(false)      
-    } catch (e) {
-      error.value = e
+      }).then(r => r.data)
+    },
+    {},
+    {
+      immediate: false,
+      onSuccess: () => { handleSuccess() },
+      onError: () => { handleError() }
     }
+  ) 
+  
+  const handleError = () => {
+    notificationStore.error(`${error.value.code} - ${error.value.message}`)
+    if(showLoading) loaderStore.setLoading(false) 
   }
 
-  return { task, error, add }  
-}
-
-//Update task
-export function useUpdateTask(showLoading=false) {
-  const task = ref([])
-  const error = ref(null)  
-  const store = useLoaderStore()
-
-  const update = async(t) => {
-    try {
-      let response = null
-      if (showLoading) store.setLoading(true)
-      response = await http.get(`/priorities/${t.priority_id}`)
-      const priority = response.data
-      response = await http.patch(`/tasks/${t.id}`, {
-        id: t.id,
-        title: t.title,
-        description: t.description,
-        subtasks: t.subtasks,
-        priority_id: t.priority_id,
-        priority: priority
-      })
-      task.value = response.data
-      if (showLoading) store.setLoading(false)
-    } catch (e) {
-      error.value = e
-    }
+  const handleSuccess = () => {
+    notificationStore.success(`Tarefa adicionada com sucesso`)
+    if(showLoading) loaderStore.setLoading(false) 
   } 
 
-  return { task, error, update }  
+  const add = (title, boardId, workflowId) => {
+    loaderStore.setLoading(true)
+    execute(0, { t: title, bID: boardId, wID: workflowId})
+  }
+
+  return { task: state, error, isLoading, isReady, add }
 }
 
-//Remove task
-export function useRemoveTask(showLoading=false) {
-  const task = ref([])
-  const error = ref(null)  
-  const store = useLoaderStore()
-  
-  const remove = async(id) => {
-    try {
-      if (showLoading) store.setLoading(true)
-      const response = await http.delete(`/tasks/${id}`)
-      task.value = response.data
-      if (showLoading) store.setLoading(false)
-    } catch (e) {
-      error.value = e
+
+//Update task using api
+export function useUpdateTask(options={}) {
+
+  const { showLoading = true } = options
+  const loaderStore = useLoaderStore()
+  const notificationStore = useNotificationStore()
+
+  //Add task using api (useAsyncState for non-blocking setup)
+  const { state, isLoading, isReady, error, execute } = useAsyncState(
+    async(args) => {
+      const priority = await http.get(`/priorities/${args.t.priority_id}`).then(r => r.data)
+      return http.patch(`/tasks/${args.t.id}`, {
+        id: args.t.id,
+        title: args.t.title,
+        description: args.t.description,
+        subtasks: args.t.subtasks,
+        priority_id: args.t.priority_id,
+        priority: priority
+      }).then(r => r.data)
+    },
+    {},
+    {
+      immediate: false,
+      onSuccess: () => { handleSuccess() },
+      onError: () => { handleError() }
     }
-    //return task.value.id
+  ) 
+  
+  const handleError = () => {
+    notificationStore.error(`${error.value.code} - ${error.value.message}`)
+    if(showLoading) loaderStore.setLoading(false) 
   }
-  return { task, error, remove }  
+
+  const handleSuccess = () => {
+    notificationStore.success(`Tarefa atualizada com sucesso`)
+    if(showLoading) loaderStore.setLoading(false) 
+  } 
+
+  const update = (task) => {
+    loaderStore.setLoading(true)
+    execute(0, { t: task})
+  }
+
+  return { task: state, error, isLoading, isReady, update }
+}
+
+//Remove task using api
+export function useRemoveTask(options={}) {
+
+  const { showLoading = true } = options
+  const loaderStore = useLoaderStore()
+  const notificationStore = useNotificationStore()
+
+  //Remove task using api (useAsyncState for non-blocking setup)
+  const { state, isLoading, isReady, error, execute } = useAsyncState(
+    (args) => {
+      const id = args?.id || 0
+      return http.delete(`/tasks/${id}`).then(response => response.data)
+    },
+    {},
+    {
+      immediate: false,
+      onSuccess: () => { handleSuccess() },
+      onError: () => { handleError() }
+    }
+  ) 
+  
+  const handleError = () => {
+    notificationStore.error(`${error.value.code} - ${error.value.message}`)
+    if(showLoading) loaderStore.setLoading(false) 
+  }
+
+  const handleSuccess = () => {
+    notificationStore.success(`Tarefa removida com sucesso`)
+    if(showLoading) loaderStore.setLoading(false) 
+  } 
+
+  const remove = (taskId) => {
+    loaderStore.setLoading(true)
+    execute(0, { id: taskId })
+  }
+
+  return { task: state, error, isLoading, isReady, remove }
 }

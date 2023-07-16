@@ -9,13 +9,18 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/board/:taskid?',
+      path: '/',
+      redirect: '/board',
+    },    
+    {
+      path: '/board/:id?',
       name: 'Board',
       component: BoardView,
-      props: true,
-      children: [
-        { path: '/:taskid?', component: BoardView, alias: ['/board/:taskid?'] },
-      ],
+      props(route) {
+        return {
+          id: route.params.id ? parseInt(route.params.id) : 0
+        }
+      }
     },
     {
       path: '/calendar',

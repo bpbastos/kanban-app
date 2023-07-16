@@ -1,30 +1,27 @@
 <template>
-  <header
-    class="flex flex-row justify-between h-14 bg-gradient-to-r from-secondary from-0% via-primary via-100% drop-shadow-xl"
-  >
-    <nav
-      class="flex justify-center items-center w-[120px] flex-shrink-0 bg-primary bg-opacity-25 drop-shadow-xl hover:bg-secondary-focus hover:cursor-pointer"
-    >
-      <p class="text-xl font-bold m-auto text-primary-content">kanban</p>
-    </nav>
-    <NavLink
-      v-if="username"
-      :to="{ name: 'UserProfile', params: { id: username } }"
-      class="flex justify-center items-center flex-shrink-0 border-primary-content  border-l-[1px] hover:bg-primary-focus p-2"
-      active-class="bg-primary-focus"
-    >
-      <span class="text-sm font-light text-primary-content mr-2">{{ firstName }} {{ lastName }}</span>
-      <div class="avatar online">
+  <div class="navbar min-h-0 bg-base-100 bg-gradient-to-r from-secondary from-0% via-primary via-100%">
+    <div class="flex-1">
+      <a class="btn btn-ghost rounded normal-case text-2xl text-primary-content">kanban</a>
+    </div>
+    <div class="flex-none gap-2">
+      <ThemeChanger />
+      <AppNotification />
+      <label tabindex="0" class="btn btn-ghost btn-circle avatar online">
         <div class="w-10 rounded-full">
-          <img :src="profilePicture" alt="{{ firstName }} {{ lastName }}" />
+          <NavLink v-if="username" :to="{ name: 'UserProfile', params: { id: username } }">
+            <img :src="profilePicture" />
+          </NavLink>
         </div>
-      </div>
-    </NavLink>
-  </header>
+      </label>
+    </div>
+  </div>
 </template>
 
 <script setup>
 import NavLink from '@/components/NavLink.vue'
+import AppNotification from '@/components/AppNotification.vue';
+import ThemeChanger from './ThemeChanger.vue';
+
 
 const props = defineProps({
   username: String,

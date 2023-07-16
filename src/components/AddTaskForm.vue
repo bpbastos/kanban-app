@@ -9,7 +9,7 @@
       tabindex="0"      
       ref="newTaskTitleInput"
       @keyup.enter="addNewTask"
-      @keyup.esc="emit('cancel')"
+      @keyup.esc="emit('canceled')"
     />
     <div class="flex text-sm mt-2 gap-1">
       <button class="btn btn-xs btn-success" @click="addNewTask">
@@ -24,7 +24,7 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
         </svg>
       </button>
-      <button class="btn btn-xs btn-error " @click="emit('cancel')">
+      <button class="btn btn-xs btn-error " @click="emit('canceled')">
         <svg
           class="w-4 h-4"
           xmlns="http://www.w3.org/2000/svg"
@@ -41,7 +41,7 @@
 </template>
 
 <script setup>
-import { ref, onUpdated, nextTick, isRef } from 'vue'
+import { ref, watchEffect, onUpdated, nextTick } from 'vue'
 import { useAddTask } from '@/composables/TaskData'
 
 const props = defineProps({
@@ -49,21 +49,23 @@ const props = defineProps({
   boardId: Number
 })
 
-const emit = defineEmits(['add', 'cancel'])
-const { task, error, add }  = useAddTask(true)
+const emit = defineEmits(['added', 'canceled'])
+const { task, isReady, add }  = useAddTask()
 const newTaskTitle = ref('')
 const newTaskTitleInput = ref(null)
 
-const addNewTask = async() => {
-  if (newTaskTitle.value.trim().length) {
-    await add(newTaskTitle.value.trim(), props.boardId, props.workflowId)
-    if (isRef(task)) {
-      emit('add')
-    }    
-  }
+const addNewTask = () => {
+  add(newTaskTitle.value.trim(), props.boardId, props.workflowId)
+  newTaskTitle.value = ''
+  //Wait for api post return
+  watchEffect(() => {
+    if (isReady.value) {
+      emit('added', task)
+    }
+  })  
 }
 
-//Focus no input assim que o elemento é exibido no DOM
+//Focus the input as soon as DOM el is shown
 onUpdated(() => {
   nextTick(() => {
     newTaskTitleInput.value.focus()

@@ -1,44 +1,48 @@
 import http from '@/http-common'
-import { ref, watchEffect, toValue, onMounted } from 'vue'
+import { watchEffect, toValue} from 'vue'
 import { useLoaderStore } from '@/stores/loader'
+import { useNotificationStore } from '@/stores/notification'
+import { useAsyncState } from '@vueuse/core'
 
-//Get board
-export function useFetchBoard(showLoading=false) {
-    const board = ref([])
-    const error = ref(null)
-    const store = useLoaderStore()
-  
-    //Get board from api
-    const fetch = async(id) => {
-      try {
-        if (showLoading) store.setLoading(true)
-        const response = await http.get(`/boards/${id}`)
-        board.value = response.data
-        if (showLoading) store.setLoading(false)
-      } catch (error) {
-        error.value = error
-      }
+//Fetch boards from api
+export function useFetchBoards(boardId=0,options={}) {
+
+  const { showLoading = true } = options
+  const loaderStore = useLoaderStore()
+  const notificationStore = useNotificationStore()
+
+  //Get board from api (using useAsyncState for non-blocking setup)
+  const { state, isLoading, isReady, error, execute } = useAsyncState(
+    (args) => {
+      const id = args?.id || 0
+      const url = id > 0 ? `/boards/${id}` : '/boards'
+      return http.get(url).then(response => response.data)
+    },
+    {},
+    {
+      immediate: false,
+      onSuccess: () => { handleSuccess() },
+      onError: () => { handleError() }
     }
+  ) 
   
-    return { board, error, fetch }
-}
+  const handleError = () => {
+    notificationStore.error(`${error.value.code} - ${error.value.message}`)
+    if(showLoading) loaderStore.setLoading(false) 
+  }
 
-export function useFetchBoards(showLoading=false) {
-    const boards = ref([])
-    const error = ref(null)
-    const store = useLoaderStore()
-  
-    //Get boards from api
-    const fetch = async() => {
-      try {
-        if (showLoading) store.setLoading(true)
-        const response = await http.get(`/boards`)
-        boards.value = response.data
-        if (showLoading) store.setLoading(false)
-      } catch (error) {
-        error.value = error
-      }
-    }
+  const handleSuccess = () => {
+    if(showLoading) loaderStore.setLoading(false) 
+  } 
 
-    return { boards, error, fetch }
+  const fetch = (_boardId) => {
+    execute(0, { id: toValue(_boardId) })
+  }
+
+  watchEffect(() => {
+    loaderStore.setLoading(true)
+    fetch(boardId)
+  })
+
+  return { boards: state, error, isLoading, isReady, fetch }
 }

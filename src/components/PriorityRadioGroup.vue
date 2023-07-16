@@ -4,22 +4,21 @@
     </label>
     <div v-for="priority in priorities" :key="priority.id" class="tooltip" :class="`tooltip-${priority.color}`"
         :data-tip="`${priority.name}`">
-        <input v-if="priority.id == priorityId" @click="changePriority(priority.id)" type="radio" :value="priority.id" name="priority" id="priority" class="radio radio-sm m-1"
+        <input v-if="priority.id == selectedPriorityId" @click="changePriority(priority.id)" type="radio" :value="priority.id" name="priority" id="priority" class="radio radio-sm m-1"
             :class="`radio-${priority.color}`" checked/>
         
-        <input v-else-if="priority.id != priorityId" @click="changePriority(priority.id)" type="radio" :value="priority.id" name="priority" id="priority" class="radio radio-sm m-1"
+        <input v-else-if="priority.id != selectedPriorityId" @click="changePriority(priority.id)" type="radio" :value="priority.id" name="priority" id="priority" class="radio radio-sm m-1"
             :class="`radio-${priority.color}`" />
     </div>
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
 import { useFetchPriorities } from '@/composables/PriorityData'
 
-const { priorities, error, fetch } = useFetchPriorities(true)
+const { priorities } = useFetchPriorities()
 
 const props = defineProps({
-  priorityId: Number  
+  selectedPriorityId: Number  
 })
 
 const emit = defineEmits(['change'])
@@ -30,9 +29,5 @@ const changePriority = (id) => {
     })
     emit('change', priority[0].id)
 }
-
-onMounted(async() => {
-    await fetch()    
-})
 
 </script>

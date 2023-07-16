@@ -1,12 +1,12 @@
 <template>
-  <div class="card card-compact glass w-full shadow-2xl bg-base-100 text-xs p-2 cursor-pointer">
+  <div class="card card-compact glass w-full shadow-2xl bg-base-100 text-xs p-2 cursor-pointer" @click="goToEditTask">
     <div class="card-actions justify-between">
-      <div class="badge font-semibold p-3 justify-start" :class="`badge-${priorityColor}`">
+      <div class="badge badge-lg font-semibold justify-start" :class="priorityColor">
         {{ priorityLabel }}
       </div>
       <button
         class="btn btn-xs btn-square btn-error cursor-not-allowed"
-        @click="showModal = !showModal"
+        @click.stop="showModal = !showModal"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -24,13 +24,13 @@
         </svg>
       </button>
     </div>
-    <div @click="goToEditTask">
-      <p class="card-actions text-base text-base-content m-2">{{ title }}</p>
+    <div>
+      <p class="card-actions text-base text-base-content m-2">{{ task.title }}</p>
       <TaskProgressBar :total-tasks="totalSubTasks" :total-tasks-done="totalSubTasksDone" />
     </div>
   </div>
   <DeleteConfirmationModal
-    @delete="deleteTask"
+    @delete-clicked="deleteTask"
     :show-modal="showModal"
     btn-cancel-label="Cancelar"
     btn-delete-label="Deletar"
@@ -40,34 +40,45 @@
 </template>
 
 <script setup>
-import { ref, isRef } from 'vue'
+import { ref, watchEffect, computed } from 'vue'
 import { useRouter } from 'vue-router'
-import DeleteConfirmationModal from '@/components/DeleteConfirmationModal.vue'
 import { useRemoveTask } from '@/composables/TaskData'
+import DeleteConfirmationModal from '@/components/DeleteConfirmationModal.vue'
 import TaskProgressBar from '@/components/TaskProgressBar.vue';
 
-const { task, error, remove } = useRemoveTask(true)
-const emit = defineEmits(['delete'])
 const router = useRouter()
 const showModal = ref(false)
+const { isReady, remove } = useRemoveTask()
 
-const deleteTask = async() => {
-  await remove(props.id)
-  if (isRef(task)) {
-    emit('delete', props.id)
+const priorityLabel = computed(()=> props.task.priority?.name)
+const priorityColor = computed(()=> "badge-"+props.task.priority?.color)
+const totalSubTasks = computed(()=> props.task.subtasks?.length)
+const totalSubTasksDone = computed(()=> {
+  return props.task.subtasks?.filter((item) => {
+            return item.done
+  })?.length
+})
+
+const emit = defineEmits(['deleted'])
+
+const props = defineProps({
+  task: {
+    type: Object,
+    required: true
   }
+})
+
+const deleteTask = () => {
+  remove(props.task.id)
+  //Wait for api delete return
+  watchEffect(() => {
+    if (isReady.value) {
+      emit('deleted', props.task.id)
+    }
+  })  
 }
 
 const goToEditTask = () => {
-  router.push({ name: 'EditTask', params: { id: props.id } })
+  router.push({ name: 'EditTask', params: { id: props.task.id } })
 }
-
-const props = defineProps({
-  id: Number,
-  title: String,
-  priorityLabel: String,
-  priorityColor: String,
-  totalSubTasksDone: Number,
-  totalSubTasks: Number
-})
 </script>
