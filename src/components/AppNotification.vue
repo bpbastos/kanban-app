@@ -75,7 +75,7 @@ const removeNotification = (i) => {
 watchEffect(() => {
   if (store.messages.length) {
     messageCount.value = store.messages.length
-    lastMessageType.value = store.messages[store.messages.length - 1].type
+    lastMessageType.value = store.messages[0].type
   }
 })
 </script>
