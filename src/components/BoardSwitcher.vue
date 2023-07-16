@@ -1,5 +1,5 @@
 <template>
-  <div class="dropdown ">
+  <details class="dropdown" ref="dropdown">
     <summary tabindex="0" class="btn btn-active bg-base-200 m-1 text-lg hover:bg-base-100">
       {{ selectedItem }}
       <svg
@@ -16,18 +16,19 @@
     <ul
       tabindex="0"
       class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box text-base"
-      ref="items"
     >
       <li>
         <a v-for="(board, index) in boards" @click="changeSelected(board)">{{ board.name }}</a>
       </li>
     </ul>
-  </div>
+</details>  
 </template>
 <script setup>
 import { onMounted, ref, watch } from 'vue'
 import { useFetchBoards } from '@/composables/BoardData'
 import { useRouter } from 'vue-router'
+import { onClickOutside } from '@vueuse/core'
+
 
 //Fetch all boards
 const { boards, isReady } = useFetchBoards()
@@ -35,15 +36,25 @@ const { boards, isReady } = useFetchBoards()
 const router = useRouter()
 
 const selectedItem = ref('')
-const items = ref(null)
+//const items = ref(null)
+const dropdown = ref(null)
 
 const emit = defineEmits(['change','loaded'])
 
+const closeDropdown = () => {
+  if (dropdown.value.open)
+    dropdown.value.removeAttribute('open')  
+}
+
 const changeSelected = (board) => {
   selectedItem.value = board.name
-  items.value.blur()
+  closeDropdown()
   router.push({ name: 'Board', params: { id: board.id } }) 
 }
+
+onClickOutside(dropdown, (event) => {
+  closeDropdown()
+})
 
 
 onMounted(()=>{
