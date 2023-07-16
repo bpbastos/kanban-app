@@ -22,7 +22,7 @@
       </div>
     </summary>
     <ul tabindex="0" class="mt-2 p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-72" v-if="messageCount">
-      <li v-for="(message, index) in store.messages.slice(0, 5)" class="border-b" @click="removeNotification(index)">
+      <li v-for="(message, index) in store.messages.slice(0, 5)" class="p-1" @click="removeNotification(index)">
         <div class="alert" :class="`alert-${message.type}`">
           <svg v-if="message.type == 'info'" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
             class="stroke-current shrink-0 w-6 h-6">
