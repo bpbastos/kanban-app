@@ -45,6 +45,7 @@
 - [x] ~~Sistema de notificação.~~
 - [x] ~~Implementar interface entre API e frontend via composables~~
 
+
 ## 💻 Pré-requisitos
 
 Antes de começar, verifique se você atendeu aos seguintes requisitos:
