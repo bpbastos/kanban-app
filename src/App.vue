@@ -19,6 +19,8 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue'
+import { themeChange } from 'theme-change'
 import { RouterView } from 'vue-router'
 import { storeToRefs } from 'pinia'
 
@@ -30,6 +32,10 @@ import { useUserStore } from '@/stores/user'
 
 
 const store = useUserStore()
+
+onMounted(() => {
+  themeChange(false)
+})
 
 const { username, firstName, lastName, profilePicture } = storeToRefs(store)
 </script>

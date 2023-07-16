@@ -247,9 +247,9 @@
       "title": "Tarefa 60",
       "description": "",
       "priority": {
-        "id": 3,
-        "name": "Alta",
-        "color": "error"
+        "id": 1,
+        "name": "Baixa",
+        "color": "info"
       },
       "workflow": {
         "id": 4,
@@ -264,7 +264,7 @@
       "board_id": 1,
       "order": 0,
       "workflow_id": 4,
-      "priority_id": 3,
+      "priority_id": 1,
       "date_added": "14-7-2023",
       "id": 13
     }
