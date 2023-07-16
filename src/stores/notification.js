@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { useLocalStorage } from '@vueuse/core'
 
 export const useNotificationStore = defineStore('notification', () => {
+  //Store the notifications on localStorare
   const messages = useLocalStorage('notifications', [])
 
   function info(m) {
