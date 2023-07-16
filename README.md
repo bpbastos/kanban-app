@@ -15,29 +15,30 @@
 
 ## Funcionalidades
 
-- Listar quadros.
-- Criar tarefa.
-- Editar tarefa.
-- Excluir tarefa.
-- Adicionar sub tarefas.
-- Exibir informações do perfil de usuário.
+- [ ] Listar quadros.
+- [ ] Criar tarefa.
+- [ ] Editar tarefa.
+- [ ] Excluir tarefa.
+- [ ] Adicionar sub tarefas.
+- [ ] Exibir informações do perfil de usuário.
 
 ## Todo
-- Implementar backend real.
-- Login de usuário.
-- Registro de usuários.
-- Criar/Editar/Arquivar quadros.
-- Criar/Editar/Arquivar workflows|status.
-- Arquivar tarefas.
-- Associar usuários a tarefas.
-- Associar usuários a sub tarefas.
-- Reordenar tarefas.
-- Reordenar sub tarefas.
-- Arrastar tarefas entre workflows|status.
-- Layout Responsivo no mobile.
-- Gerenciador de temas.
-- Validação nos formulários.
-- Implementar interface entre API e frontend via composables
+- [ ] Implementar backend real.
+- [ ] Login de usuário.
+- [ ] Registro de usuários.
+- [ ] Criar/Editar/Arquivar quadros.
+- [ ] Criar/Editar/Arquivar workflows|status.
+- [ ] Arquivar tarefas.
+- [ ] Associar usuários a tarefas.
+- [ ] Associar usuários a sub tarefas.
+- [ ] Reordenar tarefas.
+- [ ] Reordenar sub tarefas.
+- [ ] Arrastar tarefas entre workflows|status.
+- [ ] Layout Responsivo no mobile.
+- [x] Gerenciador de temas.
+- [x] Sistema de notificação.
+- [ ] Validação nos formulários.
+- [ ] Implementar interface entre API e frontend via composables
 
 ## 💻 Pré-requisitos
 
