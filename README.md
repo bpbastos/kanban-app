@@ -1,9 +1,14 @@
 # Kanban App 
 
 [![Package - vue](https://img.shields.io/github/package-json/dependency-version/bpbastos/kanban-app/vue?color=green)](https://www.npmjs.com/package/vue)
+[![Package - @vueuse/core](https://img.shields.io/github/package-json/dependency-version/bpbastos/kanban-app/@vueuse/core?color=green)](https://www.npmjs.com/package/@vueuse/core)
+[![Package - vue-router](https://img.shields.io/github/package-json/dependency-version/bpbastos/kanban-app/vue-router?color=green)](https://www.npmjs.com/package/vue-router)
+[![Package - pinia](https://img.shields.io/github/package-json/dependency-version/bpbastos/kanban-app/pinia?color=yellow)](https://www.npmjs.com/package/pinia)
+[![Package - axios](https://img.shields.io/github/package-json/dependency-version/bpbastos/kanban-app/axios?color=red)](https://www.npmjs.com/package/axios)
 [![Package - tailwindcss](https://img.shields.io/github/package-json/dependency-version/bpbastos/kanban-app/dev/tailwindcss?color=blue)](https://www.npmjs.com/package/tailwindcss)
 [![Package - tailwind-scrollbar](https://img.shields.io/github/package-json/dependency-version/bpbastos/kanban-app/dev/tailwind-scrollbar?color=blue)](https://www.npmjs.com/package/tailwind-scrollbar)
 [![Package - daisyui](https://img.shields.io/github/package-json/dependency-version/bpbastos/kanban-app/dev/daisyui?color=purple)](https://www.npmjs.com/package/daisyui)
+[![Package - theme-change](https://img.shields.io/github/package-json/dependency-version/bpbastos/kanban-app/theme-change?color=orange)](https://www.npmjs.com/package/theme-change)
 
 <img src="screenshot/board.jpg" alt="Tela principal">
 
@@ -15,12 +20,12 @@
 
 ## Funcionalidades
 
-- [ ] Listar quadros.
-- [ ] Criar tarefa.
-- [ ] Editar tarefa.
-- [ ] Excluir tarefa.
-- [ ] Adicionar sub tarefas.
-- [ ] Exibir informações do perfil de usuário.
+- [x] Listar quadros.
+- [x] Criar tarefa.
+- [x] Editar tarefa.
+- [x] Excluir tarefa.
+- [x] Adicionar sub tarefas.
+- [x] Exibir informações do perfil de usuário.
 
 ## Todo
 - [ ] Implementar backend real.
@@ -35,10 +40,10 @@
 - [ ] Reordenar sub tarefas.
 - [ ] Arrastar tarefas entre workflows|status.
 - [ ] Layout Responsivo no mobile.
-- [x] Gerenciador de temas.
-- [x] Sistema de notificação.
 - [ ] Validação nos formulários.
-- [ ] Implementar interface entre API e frontend via composables
+- [x] ~~Gerenciador de temas.~~
+- [x] ~~Sistema de notificação.~~
+- [x] ~~Implementar interface entre API e frontend via composables~~
 
 ## 💻 Pré-requisitos
 
