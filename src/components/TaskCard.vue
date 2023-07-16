@@ -1,7 +1,7 @@
 <template>
   <div class="card card-compact glass w-full shadow-2xl bg-base-100 text-xs p-2 cursor-pointer" @click="goToEditTask">
     <div class="card-actions justify-between">
-      <div class="badge font-semibold p-3 justify-start" :class="priorityColor">
+      <div class="badge badge-lg font-semibold justify-start" :class="priorityColor">
         {{ priorityLabel }}
       </div>
       <button
