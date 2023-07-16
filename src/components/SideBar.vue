@@ -1,12 +1,12 @@
 <template>
-  <div class="shadow-2xl text-base-content">
+  <div class="">
     <div class="hidden sm:block">
       <aside
-        class="flex flex-col w-[120px] min-h-screen flex-shrink-0 drop-shadow-xl py-1"
+        class="flex flex-col w-[120px] min-h-screen flex-shrink-0 shadow-lg py-1"
       >
         <NavLink
         :to="{name: 'Board' }"
-          class="flex flex-col items-center justify-center py-8 hover:bg-base-100"
+          class="flex flex-col items-center justify-center py-8 hover:bg-base-300"
           active-class="border-l-2 border-primary bg-base-200"
           inactive-class="opacity-50"
         >
@@ -15,7 +15,7 @@
         </NavLink>
         <NavLink
           :to="{name: 'Calendar'}"
-          class="flex flex-col items-center justify-center py-8 hover:bg-base-100"
+          class="flex flex-col items-center justify-center py-8 hover:bg-base-300"
           active-class="border-l-2 border-primary bg-base-200"
           inactive-class="opacity-50"
         >

@@ -1,7 +1,7 @@
 <template>
    <div v-if="task" class="flex items-center justify-center w-12/12">
     <div class="card pt-[2px] bg-primary shadow-2xl w-full">
-      <div class="card bg-base-300 p-4">
+      <div class="card bg-base-200 p-4">
         <form action="form-control p-3">
           <div class="flex space-x-2 items-center">
             <div class="w-10/12">

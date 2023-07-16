@@ -1,7 +1,7 @@
 <template>
     <div class="flex items-center justify-center w-12/12">
       <div class="card pt-[2px] bg-primary shadow-2xl">
-        <div class="card bg-base-300 p-4">
+        <div class="card bg-base-200 p-4">
           <div class="avatar">
             <div class="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
               <img :src="profilePicture" />
