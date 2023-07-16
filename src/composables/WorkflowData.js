@@ -27,7 +27,7 @@ export function useFetchWorkflows(workflowId=0,options={}) {
   ) 
   
   const handleError = () => {
-    notificationStore.error(error)
+    notificationStore.error(`${error.value.code} - ${error.value.message}`)
     if(showLoading) loaderStore.setLoading(false) 
   }
 

@@ -36,7 +36,7 @@ export function useFetchTasks(taskId=0,boardId=0,workflowId=0,options={}) {
   ) 
   
   const handleError = () => {
-    notificationStore.error(error)
+    notificationStore.error(`${error.value.code} - ${error.value.message}`)
     if(showLoading) loaderStore.setLoading(false) 
   }
 
@@ -98,7 +98,7 @@ export function useAddTask(options={}) {
   ) 
   
   const handleError = () => {
-    notificationStore.error(error)
+    notificationStore.error(`${error.value.code} - ${error.value.message}`)
     if(showLoading) loaderStore.setLoading(false) 
   }
 
@@ -145,7 +145,7 @@ export function useUpdateTask(options={}) {
   ) 
   
   const handleError = () => {
-    notificationStore.error(error)
+    notificationStore.error(`${error.value.code} - ${error.value.message}`)
     if(showLoading) loaderStore.setLoading(false) 
   }
 
@@ -184,7 +184,7 @@ export function useRemoveTask(options={}) {
   ) 
   
   const handleError = () => {
-    notificationStore.error(error)
+    notificationStore.error(`${error.value.code} - ${error.value.message}`)
     if(showLoading) loaderStore.setLoading(false) 
   }
 
