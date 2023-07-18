@@ -226,31 +226,6 @@
       "id": 7
     },
     {
-      "title": "Tarefa 20",
-      "description": "",
-      "priority": {
-        "id": 1,
-        "name": "Baixa",
-        "color": "info"
-      },
-      "workflow": {
-        "id": 2,
-        "name": "Em andamento",
-        "color": "orange"
-      },
-      "board": {
-        "id": 1,
-        "name": "Sprint 1 - Fullstack Basico"
-      },
-      "subtasks": [],
-      "board_id": 1,
-      "order": 0,
-      "workflow_id": 2,
-      "priority_id": 1,
-      "date_added": "12-7-2023",
-      "id": 8
-    },
-    {
       "title": "Tarefa 25",
       "description": "",
       "priority": {
