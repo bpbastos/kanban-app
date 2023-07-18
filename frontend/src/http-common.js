@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useLoaderStore } from '@/stores/loader'
 
 const http = axios.create({
   baseURL: "http://localhost:3000",
@@ -7,5 +6,15 @@ const http = axios.create({
     "Content-type": "application/json",
   },
 })
+
+export const parse = axios.create({
+  baseURL: "http://localhost:1337/parse",
+  headers: {
+    "X-Parse-Application-Id": "kanbanapp",
+    "X-Parse-REST-API-Key": "6VZVehnGi2mqN2dMjjQxHr1kgBHYm9q2",
+    "Content-type": "application/json"    
+  },
+})
+
 
 export default http

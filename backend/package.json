@@ -2,7 +2,9 @@
   "name": "kanban",
   "description": "parse-server for kanban",
   "scripts": {
-    "start": "parse-server config.json"
+    "dashboard": "parse-dashboard --dev --appId kanbanapp --masterKey Mi1nUw46j3gbeEcZpjUrT5Uf4gk6McqL --serverURL 'http://localhost:1337/parse' --appName KanpanApp",
+    "backend": "parse-server --restAPIKey 6VZVehnGi2mqN2dMjjQxHr1kgBHYm9q2 config.json",
+    "mongodb": "mongodb-runner start"
   },
   "dependencies": {
     "parse-server": "^3.9.0"

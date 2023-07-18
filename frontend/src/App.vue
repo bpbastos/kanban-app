@@ -1,6 +1,6 @@
 <template>
   <div class="container mx-auto max-w-screen-xl max-h-screen ">
-    <PageHeader 
+    <PageHeader v-if="store.user"
       :username="username"
       :firstName="firstName"
       :lastName="lastName"
@@ -20,7 +20,7 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
+import { computed, onMounted, watchEffect } from 'vue'
 import { themeChange } from 'theme-change'
 import { RouterView } from 'vue-router'
 import { storeToRefs } from 'pinia'
@@ -34,9 +34,12 @@ import { useUserStore } from '@/stores/user'
 
 const store = useUserStore()
 
-onMounted(() => {
-themeChange(false)
-})
+const username = computed(()=>store.user.username)
+const firstName = computed(()=>store.user.firstName)
+const lastName = computed(()=>store.user.lastName)
+const profilePicture = computed(()=>store.user.profilePicture.url)
 
-const { username, firstName, lastName, profilePicture } = storeToRefs(store)
+onMounted(() => {
+  themeChange(false)
+})
 </script>

@@ -1,4 +1,4 @@
-import http from '@/http-common'
+import { parse } from '@/http-common'
 import { watchEffect, toValue } from 'vue'
 import { useLoaderStore } from '@/stores/loader'
 import { useNotificationStore } from '@/stores/notification'
@@ -10,11 +10,12 @@ export function useFetchUsers(username='',options={}) {
   const { showLoading = true } = options
   const loaderStore = useLoaderStore()
   const notificationStore = useNotificationStore()
-
+  //console.log(http.baseURL)
   //Get board from api (using useAsyncState for non-blocking setup)
   const { state, isLoading, isReady, error, execute } = useAsyncState(
     (args) => {
-      return http.get(`/user?username=${args.un}`).then(r => r.data)
+      //const url = computed(()=>`/users?where={"username":"${args.un}"}`)
+      return parse.get(`/users?where={"username":"${args.un}"}`).then(r => r.data.results[0])
     },
     {},
     {
