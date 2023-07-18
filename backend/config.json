@@ -1,0 +1,7 @@
+{
+  "appId": "kanbanapp",
+  "masterKey": "Mi1nUw46j3gbeEcZpjUrT5Uf4gk6McqL",
+  "appName": "kanban",
+  "cloud": "./cloud/main",
+  "databaseURI": " mongodb://127.0.0.1:35047/"
+}
