@@ -33,6 +33,6 @@ const props = defineProps({
 const goToFirstBoard = (board) => {
   //Only if boardId is missing
   if (!route.params.id)
-    router.push({ name: 'Board', params: { id: board.id } })   
+    router.push({ name: 'Board', params: { id: board.objectId } })   
 }
 </script>

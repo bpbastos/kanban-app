@@ -30,9 +30,6 @@ import { useRouter } from 'vue-router'
 import { onClickOutside } from '@vueuse/core'
 
 
-//Fetch all boards
-const { boards, isReady } = useFetchBoards()
-
 const router = useRouter()
 
 const selectedItem = ref('')
@@ -57,18 +54,27 @@ onClickOutside(dropdown, (event) => {
 })
 
 
-onMounted(()=>{
+onMounted(async()=>{
   //Wait for data be loaded from api (async)
-  watch(isReady, () => {
-    if (isReady.value) {
+  //Fetch all boards
+  const { boards, isFetching } = await useFetchBoards()
+  selectedItem.value = 'Nenhum quadro encontrado'
+      if (boards.value?.length > 0) {
+        //Get the first board and pushes a new route when component is mounted
+        selectedItem.value = boards.value[0]?.name
+        //Emit a loaded event for the parent component
+        emit('loaded',boards.value[0])
+      }
+  /*watch(isFetching, () => {
+    if (isFetching.value) {
       selectedItem.value = 'Nenhum quadro encontrado'
-      if (boards.value.length > 0) {
+      if (boards.value?.length > 0) {
         //Get the first board and pushes a new route when component is mounted
         selectedItem.value = boards.value[0]?.name
         //Emit a loaded event for the parent component
         emit('loaded',boards.value[0])
       }
     }
-  })
+  })*/
 })
 </script>
