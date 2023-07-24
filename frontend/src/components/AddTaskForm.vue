@@ -34,7 +34,7 @@ const props = defineProps({
   }
 })
 
-const Parse = inject('Parse')
+//const Parse = inject('Parse')
 
 const newTaskTitle = ref('')
 const newTaskTitleInput = ref(null)
@@ -43,7 +43,7 @@ const emit = defineEmits(['added', 'canceled'])
 
 const addNewTask = async () => {
   if (newTaskTitle.value.trim()) {
-    const queryBoard = new Parse.Query('Board')
+    /*const queryBoard = new Parse.Query('Board')
     const queryWorkflow = new Parse.Query('Workflow')
     const queryPriority = new Parse.Query('Priority')
     
@@ -67,7 +67,7 @@ const addNewTask = async () => {
           newTaskTitle.value = ''          
         })
       })
-    }
+    }*/
   }
 }
 

@@ -24,15 +24,35 @@
 </details>  
 </template>
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { onClickOutside } from '@vueuse/core'
 
-const props = defineProps({
-  boards: {
-    type: Array,
-    required: true
-  },
+import { useQuery } from '@vue/apollo-composable'
+import gql from "graphql-tag";
+
+const BOARDS_QUERY = gql`
+  query getBoards {
+    boards {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+`
+
+const { result:boardsRes } = useQuery(BOARDS_QUERY)
+
+const boards = computed(()=>{
+  const _boards = []
+  boardsRes.value?.boards?.edges?.map((b)=>{
+    _boards.push(b.node)
+  })
+  selectedItem.value = _boards[0]?.name
+  return _boards
 })
 
 const selectedItem = ref('')
@@ -51,16 +71,13 @@ const changeSelected = (boardId, boardName) => {
   selectedItem.value = boardName
   closeDropdown()
   emit('change', boardId)
-  //router.push({ name: 'Board', params: { id: boardId } })  
+  router.push({ name: 'Board', params: { id: boardId } })  
 }
 
 onClickOutside(dropdown, (event) => {
   closeDropdown()
 })
 
-selectedItem.value = 'Nenhum quadro encontrado'
-if (props.boards?.length > 0) {
-  selectedItem.value = props.boards[0]?.name
-}
+
 
 </script>

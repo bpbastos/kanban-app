@@ -3,7 +3,7 @@
     <div class="card bg-base-200 overflow-auto scrollbar scrollbar-w-1 scrollbar-thumb-primary">
       <p class="card-title text-base-content text-lg font-medium m-3">{{ workflow.name }}</p>
       <div class="card-actions justify-center ml-2 mr-2">
-          <TaskCard v-for="task in tasks" :task="task" @deleted="updateTasks"/>
+          <TaskCard v-for="task in workflow.tasks" :task="task" @deleted="updateTasks"/>
           <AddTaskForm v-show="showForm" :workflow-id="workflow.id" :board-id="boardId" @added="updateTasks" @canceled="showForm = false" />
       </div>
       <div class="card-actions m-3">
@@ -21,7 +21,7 @@
 </template>
 
 <script setup>
-import { ref, toRefs } from 'vue'
+import { ref, toRefs, computed } from 'vue'
 import TaskCard from '@/components/TaskCard.vue'
 import AddTaskForm from '@/components/AddTaskForm.vue'
 
@@ -35,8 +35,14 @@ const props = defineProps({
     required: true
   }
 })
+const showForm = ref(false)
 
-const { boardId, workflow } = toRefs(props)
+const updateTasks = async() => {
+  showForm.value = false  
+  //await fetchTasks()
+}
+
+/*const { boardId, workflow } = toRefs(props)
 
 const tasks = ref([])
 const showForm = ref(false)
@@ -59,5 +65,5 @@ const fetchTasks = async() => {
   }
 }
 
-await fetchTasks()
+await fetchTasks()*/
 </script>
