@@ -20,8 +20,7 @@ const parseServer = new ParseServer({
 const parseGraphQLServer = new ParseGraphQLServer(
   parseServer,
   {
-    graphQLPath: '/graphql',
-    playgroundPath: '/playground'
+    graphQLPath: '/graphql'
   }
 );
 
@@ -31,11 +30,11 @@ app.use('/parse', parseServer.app);
 // Mounts the GraphQL API using graphQLPath: '/graphql'
 parseGraphQLServer.applyGraphQL(app);
 // (Optional) Mounts the GraphQL Playground - do NOT use in Production
-parseGraphQLServer.applyPlayground(app);
+//parseGraphQLServer.applyPlayground(app);
 
 // Start the server
 app.listen(1337, function() {
   console.log('REST API running on http://localhost:1337/parse');
   console.log('GraphQL API running on http://localhost:1337/graphql');
-  console.log('GraphQL Playground running on http://localhost:1337/playground');
+  //console.log('GraphQL Playground running on http://localhost:1337/playground');
 });
