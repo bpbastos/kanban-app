@@ -1,70 +1,41 @@
-import { createApp, provide } from 'vue'
+import { createApp, provide, h } from 'vue'
 import { createPinia } from 'pinia'
+import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client/core'
+
+import { DefaultApolloClient } from '@vue/apollo-composable'
 
 import App from './App.vue'
 import router from './router'
 
 import './assets/main.css'
 
-import Parse from 'parse/dist/parse.min.js';
-
-Parse.initialize('kanbanapp', 'dev');
-Parse.serverURL = 'http://localhost:1337/parse';
-
-/*Litle hack for add support for dot-notation in vue*/
-const _internalFields = Object.freeze([
-  'objectId',
-  'id',
-  'className',
-  'attributes',
-  'createdAt',
-  'updatedAt',
-  'then',
-]);
-const proxyHandler = {
-  get(target, key, receiver) {
-    const value = target[key];
-    const reflector = Reflect.get(target, key, receiver);
-    if (
-      typeof value === 'function' ||
-      key.toString().charAt(0) === '_' ||
-      _internalFields.includes(key.toString())
-    ) {
-      return reflector
-    }
-    return receiver.get(key) ?? reflector;
-  },
-
-  set(target, key, value, receiver) {
-    const current = target[key];
-    if (
-      typeof current !== 'function' &&
-      !_internalFields.includes(key.toString()) &&
-      key.toString().charAt(0) !== '_'
-    ) {
-      receiver.set(key, value);
-    }
-    return Reflect.set(target, key, value, receiver);
-  },
-};
-class ParseVueObject extends Parse.Object {
-  constructor(...args) {
-    super(...args);
-    return new Proxy(this, proxyHandler);
+// HTTP connection to the API
+const httpLink = createHttpLink({
+  // You should use an absolute URL here
+  uri: 'http://localhost:1337/graphql',
+  headers: {
+    "X-Parse-Application-Id": "kanbanapp",
+    "X-Parse-Master-Key": "dev"
   }
-}
+})
 
-const subclasses = ["Board","Workflow","Task","SubTask","Priority"]
-for (const sub of subclasses) {
-  Parse.Object.registerSubclass(sub, ParseVueObject);
-}
+// Cache implementation
+const cache = new InMemoryCache()
 
+// Create the apollo client
+const apolloClient = new ApolloClient({
+  link: httpLink,
+  cache,
+})
 
-const app = createApp(App)
+const app = createApp({
+  setup () {
+    provide(DefaultApolloClient, apolloClient)
+  },
+  render: () => h(App),
+})
 
 app.use(createPinia())
-
-app.provide('Parse', Parse);
 
 app.use(router)
 
