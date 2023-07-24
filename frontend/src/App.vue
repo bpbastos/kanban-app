@@ -10,7 +10,9 @@
       <SideBar />
       <main class="py-8 px-8 w-screen">
         <div class="flex flex-col">
-          <RouterView />
+          <Suspense>
+            <RouterView />
+          </Suspense>  
         </div>
       </main>
     </div>
@@ -32,8 +34,9 @@ import { useUserStore } from '@/stores/user'
 
 const store = useUserStore()
 
-onMounted(async() => {
-  themeChange(false)
-  await store.load('yoda')
+store.load('yoda')
+
+onMounted(() => {
+  themeChange(true)
 })
 </script>

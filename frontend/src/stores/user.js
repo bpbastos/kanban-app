@@ -1,13 +1,16 @@
-import { ref } from 'vue'
+import { ref, inject } from 'vue'
 import { defineStore } from 'pinia'
-import { useFetchUsers } from '@/composables/UserData'
 
 export const useUserStore = defineStore('user', () => {
+
+  const Parse = inject('Parse')
+
   const user = ref(null)
 
-  const load = async(_username) => {
-    const { users: u } = await useFetchUsers(_username)
-    user.value = u.value
+  const load = async(username) => {
+    //fake login
+    const _user = await Parse.User.logIn(username, username)
+    user.value = _user.toJSON()
   }
 
   return { user, load }

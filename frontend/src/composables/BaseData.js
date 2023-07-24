@@ -20,14 +20,21 @@ export const useBaseFetch = createFetch({
     onFetchError({ error }) {
         const loaderStore = useLoaderStore()
         const notificationStore = useNotificationStore()
-        notificationStore.error(`${error.value.code} - ${error.value.message}`)
+        notificationStore.error(`${error.message}`)
         loaderStore.setLoading(false) 
     },
     afterFetch(ctx) {
         const loaderStore = useLoaderStore()
         let r = JSON.parse(ctx.data)
-        if (r.results.length > 1) ctx.data = r.results
-        else ctx.data = r.results[0]
+        console.log(r.results[0])
+        ctx.data = r.results?.length == 1 ? r.results[0] : r.results
+        //console.log(r)
+        /*if (r.results?.length == 0) ctx.data = "{}"
+        if (r.results?.length == 1) ctx.data = `{${r.results[0]}}`
+        if (r.results?.length > 1) ctx.data = `{${r.results}}`
+        if (!r.results) ctx.data = r*/
+
+        //console.log(ctx.data)
         loaderStore.setLoading(false) 
         return ctx
     }

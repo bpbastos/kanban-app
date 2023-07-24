@@ -3,11 +3,11 @@
     <div class="card bg-base-200 overflow-auto scrollbar scrollbar-w-1 scrollbar-thumb-primary">
       <p class="card-title text-base-content text-lg font-medium m-3">{{ workflow.name }}</p>
       <div class="card-actions justify-center ml-2 mr-2">
-        <TaskCard v-for="task in tasks" :task="task" @deleted="updateTasks" :key="task.id"/>
-        <AddTaskForm v-show="isAddNewTaskButtonClicked" :workflow-id="workflow.id" :board-id="boardId" @added="updateTasks" @canceled="isAddNewTaskButtonClicked = false" />
+          <TaskCard v-for="task in tasks" :task="task" @deleted="updateTasks"/>
+          <AddTaskForm v-show="showForm" :workflow-id="workflow.id" :board-id="boardId" @added="updateTasks" @canceled="showForm = false" />
       </div>
       <div class="card-actions m-3">
-        <a href="#" v-show="!isAddNewTaskButtonClicked" @click="isAddNewTaskButtonClicked = true"
+        <a href="#" v-show="!showForm" @click="showForm = true"
           class="flex flex-row w-full items-center text-base-content font-semibold rounded hover:bg-base-100">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
             class="w-5 h-5">
@@ -21,47 +21,43 @@
 </template>
 
 <script setup>
-import { ref, toRefs, watchEffect } from 'vue'
+import { ref, toRefs } from 'vue'
 import TaskCard from '@/components/TaskCard.vue'
 import AddTaskForm from '@/components/AddTaskForm.vue'
-import { useFetchWorkflows } from '@/composables/WorkflowData'
-import { useFetchTasks } from '@/composables/TaskData'
 
 const props = defineProps({
-  workflowId: {
-    type: Number,
-    required: true
-  },  
-  boardId: {
-    type: Number,
+  workflow: {
+    type: Object,
     required: true
   },
-  workflow: Object
+  boardId: {
+    type: String,
+    required: true
+  }
 })
 
-const isAddNewTaskButtonClicked = ref(false)
+const { boardId, workflow } = toRefs(props)
 
-//Converts props to ref to keep reactivity
-const { boardId, workflowId } = toRefs(props)
+const tasks = ref([])
+const showForm = ref(false)
 
-//Fetch tasks from api and keeps updated 
-const { tasks, isReady: isTasksFetchDone, fetch } = useFetchTasks(0, boardId, workflowId)
-
-
-if (props.workflow !== null) {
-  //Fetch workflow from api and keeps updated 
-  const { workflows: workflow } = useFetchWorkflows(workflowId)
-} else {
-  const { workflow } = toRefs(props)
+const updateTasks = async() => {
+  showForm.value = false  
+  await fetchTasks()
 }
 
-const updateTasks = () => {
-  fetch(0, boardId.value, workflowId.value)
-  watchEffect(() => {
-    if (isTasksFetchDone.value) {
-      isAddNewTaskButtonClicked.value = false
-    }
-  })
+
+//Load all tasks with subtasks
+const fetchTasks = async() => {
+  const _tasks = await workflow.value.get("tasks") 
+  if (_tasks) {
+    tasks.value = []
+    await Promise.all(_tasks.map(async(task) => {
+      let res = await task.fetch({"include":"priority,subtasks"})
+      tasks.value.push(res)
+    }));  
+  }
 }
 
+await fetchTasks()
 </script>

@@ -25,8 +25,8 @@
       </button>
     </div>
     <div>
-      <p class="card-actions text-base text-base-content m-2">{{ task.title }}</p>
-      <TaskProgressBar :total-tasks="totalSubTasks" :total-tasks-done="totalSubTasksDone" />
+      <p class="card-actions text-base text-base-content p-2">{{ task.title }}</p>
+      <TaskProgressBar class=" ml-0 mt-0" :total-tasks="totalSubTasks" :total-tasks-done="totalSubTasksDone" />
     </div>
   </div>
   <DeleteConfirmationModal
@@ -40,26 +40,10 @@
 </template>
 
 <script setup>
-import { ref, watchEffect, computed } from 'vue'
+import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { useRemoveTask } from '@/composables/TaskData'
 import DeleteConfirmationModal from '@/components/DeleteConfirmationModal.vue'
 import TaskProgressBar from '@/components/TaskProgressBar.vue';
-
-const router = useRouter()
-const showModal = ref(false)
-const { isReady, remove } = useRemoveTask()
-
-const priorityLabel = computed(()=> props.task.priority?.name)
-const priorityColor = computed(()=> "badge-"+props.task.priority?.color)
-const totalSubTasks = computed(()=> props.task.subtasks?.length)
-const totalSubTasksDone = computed(()=> {
-  return props.task.subtasks?.filter((item) => {
-            return item.done
-  })?.length
-})
-
-const emit = defineEmits(['deleted'])
 
 const props = defineProps({
   task: {
@@ -68,17 +52,29 @@ const props = defineProps({
   }
 })
 
-const deleteTask = () => {
-  remove(props.task.id)
-  //Wait for api delete return
-  watchEffect(() => {
-    if (isReady.value) {
-      emit('deleted', props.task.id)
-    }
-  })  
+const router = useRouter()
+const showModal = ref(false)
+
+const priorityLabel = computed(()=> props.task.priority.name)
+const priorityColor = computed(()=> "badge-"+props.task.priority.color)
+const totalSubTasks = computed(()=> props.task.totalSubTasks)
+const totalSubTasksDone = computed(()=> props.task.totalSubTasksDone)
+
+const emit = defineEmits(['deleted'])
+
+const deleteTask = async() => {
+  const workflow = await props.task.get("workflow")
+  if (workflow) {
+    workflow.remove("tasks", props.task)
+    workflow.save().then((workflow)=>{
+      props.task.destroy().then((task)=>{
+        emit('deleted', task.id)
+      })
+    })
+  }
 }
 
 const goToEditTask = () => {
-  router.push({ name: 'EditTask', params: { id: props.task.id } })
+  //router.push({ name: 'EditTask', params: { id: props.task.id } })
 }
 </script>

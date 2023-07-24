@@ -1,23 +1,15 @@
 import http from '@/http-common'
-import { watchEffect, toValue } from 'vue'
+import { watchEffect, toValue, computed } from 'vue'
 import { useLoaderStore } from '@/stores/loader'
+import { useUserStore } from '@/stores/user'
 import { useNotificationStore } from '@/stores/notification'
 import { useAsyncState } from '@vueuse/core'
+import { useBaseFetch } from '@/composables/BaseData'
+import { useFetchPriorities } from '@/composables/PriorityData'
 
 //Fetch tasks from api
-export function useFetchTasks(taskId=0,boardId=0,workflowId=0,options={}) {
-
-  const { showLoading = true } = options
-  const loaderStore = useLoaderStore()
-  const notificationStore = useNotificationStore()
-
-  //Get task from api (using useAsyncState for non-blocking setup)
-  const { state, isLoading, isReady, error, execute } = useAsyncState(
-    (args) => {
-      const id = args?.id || 0
-      const bID = args?.bID || 0
-      const wID = args?.wID || 0
-
+/*
+*
       let url = '/tasks'
       if (id && !bID && !wID) url = `/tasks/${id}`
       if (!id && bID && !wID) url = `/tasks?board_id=${bID}`
@@ -25,94 +17,98 @@ export function useFetchTasks(taskId=0,boardId=0,workflowId=0,options={}) {
       if (!id && bID && wID) url = `/tasks?board_id=${bID}&workflow_id=${wID}`
       if (id && bID && wID) url = `/tasks/${id}/?board_id=${bID}&workflow_id=${wID}`
 
-      return http.get(url).then(response => response.data)
-    },
-    {},
-    {
-      immediate: false,
-      onSuccess: () => { handleSuccess() },
-      onError: () => { handleError() }
+*/
+export async function useFetchTasks(taskId,boardId,workflowId,options={}) {
+  const url = computed(()=> {
+    let classUrl = '/classes/tasks'
+    const _taskId = toValue(taskId)
+    const _boardId = toValue(boardId)
+    const _workflowId = toValue(workflowId)
+    //console.log(_taskId)
+    let search = '?include="board,workflow,priority"&where={'
+    if (_taskId && !_boardId && !_workflowId) {
+      search += encodeURI(`"objectId":"${_taskId}"`)
     }
-  ) 
-  
-  const handleError = () => {
-    notificationStore.error(`${error.value.code} - ${error.value.message}`)
-    if(showLoading) loaderStore.setLoading(false) 
-  }
+    if (!_taskId && _boardId && !_workflowId) {
+      search += encodeURI(`
+        "workflow": {
+          "__type": "Pointer",
+          "className": "boards",
+          "objectId": "${_boardId}"
+        }
+      `)
+    }
+    if (!_taskId && !_boardId && _workflowId) {
+      search += encodeURI(`
+        "workflow": {
+          "__type": "Pointer",
+          "className": "workflows",
+          "objectId": "${_workflowId}"
+        }
+      `)
+    }    
+    if (!_taskId && _boardId && _workflowId) {
+      search += encodeURI(`
+        "board": {
+            "__type": "Pointer",
+            "className": "boards",
+            "objectId": "${_boardId}"
+        },
+        "workflow": {
+            "__type": "Pointer",
+            "className": "workflows",
+            "objectId": "${_workflowId}"
+        }
+      `)   
+    }    
+    search += '}'
 
-  const handleSuccess = () => {
-    if(showLoading) loaderStore.setLoading(false) 
-  } 
+    return classUrl+search
+  })  
 
-  const fetch = (_taskId, _boardId, _workflowId) => {
-    execute(0, { id: toValue(_taskId), bID: toValue(_boardId), wID: toValue(_workflowId) })
-  }
-
-  watchEffect(() => {
-    loaderStore.setLoading(true)
-    fetch(taskId, boardId, workflowId)
-  })
-
-  return { tasks: state, error, isLoading, isReady, fetch }
+  return useBaseFetch(url, { refetch: true, showLoading: true, ...options })
 }
 
 //Add a new task using api
-export function useAddTask(options={}) {
+export async function useAddTask(title,boardId,workflowId) {
+  const _title = toValue(title)
+  const _boardId = toValue(boardId)
+  const _workflowId = toValue(workflowId)
+  const store = useUserStore()
 
-  const { showLoading = true } = options
-  const loaderStore = useLoaderStore()
-  const notificationStore = useNotificationStore()
+  const { data:priority } = await useFetchPriorities(null,"Baixa")
 
-  //Add task using api (useAsyncState for non-blocking setup)
-  const { state, isLoading, isReady, error, execute } = useAsyncState(
-    async(args) => {
-      const date = new Date()
-      const day = date.getDate()
-      const month = date.getMonth() + 1
-      const year = date.getFullYear()
-      const currentDate = `${day}-${month}-${year}`
-      const priorityId = 1
-      const workflow = await http.get(`/workflows/${args.wID}`).then(r => r.data)
-      const priority = await http.get(`/priorities/${priorityId}`).then(r => r.data)
-      const board = await http.get(`/boards/${args.bID}`).then(r => r.data)
-      return http.post('/tasks', {
-        title: args.t,
-        description: '',
-        priority: priority,
-        workflow: workflow,
-        board: board,
-        subtasks: [],
-        board_id: args.bID,
-        order: 0,
-        workflow_id: args.wID,
-        priority_id: priorityId,
-        date_added: currentDate
-      }).then(r => r.data)
-    },
-    {},
+  const _priorityId = priority.value.objectId
+  const _userId = store.user.objectId
+
+  return useBaseFetch('/classes/tasks').post(`
     {
-      immediate: false,
-      onSuccess: () => { handleSuccess() },
-      onError: () => { handleError() }
+      "title": "${_title}",
+      "description": "",
+      "priority": {
+        "__type": "Pointer",
+        "className": "priorities",
+        "objectId": "${_priorityId}"        
+      },
+      "workflow": {
+        "__type": "Pointer",
+        "className": "workflows",
+        "objectId": "${_workflowId}"        
+      },
+      "board": {
+        "__type": "Pointer",
+        "className": "boards",
+        "objectId": "${_boardId}"        
+      },
+      "owner": {
+        "__type": "Pointer",
+        "className": "_Users",
+        "objectId": "${_userId}"        
+      },      
+      "subtasks": [],
+      "order": 0
     }
-  ) 
-  
-  const handleError = () => {
-    notificationStore.error(`${error.value.code} - ${error.value.message}`)
-    if(showLoading) loaderStore.setLoading(false) 
-  }
-
-  const handleSuccess = () => {
-    notificationStore.success(`Tarefa adicionada com sucesso`)
-    if(showLoading) loaderStore.setLoading(false) 
-  } 
-
-  const add = (title, boardId, workflowId) => {
-    loaderStore.setLoading(true)
-    execute(0, { t: title, bID: boardId, wID: workflowId})
-  }
-
-  return { task: state, error, isLoading, isReady, add }
+  `)
 }
 
 

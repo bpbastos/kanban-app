@@ -18,23 +18,27 @@
       class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box text-base"
     >
       <li>
-        <a v-for="(board, index) in boards" @click="changeSelected(board)">{{ board.name }}</a>
+        <a v-for="board in boards" @click="changeSelected(board.id,board.name)">{{ board.name }}</a>
       </li>
     </ul>
 </details>  
 </template>
 <script setup>
-import { onMounted, ref, watch } from 'vue'
-import { useFetchBoards } from '@/composables/BoardData'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { onClickOutside } from '@vueuse/core'
 
-
-const router = useRouter()
+const props = defineProps({
+  boards: {
+    type: Array,
+    required: true
+  },
+})
 
 const selectedItem = ref('')
-//const items = ref(null)
 const dropdown = ref(null)
+
+const router = useRouter()
 
 const emit = defineEmits(['change','loaded'])
 
@@ -43,38 +47,20 @@ const closeDropdown = () => {
     dropdown.value.removeAttribute('open')  
 }
 
-const changeSelected = (board) => {
-  selectedItem.value = board.name
+const changeSelected = (boardId, boardName) => {
+  selectedItem.value = boardName
   closeDropdown()
-  router.push({ name: 'Board', params: { id: board.id } }) 
+  emit('change', boardId)
+  //router.push({ name: 'Board', params: { id: boardId } })  
 }
 
 onClickOutside(dropdown, (event) => {
   closeDropdown()
 })
 
+selectedItem.value = 'Nenhum quadro encontrado'
+if (props.boards?.length > 0) {
+  selectedItem.value = props.boards[0]?.name
+}
 
-onMounted(async()=>{
-  //Wait for data be loaded from api (async)
-  //Fetch all boards
-  const { boards, isFetching } = await useFetchBoards()
-  selectedItem.value = 'Nenhum quadro encontrado'
-      if (boards.value?.length > 0) {
-        //Get the first board and pushes a new route when component is mounted
-        selectedItem.value = boards.value[0]?.name
-        //Emit a loaded event for the parent component
-        emit('loaded',boards.value[0])
-      }
-  /*watch(isFetching, () => {
-    if (isFetching.value) {
-      selectedItem.value = 'Nenhum quadro encontrado'
-      if (boards.value?.length > 0) {
-        //Get the first board and pushes a new route when component is mounted
-        selectedItem.value = boards.value[0]?.name
-        //Emit a loaded event for the parent component
-        emit('loaded',boards.value[0])
-      }
-    }
-  })*/
-})
 </script>
