@@ -44,14 +44,14 @@ const BOARDS_QUERY = gql`
   }
 `
 
-const { result:boardsRes } = useQuery(BOARDS_QUERY)
+const { result } = useQuery(BOARDS_QUERY)
 
 const boards = computed(()=>{
   const _boards = []
-  boardsRes.value?.boards?.edges?.map((b)=>{
+  result.value?.boards?.edges?.map((b)=>{
     _boards.push(b.node)
   })
-  selectedItem.value = _boards[0]?.name
+  selectedItem.value = _boards[0]?.name ?? 'Nenhum quadro encontrado'
   return _boards
 })
 

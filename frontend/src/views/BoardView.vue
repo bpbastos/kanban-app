@@ -21,6 +21,7 @@ import BoardSwitcher from '@/components/BoardSwitcher.vue'
 import WorkflowCard from '@/components/WorkflowCard.vue'
 
 import { useQuery } from '@vue/apollo-composable'
+
 import gql from "graphql-tag";
 
 const props = defineProps({
@@ -66,16 +67,16 @@ const BOARD_QUERY = gql`
     }
 `
 
-const { result:boardRes } = useQuery(BOARD_QUERY, ()=>({id:boardId.value}))
+const { result } = useQuery(BOARD_QUERY, ()=>({id:boardId.value}))
 
 const board = computed(()=>{
-  return boardRes.value?.board
+  return result.value?.board ?? null
 })
 
 
 
 const workflows = computed(()=>{
-  return boardRes.value?.board?.workflows
+  return result.value?.board?.workflows ?? []
 })
 
 const changeBoard = (_boardId) => {
