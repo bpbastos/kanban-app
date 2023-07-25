@@ -73,8 +73,6 @@ const board = computed(()=>{
   return result.value?.board ?? null
 })
 
-
-
 const workflows = computed(()=>{
   return result.value?.board?.workflows ?? []
 })
@@ -83,51 +81,4 @@ const changeBoard = (_boardId) => {
   boardId.value = _boardId
 }
 
-
-/*
-const Parse = inject('Parse')
-
-const board = ref(null)
-const boards = ref([])
-const workflows = computed(()=>{
-  return board.value.workflows
-})
-
-const changeBoard = async (boardId) => {
-  //await fetchBoards(boardId)
-  /*board.value = boards.value.filter((b)=>{
-    return b.id === boardId
-  })*/
-//await fetchBoards()
-//board.value = newBoard
-//workflows.value = await newBoard.workflows
-/*workflows.value = []
-board.value = newBoard  
-const _workflows = await newBoard.workflows
-if (Array.isArray(_workflows))
-  workflows.value = _workflows
-board.value = newBoard
-const wfs = await newBoard.get("workflows")
-//workflows.value = []
-//console.log(wfs)
-if(wfs)
-  wfs.map((w)=>{
-    workflows.value.push(w)
-  })
-}
-
-//Fetch all boards with workflows
-const fetchBoards = async() => {
-const query = new Parse.Query('Board')
-query.include("workflows")
-boards.value = await query.find()
-}
-
-await fetchBoards()
-
-if (Array.isArray(boards.value) && boards.value.length > 0) {
-console.log('aqui')
-board.value = boards.value[0]
-workflows.value = boards.value[0].workflows
-}*/
 </script>
