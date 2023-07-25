@@ -31,7 +31,7 @@ const props = defineProps({
   }
 })
 
-const boardId = ref("tcV9suZJuh")
+const boardId = ref(props.id ? props.id : "tcV9suZJuh")
 
 const BOARD_QUERY = gql`
     query getBoard ($id: ID!) {
