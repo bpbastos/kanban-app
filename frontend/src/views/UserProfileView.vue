@@ -42,7 +42,7 @@
               </div>
               <div class="grid grid-cols-2">
                 <div class="px-4 py-2 font-bold">Aniversário</div>
-                <div class="px-4 py-2">{{ store.user.birthday.iso }}</div>
+                <div class="px-4 py-2">{{ store.user.birthday }}</div>
               </div>
             </div>
           </div>
