@@ -81,9 +81,6 @@ const workflows = computed(()=>{
 
 const changeBoard = (_boardId) => {
   boardId.value = _boardId
-  variables.value = {
-    _boardId
-  }
 }
 
 
