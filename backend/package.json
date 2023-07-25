@@ -1,5 +1,5 @@
 {
-  "name": "parse-server-example",
+  "name": "Kanban App Backend - Parse Server",
   "version": "1.2.0",
   "description": "An example Parse API server using the parse-server module",
   "repository": {
@@ -14,7 +14,6 @@
     "lint-fix": "eslint --cache --fix ./cloud && eslint --cache --fix index.js && eslint --cache --fix ./spec",
     "prettier": "prettier --write '{cloud,spec}/{**/*,*}.js' 'index.js'",
     "start": "node index.js",
-    "test": "mongodb-runner start && TESTING=true jasmine",
     "watch": "nodemon index.js"
   },
   "dependencies": {
