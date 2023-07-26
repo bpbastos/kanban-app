@@ -68,7 +68,7 @@ const BOARD_QUERY = gql`
     }
 `
 
-const { result, refetch } = useQuery(BOARD_QUERY, {id:boardId.value})
+const { result, refetch } = useQuery(BOARD_QUERY, ()=>({id:boardId.value}))
 
 const board = computed(()=>{
   return result.value?.board ?? null
