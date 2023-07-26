@@ -45,6 +45,22 @@ import { useRouter } from 'vue-router'
 import DeleteConfirmationModal from '@/components/DeleteConfirmationModal.vue'
 import TaskProgressBar from '@/components/TaskProgressBar.vue';
 
+import { useMutation } from '@vue/apollo-composable'
+import gql from "graphql-tag";
+
+const REMOVE_TASK_MUTATION = gql`
+  mutation removeTask ($id: ID!) {
+    removeTask(
+      taskId: $id
+    ) 
+    {
+      id
+    }
+  }
+`
+
+const { mutate: removeTaskMutation } = useMutation(REMOVE_TASK_MUTATION)
+
 const props = defineProps({
   task: {
     type: Object,
@@ -63,16 +79,12 @@ const totalSubTasksDone = computed(()=> props.task.totalSubTasksDone)
 const emit = defineEmits(['deleted'])
 
 const deleteTask = async() => {
-  const workflow = await props.task.get("workflow")
-  if (workflow) {
-    workflow.remove("tasks", props.task)
-    workflow.save().then((workflow)=>{
-      props.task.destroy().then((task)=>{
-        emit('deleted', task.id)
-      })
-    })
+  const deletedTask = await removeTaskMutation({ id: props.task.id })
+  if (deleteTask) {
+    emit('deleted', deletedTask.id)
   }
 }
+
 
 const goToEditTask = () => {
   //router.push({ name: 'EditTask', params: { id: props.task.id } })
