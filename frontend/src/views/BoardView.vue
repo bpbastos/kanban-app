@@ -10,7 +10,7 @@
           :workflow="workflow"
           :board-id="board.id"
           :key="workflow.id"
-          @update-tasks="refetch"
+          @update-tasks="refetch()"
         />
     </div>
   </div>
