@@ -1,5 +1,7 @@
 // index.js
 import express from 'express';
+import fs from 'fs';
+import gql from 'graphql-tag';
 import { ParseServer, ParseGraphQLServer } from 'parse-server';
 
 // Create express app
@@ -7,20 +9,21 @@ const app = express();
 
 // Create a Parse Server Instance
 const parseServer = new ParseServer({
-  databaseURI: process.env.DATABASE_URI || process.env.MONGODB_URI || 'mongodb://192.168.33.249:27017/dev',
+  databaseURI: process.env.DATABASE_URI || process.env.MONGODB_URI || 'mongodb://mongodb:27017/dev',
   appId: process.env.APP_ID || 'kanbanapp',
   masterKey: process.env.MASTER_KEY || 'dev',
   serverURL: process.env.SERVER_URL || 'http://localhost:1337/parse',
   publicServerURL: process.env.PUBLIC_SERVER_URL ||'http://localhost:1337/parse',
-  restAPIKey: process.env.RESTAPI_KEY || 'dev',
-  javascriptKey: process.env.JAVASCRIPT_KEY || 'dev',  
+  cloud: './cloud/main.js',
 });
 
 // Create the GraphQL Server Instance
+const customSchema = fs.readFileSync('./schema/schema.graphql');
 const parseGraphQLServer = new ParseGraphQLServer(
   parseServer,
   {
-    graphQLPath: '/graphql'
+    graphQLPath: '/graphql',
+    graphQLCustomTypeDefs: gql`${customSchema}`,
   }
 );
 
