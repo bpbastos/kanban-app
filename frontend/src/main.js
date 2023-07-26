@@ -15,7 +15,7 @@ const httpLink = createHttpLink({
   uri: 'http://localhost:1337/graphql',
   headers: {
     "X-Parse-Application-Id": "kanbanapp",
-    "X-Parse-Master-Key": "dev"
+    "X-Parse-Session-Token": JSON.parse(localStorage.getItem('Parse/kanbanapp/currentUser'))?.sessionToken ?? ''
   }
 })
 

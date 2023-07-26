@@ -23,6 +23,25 @@
 <script setup>
 import { ref, onUpdated, nextTick, inject } from 'vue'
 
+import { useMutation } from '@vue/apollo-composable'
+import gql from "graphql-tag";
+
+import { useUserStore } from '@/stores/user'
+
+
+const CREATE_TASK_MUTATION = gql`
+mutation addNewTask ($title: String!, $boardId: ID!, $workflowId: ID!) {
+	addTask(
+    title: $title
+    workflowId: $workflowId
+    boardId: $boardId
+  ) 
+  {
+    id
+  }
+}
+`
+
 const props = defineProps({
   workflowId: {
     type: String,
@@ -34,7 +53,11 @@ const props = defineProps({
   }
 })
 
-//const Parse = inject('Parse')
+
+
+const store = useUserStore()
+
+const { mutate: addNewTaskMutation } = useMutation(CREATE_TASK_MUTATION)
 
 const newTaskTitle = ref('')
 const newTaskTitleInput = ref(null)
@@ -42,32 +65,17 @@ const newTaskTitleInput = ref(null)
 const emit = defineEmits(['added', 'canceled'])
 
 const addNewTask = async () => {
+  console.log()
   if (newTaskTitle.value.trim()) {
-    /*const queryBoard = new Parse.Query('Board')
-    const queryWorkflow = new Parse.Query('Workflow')
-    const queryPriority = new Parse.Query('Priority')
-    
-    const board = await queryBoard.get(props.boardId)
-    const workflow = await queryWorkflow.get(props.workflowId)
-
-    queryPriority.equalTo("name", "Baixa");    
-    const priority = await queryPriority.first()
-
-    if (board && workflow && priority) {
-      const task = new Parse.Object("Task");
-      task.set("board", board)
-      task.set("workflow", workflow)
-      task.set("priority", priority)
-      task.set("owner", Parse.User.current())
-      task.set("title",newTaskTitle.value.trim())
-      task.save().then((task)=>{
-        workflow.add("tasks", task)
-        workflow.save().then((workflow)=>{
-          emit('added', task.id)
-          newTaskTitle.value = ''          
-        })
-      })
-    }*/
+    const res = await addNewTaskMutation({ 
+      title: newTaskTitle.value.trim(),
+      boardId: props.boardId,
+      workflowId: props.workflowId
+    })
+    if (res) {
+      emit('added', res.id)
+      newTaskTitle.value = ""   
+    } 
   }
 }
 

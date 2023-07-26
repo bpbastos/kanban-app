@@ -43,20 +43,14 @@ export const useUserStore = defineStore('user', () => {
 
   const load = async (_username) => {
     const client = inject(DefaultApolloClient)
-    //Login
+    
+    //Login - temporary - move this code to login page
     const result = await client.mutate({
       mutation: LOGIN_MUTATION,
       variables: { username: _username, password: _username }
     })
-    user.value = result?.data?.logIn?.viewer?.user ?? null
-    /*const sessionToken = result.data?.logIn?.viewer?.sessionToken
-    result = await client.query({
-      query: CURRENT_USER_QUERY,
-      context: {
-        headers: { 'X-Parse-Session-Token': sessionToken }
-      }
-    })*/
 
+    user.value = result?.data?.logIn?.viewer?.user ?? null
   }
 
   return { user, load }

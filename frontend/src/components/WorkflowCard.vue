@@ -21,7 +21,7 @@
 </template>
 
 <script setup>
-import { ref, toRefs, computed } from 'vue'
+import { ref } from 'vue'
 import TaskCard from '@/components/TaskCard.vue'
 import AddTaskForm from '@/components/AddTaskForm.vue'
 
@@ -35,35 +35,14 @@ const props = defineProps({
     required: true
   }
 })
+
+const emit = defineEmits(['updateTasks'])
+
 const showForm = ref(false)
 
 const updateTasks = async() => {
   showForm.value = false  
-  //await fetchTasks()
+  emit('updateTasks')
 }
 
-/*const { boardId, workflow } = toRefs(props)
-
-const tasks = ref([])
-const showForm = ref(false)
-
-const updateTasks = async() => {
-  showForm.value = false  
-  await fetchTasks()
-}
-
-
-//Load all tasks with subtasks
-const fetchTasks = async() => {
-  const _tasks = await workflow.value.get("tasks") 
-  if (_tasks) {
-    tasks.value = []
-    await Promise.all(_tasks.map(async(task) => {
-      let res = await task.fetch({"include":"priority,subtasks"})
-      tasks.value.push(res)
-    }));  
-  }
-}
-
-await fetchTasks()*/
 </script>

@@ -10,6 +10,7 @@
           :workflow="workflow"
           :board-id="board.id"
           :key="workflow.id"
+          @update-tasks="refetch"
         />
     </div>
   </div>
@@ -67,7 +68,7 @@ const BOARD_QUERY = gql`
     }
 `
 
-const { result } = useQuery(BOARD_QUERY, ()=>({id:boardId.value}))
+const { result, refetch } = useQuery(BOARD_QUERY, {id:boardId.value})
 
 const board = computed(()=>{
   return result.value?.board ?? null
