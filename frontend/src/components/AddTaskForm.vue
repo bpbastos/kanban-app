@@ -21,13 +21,10 @@
 </template>
 
 <script setup>
-import { ref, onUpdated, nextTick, inject } from 'vue'
+import { ref, onUpdated, nextTick } from 'vue'
 
 import { useMutation } from '@vue/apollo-composable'
 import gql from "graphql-tag";
-
-import { useUserStore } from '@/stores/user'
-
 
 const CREATE_TASK_MUTATION = gql`
 mutation addNewTask ($title: String!, $boardId: ID!, $workflowId: ID!) {
@@ -53,9 +50,6 @@ const props = defineProps({
   }
 })
 
-
-
-const store = useUserStore()
 
 const { mutate: addNewTaskMutation } = useMutation(CREATE_TASK_MUTATION)
 
