@@ -2,4 +2,6 @@
 extend type Mutation {
   addTask(title: String!, workflowId: ID!, boardId: ID!): Task! @resolve
   removeTask(taskId: ID!): Task! @resolve
+  addSubTask(title: String!, taskId: ID!): SubTask! @resolve
+  markSubTaskDone(subTaskId: ID!): SubTask! @resolve
 }

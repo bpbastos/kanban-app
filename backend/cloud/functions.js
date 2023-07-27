@@ -1,6 +1,6 @@
 import { fromGlobalId, toGlobalId } from 'graphql-relay';
 
-Parse.Cloud.define('removeTask', async req => {
+Parse.Cloud.define('removeTask', async (req) => {
   const { user, params: { taskId } } = req;
   const { id:taskObjectId } = fromGlobalId(taskId); 
   const queryTask = new Parse.Query('Task');
@@ -19,10 +19,8 @@ Parse.Cloud.define('removeTask', async req => {
   fields: ["taskId"]
 })
 
-Parse.Cloud.define('addTask', async req => {
+Parse.Cloud.define('addTask', async (req) => {
   const { user, params: { title, workflowId, boardId  } } = req;
-  //Validations
-
   // Decode the incoming Relay Node Id to a
   // Parse objectId for Cloud Code use.    
   const { id: boardObjectId } = fromGlobalId(boardId); 
@@ -38,7 +36,7 @@ Parse.Cloud.define('addTask', async req => {
   queryPriority.equalTo("name", "Baixa");    
   const priority = await queryPriority.first();
 
-  const newTask = new Parse.Object("Task");
+  const newTask = Parse.Object.extend("Task");
   newTask.set("board", board);
   newTask.set("workflow", workflow);
   newTask.set("priority", priority);
@@ -72,6 +70,94 @@ Parse.Cloud.define('addTask', async req => {
       type: String,
     },
     boardId: {
+      required: true,
+      type: String,
+    }
+  },  
+}
+);
+
+Parse.Cloud.afterDelete("SubTask", async (req) => {
+  try {
+    const query = new Parse.Query("Task");
+    const task = await query.get(req.object.get("task").id)
+    const subTask = req.object;
+
+    task.remove("subtasks", subTask)
+    task.decrement("totalSubTasks") 
+    task.decrement("totalSubTasksDone") 
+    await task.save();
+
+  } catch (error) {
+    throw new Error(error.message)    
+  }
+});
+
+Parse.Cloud.define('addSubTask', async (req) => {
+  const { user, params: { title, taskId } } = req;
+
+  const { id:taskObjectId } = fromGlobalId(taskId);   
+
+  const queryTask = new Parse.Query("Task");
+  const task = await queryTask.get(taskObjectId)  
+
+  const newSubTask = new Parse.Object("SubTask");
+  newSubTask.set("title", title);
+  newSubTask.set("order", 1);  
+  newSubTask.set("done", false); 
+  newSubTask.set("task", task);   
+
+  const savedSubTask = await newSubTask.save();
+  if (savedSubTask) {
+    task.increment("totalSubTasks");
+    task.add("subtasks", savedSubTask);
+    await task.save(); 
+  }
+
+  return { ...savedSubTask.toJSON(), id: savedSubTask.id };
+},
+{
+  requireUser: true,
+  fields : {
+    title: {
+      required: true,
+      type: String,
+    },
+    taskId: {
+      required: true,
+      type: String,
+    }    
+  },  
+}
+);
+
+Parse.Cloud.define('markSubTaskDone', async (req) => {
+  const { user, params: { subTaskId } } = req;
+
+  const { id:subTaskObjectId } = fromGlobalId(subTaskId); 
+  
+  const querySubTask = new Parse.Query('SubTask');
+  querySubTask.include("task")
+  const subTask = await querySubTask.get(subTaskObjectId); 
+  const task = subTask.get('task'); 
+
+  subTask.set("done", !subTask.get("done"));
+
+  if (subTask.get("done")) {
+    task.increment("totalSubTasksDone")
+  } else {
+    task.decrement("totalSubTasksDone")
+  }
+
+  await task.save()
+  const savedSubTask = await subTask.save();
+
+  return { ...savedSubTask.toJSON(), id: savedSubTask.id };
+},
+{
+  requireUser: true,
+  fields : {
+    subTaskId: {
       required: true,
       type: String,
     }
