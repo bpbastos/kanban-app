@@ -36,7 +36,8 @@ Parse.Cloud.define('addTask', async (req) => {
   queryPriority.equalTo("name", "Baixa");    
   const priority = await queryPriority.first();
 
-  const newTask = Parse.Object.extend("Task");
+  const Task = Parse.Object.extend("Task");
+  const newTask = new Task();
   newTask.set("board", board);
   newTask.set("workflow", workflow);
   newTask.set("priority", priority);
@@ -101,7 +102,8 @@ Parse.Cloud.define('addSubTask', async (req) => {
   const queryTask = new Parse.Query("Task");
   const task = await queryTask.get(taskObjectId)  
 
-  const newSubTask = new Parse.Object("SubTask");
+  const SubTask = Parse.Object.extend("SubTask");
+  const newSubTask = new SubTask()
   newSubTask.set("title", title);
   newSubTask.set("order", 1);  
   newSubTask.set("done", false); 
