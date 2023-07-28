@@ -78,20 +78,17 @@ Parse.Cloud.define('addTask', async (req) => {
 }
 );
 
-Parse.Cloud.afterDelete("SubTask", async (req) => {
-  try {
-    const query = new Parse.Query("Task");
-    const task = await query.get(req.object.get("task").id)
-    const subTask = req.object;
+Parse.Cloud.beforeDelete("SubTask", async (req) => {
+  const subTask = req.object;    
+  const queryTask = new Parse.Query('Task');
+  const task = await queryTask.get(subTask.get("task").id)
+    
+  task.remove("subtasks", subTask)
 
-    task.remove("subtasks", subTask)
-    task.decrement("totalSubTasks") 
-    task.decrement("totalSubTasksDone") 
-    await task.save();
+  if (task.get("totalSubTasks") > 0) task.decrement("totalSubTasks") 
+  if (task.get("totalSubTasksDone") > 0) task.decrement("totalSubTasksDone") 
 
-  } catch (error) {
-    throw new Error(error.message)    
-  }
+  await task.save();
 });
 
 Parse.Cloud.define('addSubTask', async (req) => {
@@ -148,7 +145,7 @@ Parse.Cloud.define('markSubTaskDone', async (req) => {
   if (subTask.get("done")) {
     task.increment("totalSubTasksDone")
   } else {
-    task.decrement("totalSubTasksDone")
+    if (task.get("totalSubTasksDone") > 0) task.decrement("totalSubTasksDone")
   }
 
   await task.save()

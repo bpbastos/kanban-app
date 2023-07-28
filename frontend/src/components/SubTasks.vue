@@ -7,20 +7,20 @@
       <TaskProgressBar :show-progress-bar="true" :total-tasks="totalSubTasks" :total-tasks-done="totalSubTasksDone" />
       <ul>
         <li
-          v-for="(st, index) in subTasks"
+          v-for="subtask in subtasks"
           class="flex justify-between items-center mt-1 w-full p-2 hover:bg-base-200"
-          @click.stop="updateSubTask(st)"
+          @click.stop="updateSubTask(subtask.id)"
         >
           <input
             type="checkbox"
             class="checkbox checkbox-md checkbox-success"
-            v-model="st.done"
-            @click.stop="updateSubTask(st)"
+            :checked="subtask.done"
+            @click.self="updateSubTask(subtask.id)"
           />
-          <p class="w-full ml-2 font-semibold" :class="st.done ? 'line-through' : ''" >
-            {{ st.text }}
+          <p class="w-full ml-2 font-semibold" :class="subtask.done ? 'line-through' : ''" >
+            {{ subtask.title }}
           </p>
-          <div class="text-lg text-error font-semibold hover:bg-error hover:text-base-100" @click="removeSubTask(index)">
+          <div class="text-lg text-error font-semibold hover:bg-error hover:text-base-100" @click.stop="removeSubTask(subtask.id)">
             <svg
               class="w-5 h-5"
               xmlns="http://www.w3.org/2000/svg"
@@ -38,7 +38,8 @@
     <input
       type="title"
       id="title"
-      v-model="newSubTask"
+      ref="newSubTaskTitleInput"
+      v-model="newSubTaskTitle"
       @keydown.enter.exact.prevent="addSubTask"
       placeholder="Adicionar uma sub tarefa..."
       class="input input-bordered input-primary w-full mt-2 font-semibold"
@@ -47,45 +48,111 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { nextTick, onMounted, ref } from 'vue'
 import TaskProgressBar from '@/components/TaskProgressBar.vue';
 
+import { useMutation } from '@vue/apollo-composable'
+import gql from "graphql-tag";
+
 const props = defineProps({
-  subTasks: Array
+  taskId: {
+    type: String,
+    required: true
+  },
+
+  subtasks: {
+    type: Array,
+    required: true
+  },
+
+  totalSubTasks: {
+    type: Number,
+    required: true
+  },
+
+  totalSubTasksDone: {
+    type: Number,
+    required: true
+  },  
+
 })
 
-const newSubTask = ref('')
-const totalSubTasks = ref(0)
-const totalSubTasksDone = ref(0)
+const ADD_SUBTASK_MUTATION = gql`
+mutation addSubTask ($title: String!, $taskId: ID!) {
+  addSubTask(
+    title: $title
+    taskId: $taskId
+  )
+  {
+    id
+  }
+}  
+`
+const MARK_SUBTASK_MUTATION = gql`
+mutation markSubTaskDone($subTaskId: ID!) {
+  markSubTaskDone(
+    subTaskId: $subTaskId
+  )
+  {
+    id
+  }
+}  
+`
 
-const updateTotals = () => {
-  totalSubTasks.value = props.subTasks?.length
-  totalSubTasksDone.value = props.subTasks.filter((item) => {
-    return item.done
-  })?.length 
-}
-
-const addSubTask = () => {
-  if (newSubTask.value.trim().length > 0) {
-    const subTaskItem = {
-      text: newSubTask.value.trim(),
-      done: false
+const REMOVE_SUBTASK_MUTATION = gql`
+mutation deleteSubTask($subTaskId: ID!) {
+  deleteSubTask(
+    input: {
+      id: $subTaskId
     }
-    props.subTasks.push(subTaskItem)
-    newSubTask.value = ''
-    updateTotals()
+  )
+  {
+    subTask {
+      id
+    }
+  }
+} 
+`
+const emit = defineEmits(['updateTask'])
+
+const newSubTaskTitle = ref('')
+const newSubTaskTitleInput = ref(null)
+
+const { mutate: addSubTaskMutation } = useMutation(ADD_SUBTASK_MUTATION)
+const { mutate: markSubTaskMutation } = useMutation(MARK_SUBTASK_MUTATION)
+const { mutate: removeSubTaskMutation } = useMutation(REMOVE_SUBTASK_MUTATION)
+
+
+
+const addSubTask = async() => {
+  if (newSubTaskTitle.value.trim().length > 0) {
+    const res = await addSubTaskMutation({
+      title:  newSubTaskTitle.value.trim(),
+      taskId: props.taskId
+    })
+    emit('updateTask', res.id)
+    newSubTaskTitle.value = ''
   }
 }
 
-const removeSubTask = (i) => {
-  props.subTasks.splice(i, 1)
-  updateTotals()
+const updateSubTask = async(id) => {
+  const res = await markSubTaskMutation({
+    subTaskId: id,
+  })
+  emit('updateTask', res.id) 
 }
 
-const updateSubTask = (subtask) => {
-  subtask.done = !subtask.done
-  updateTotals()
+
+const removeSubTask = async(id) => {
+  const res = await removeSubTaskMutation({
+    subTaskId: id,
+  })
+  
+  emit('updateTask', res.id) 
 }
 
-updateTotals()
+onMounted(()=>{
+  nextTick(()=>newSubTaskTitleInput.value.focus())
+})
+
 </script>

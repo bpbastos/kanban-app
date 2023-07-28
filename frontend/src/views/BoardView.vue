@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import { computed,ref } from 'vue'
+import { computed,nextTick,onMounted,ref } from 'vue'
 import BoardSwitcher from '@/components/BoardSwitcher.vue'
 import WorkflowCard from '@/components/WorkflowCard.vue'
 
@@ -48,6 +48,8 @@ const BOARD_QUERY = gql`
               ...on Task {
                 id
                 title
+                totalSubTasks
+                totalSubTasksDone                
                 priority {
                   name
                   color
@@ -81,5 +83,9 @@ const workflows = computed(()=>{
 const changeBoard = (_boardId) => {
   boardId.value = _boardId
 }
+
+onMounted(()=>{
+  nextTick(()=>refetch())
+})
 
 </script>

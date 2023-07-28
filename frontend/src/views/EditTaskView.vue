@@ -1,38 +1,37 @@
 <template>
-   <div v-if="task" class="flex items-center justify-center w-12/12">
+   <div class="flex items-center justify-center w-12/12">
     <div class="card pt-[2px] bg-primary shadow-2xl w-full">
       <div class="card bg-base-200 p-4">
-        <form action="form-control p-3">
+        <form action="form-control p-3" v-if="task">
           <div class="flex space-x-2 items-center">
             <div class="w-10/12">
               <label class="label">
                 <span class="text-base label-text uppercase font-normal">TÍTULO</span>
               </label>
               <input
-                v-model="task.title"
+                v-model="taskTitle"
                 type="text"
                 placeholder="Título"
                 class="w-full input input-bordered input-primary font-semibold"
               />
             </div>
             <div class="w-24">
-              <PriorityRadioGroup :selected-priority-id="task.priority_id" @change="changePriority"/>
+              <PriorityRadioGroup :selected-priority-id="taskPriorityId" @change="changePriority"/>
             </div>
           </div>
           <div class="flex space-x-2 items-start">
             <div class="w-10/12">
-              <SubTasks v-if="task.subtasks" :sub-tasks="task.subtasks" />
+              <SubTasks :task-id="task.id" :subtasks="task.subtasks ?? []" :total-sub-tasks="task.totalSubTasks" :total-sub-tasks-done="task.totalSubTasksDone" :key="subTasksKey" @update-task="refetchTask()"/>
             </div>
             <div class="w-36">
               <label class="label space-x-1">
-                <span class="text-base label-text uppercase font-normal">STATUS:</span>
+                <span class="text-base label-text uppercase font-normal">WORKFLOW:</span>
               </label>
               <div
                 class="badge w-full uppercase font-semibold p-3"
-                v-if="currentWorkflowName"
-                :class="currentWorkflowColor"
+                :class="`bg-${workflowColor}`"
               >
-                {{ currentWorkflowName }}
+                {{workflowName }}
               </div>
             </div>
           </div>
@@ -42,8 +41,7 @@
                 <span class="text-base label-text uppercase font-normal">DESCRIÇÃO:</span>
               </label>
               <textarea
-                v-model="task.description"
-                type="text"
+                v-model="taskDescription"
                 placeholder="Descrição"
                 class="textarea textarea-primary textarea-md text-base w-full mt-2 font-semibold"
               >
@@ -79,20 +77,122 @@
 </template>
 
 <script setup>
-import { ref, watch, watchEffect } from 'vue'
+import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { useFetchTasks, useUpdateTask } from '@/composables/TaskData'
 import SubTasks from '@/components/SubTasks.vue'
 import PriorityRadioGroup from '@/components/PriorityRadioGroup.vue'
 
+import { useQuery, useMutation } from '@vue/apollo-composable'
+
+import gql from "graphql-tag";
+
+const props = defineProps({
+  id: String
+})
+
+const TASK_QUERY = gql`
+  query getTask($id: ID!) {
+    task(id:$id)
+    {
+      id
+      title
+      description
+      totalSubTasks
+      totalSubTasksDone
+      board {
+        ...on Board {
+          id
+        }
+      }      
+      workflow {
+        ...on Workflow {
+          id
+          name
+          color
+        }
+      }
+      priority {
+        ...on Priority {
+          id
+          name
+          color
+        }
+      }
+      subtasks {
+        ...on SubTask {
+          id
+          title
+          order
+          done
+        }
+      }
+    }
+  }
+`
+const UPDATE_TASK_MUTATION = gql`
+mutation updateTask ($id: ID!, $title: String!, $description: String!, $priorityId: ID!) {
+  updateTask(
+    input: {
+      id: $id
+      fields: {
+        title: $title
+        description: $description
+        priority: {
+          link: $priorityId
+        }
+      }
+  	}
+  )
+  {
+    task {
+      id
+    }
+  }
+}  
+`
+
+const { result, refetch } = useQuery(TASK_QUERY, {id:props.id})
+const { mutate: updateTaskMutation } = useMutation(UPDATE_TASK_MUTATION)
+
 const router = useRouter()
 
-const currentPriority = ref(0)
+const subTasksKey = ref(0)
+const taskTitle = ref('')
+const taskDescription = ref('')
+const taskPriorityId = ref('')
 
-const currentWorkflowName = ref('')
-const currentWorkflowColor = ref('')
+//Read-Only attrs
+const task = computed(()=>{
+  taskTitle.value = result.value?.task?.title
+  taskDescription.value = result.value?.task?.description
+  taskPriorityId.value = result.value?.task?.priority?.id
+  return result.value?.task
+})
 
-const { tasks: task, isReady: isTaskFetchDone  }  = useFetchTasks(props.id)
+const workflowName = computed(()=>result.value?.task?.workflow?.name)
+const workflowColor = computed(()=>result.value?.task?.workflow?.color)
+
+const changePriority = (id) => {
+  taskPriorityId.value = id
+}
+
+const refetchTask = async() => {
+  await refetch()
+  subTasksKey.value++
+}
+
+const updateTask = async() => {
+  const res = await updateTaskMutation({
+    id: task.value.id,
+    title: taskTitle.value,
+    description: taskDescription.value,
+    priorityId: taskPriorityId.value
+  })
+  router.push({ name: 'Board', params: { id: task.value?.board?.id } }) 
+}
+ 
+
+/*const { tasks: task, isReady: isTaskFetchDone  }  = useFetchTasks(props.id)
 const { task: updTask, isReady: isTaskUpdateDone, update }  = useUpdateTask()
 
 const props = defineProps({
@@ -126,6 +226,6 @@ watchEffect(() => {
       currentWorkflowName.value = task.value.workflow?.name
       currentWorkflowColor.value = `bg-${task.value.workflow?.color}-400`
     }
-}) 
+})*/ 
 
 </script>

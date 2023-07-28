@@ -10,7 +10,9 @@
       <SideBar />
       <main class="py-8 px-8 w-screen">
         <div class="flex flex-col">
+          <Suspense>
             <RouterView />
+          </Suspense>            
         </div>
       </main>
     </div>
@@ -35,6 +37,6 @@ const store = useUserStore()
 store.load('yoda')
 
 onMounted(() => {
-  themeChange(true)
+  themeChange(false)
 })
 </script>
